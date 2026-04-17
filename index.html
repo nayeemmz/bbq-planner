@@ -710,6 +710,27 @@ function renderPeople(){
     ?ppl.map(function(p){ return '<div class="person-chip">'+esc(p.name)+'<button onclick="removePerson(\''+p.id+'\')">\xd7</button></div>'; }).join(''):'';
 }
 
+function onEditQtyChange(input){
+  // input is the ed-qty-ITEMID element
+  var id = input.id.replace('ed-qty-','');
+  // Refresh AW total bar with new target
+  var cid = 'edit-aw-'+id;
+  refreshAWTotal(cid, editMaps[id]||{}, parseInt(input.value)||0);
+  // Recompute and apply status colour to the item row in place
+  var row = input.closest('.edit-panel');
+  if(row) row = row.previousElementSibling;
+  if(!row || !row.classList.contains('item-row')) return;
+  var item = state.items && state.items[id]; if(!item) return;
+  var m = editMaps[id]||{};
+  var at = Object.keys(m).indexOf('all')>=0 ? ['all'] : Object.keys(m);
+  var sp = {};
+  at.forEach(function(pid){ sp[pid] = m[pid]||0; });
+  var newQty = parseInt(input.value)||item.qty;
+  var tempItem = {done:item.done, assignedTo:at, splits:sp, qty:newQty};
+  ['s-confirmed','s-full','s-partial','s-empty'].forEach(function(cls){ row.classList.remove(cls); });
+  row.classList.add(itemStatusClass(tempItem));
+}
+
 function itemStatusClass(item){
   var at=item.assignedTo||[], sp=item.splits||{};
   if(item.done) return 's-confirmed';
@@ -768,7 +789,7 @@ function renderItems(){
         html+='<div class="edit-panel">'
           +'<div class="edit-row">'
             +'<input style="flex:1;min-width:120px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+item.id+'" type="text" value="'+esc(item.name)+'">'
-            +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty">'
+            +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty" oninput="onEditQtyChange(this)">'
             +'<input style="width:90px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-serves-'+item.id+'" type="number" min="1" value="'+(item.serves||'')+'" placeholder="For N people">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
               +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
