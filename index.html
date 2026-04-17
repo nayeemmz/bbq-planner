@@ -776,20 +776,23 @@ function renderItems(){
   // Sort by order field
   items.sort(function(a,b){ return (a.order||0)-(b.order||0); });
   var html='';
+  var lastCat='';
   items.forEach(function(item){
     var cat=item.cat;
+    if(cat!==lastCat){
+      html+='<div class="items-group-label '+CAT_CLASS[cat]+'">'+CAT_LABEL[cat]+'</div>';
+      lastCat=cat;
+    }
     {
       var sc=itemStatusClass(item);
       var serves=item.serves||0;
-            var catBadge='<span class="items-group-label '+CAT_CLASS[cat]+'" style="padding:2px 8px;font-size:11px;margin:0 4px 0 0">'+CAT_LABEL[cat]+'</span>';
-      html+='<div class="item-row '+sc+'" id="item-row-'+item.id+'" draggable="true" ondragstart="dragStart(event,\''+item.id+'\')" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dragDrop(event,\''+item.id+'\')">'
-        +'<div class="drag-handle" title="Drag to reorder">&#8801;</div>'
+            html+='<div class="item-row '+sc+'" id="item-row-'+item.id+'" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dragDrop(event,\''+item.id+'\')">'
+        +'<div class="drag-handle" draggable="true" ondragstart="dragStart(event,\''+item.id+'\')" title="Drag to reorder">&#8801;</div>'
         +'<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')" title="'+(item.done?'Unmark':'Mark confirmed')+'">'+(item.done?'\u2713':'')+'</div>'
         +'<div class="item-main">'
           +'<div class="item-name-line'+(item.done?' confirmed':'')+'">'+esc(item.name)
             +(item.qty>0?' <span style="font-size:12px;font-weight:400;opacity:.75">\xd7'+item.qty+'</span>':'')
             +(serves>0?' <span style="font-size:11px;font-weight:400;opacity:.6;margin-left:3px">for '+serves+' people</span>':'')
-            +' '+catBadge
           +'</div>'
           +(item.notes?'<div class="item-note">'+esc(item.notes)+'</div>':'')
           +'<div class="assignees-row">'+assigneeDisplay(item)+'</div>'
