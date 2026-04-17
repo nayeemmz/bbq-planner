@@ -710,17 +710,20 @@ function renderPeople(){
     ?ppl.map(function(p){ return '<div class="person-chip">'+esc(p.name)+'<button onclick="removePerson(\''+p.id+'\')">\xd7</button></div>'; }).join(''):'';
 }
 
+var _editQtyTimer=null;
 function onEditQtyChange(input){
   var id = input.id.replace('ed-qty-','');
   var newQty = parseInt(input.value)||1;
   var item = state.items && state.items[id]; if(!item) return;
-  // Update qty in state directly so render() computes the right colour
   item.qty = newQty;
-  // Re-render — editingId is still set so the panel stays open
-  render();
-  // Re-focus the qty input and put cursor at end
-  var inp = document.getElementById('ed-qty-'+id);
-  if(inp){ inp.focus(); var v=inp.value; inp.value=''; inp.value=v; }
+  // Debounce so we don't re-render on every keypress mid-event
+  clearTimeout(_editQtyTimer);
+  _editQtyTimer = setTimeout(function(){
+    render();
+    // Restore focus and cursor position
+    var inp = document.getElementById('ed-qty-'+id);
+    if(inp){ inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+  }, 150);
 }
 
 function itemStatusClass(item){
