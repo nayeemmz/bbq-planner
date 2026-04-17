@@ -201,7 +201,10 @@ textarea{resize:vertical;line-height:1.5}
       <button class="btn btn-green btn-sm" onclick="toggleSuggestions()">&#x2728; Suggestions</button>
     </div>
     <div class="suggest-panel" id="suggest-panel">
-      <p style="font-size:13px;color:var(--text2)" id="suggest-intro">Suggested items based on guest count.</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <p style="font-size:13px;color:var(--text2)" id="suggest-intro">Suggested items based on guest count.</p>
+        <button class="btn-ghost" onclick="toggleSuggestions()" title="Close" style="font-size:13px;color:var(--text2);flex-shrink:0">Close ✕</button>
+      </div>
       <div class="suggest-grid" id="suggest-grid"></div>
     </div>
     <div class="divider"></div>
