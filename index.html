@@ -698,9 +698,18 @@ function claimItem(itemId){
   var item=state.items&&state.items[itemId]; if(!item) return;
   if(!Array.isArray(item.assignedTo)) item.assignedTo=[];
   if(item.assignedTo.indexOf('all')>=0||item.assignedTo.indexOf(me.id)>=0){ showToast('You\'re already assigned!'); return; }
+  // Ask how many they are bringing right away
+  var remaining = item.qty - Object.values(item.splits||{}).reduce(function(s,v){return s+v;},0);
+  var hint = item.qty > 1 ? ' (total needed: '+item.qty+(remaining>0?', still need: '+remaining:'')+')' : '';
+  var qtyStr = prompt('How many '+item.name+' will you bring?'+hint, remaining > 0 ? remaining : 1);
+  if(qtyStr === null) return; // user cancelled
+  var qty = Math.max(1, parseInt(qtyStr)||1);
   item.assignedTo.push(me.id);
-  if(!item.splits) item.splits={}; item.splits[me.id]=1;
-  render(); schedulePush(); showToast('You\'re bringing '+item.name+'! Hit edit to set your quantity.');
+  if(!item.splits) item.splits={}; item.splits[me.id]=qty;
+  // Recalculate total qty if splits now exceed it
+  var totalSplit=Object.values(item.splits).reduce(function(s,v){return s+v;},0);
+  if(totalSplit > item.qty) item.qty = totalSplit;
+  render(); schedulePush(); showToast('Got it — you\'re bringing '+qty+' '+item.name+'!');
 }
 
 // ── Render ───────────────────────────────────────────────────────────
