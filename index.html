@@ -712,20 +712,26 @@ function renderPeople(){
 
 function onEditQtyChange(input){
   var id = input.id.replace('ed-qty-','');
-  // Update split total bar
-  refreshAWTotal('edit-aw-'+id, editMaps[id]||{}, parseInt(input.value)||0);
-  // Update row colour directly by id
+  var newQty = parseInt(input.value)||1;
+  // Update the AW split total bar
+  refreshAWTotal('edit-aw-'+id, editMaps[id]||{}, newQty);
+  // Recompute row status colour
   var row = document.getElementById('item-row-'+id);
   if(!row) return;
   var item = state.items && state.items[id]; if(!item) return;
   var m = editMaps[id]||{};
+  // Figure out total qty currently assigned across all people
   var isAll = 'all' in m;
-  var at = isAll ? ['all'] : Object.keys(m);
-  var sp = isAll ? {} : m;
-  var newQty = parseInt(input.value)||1;
-  var tempItem = {done:item.done, assignedTo:at, splits:sp, qty:newQty};
+  var assignedTotal = 0;
+  if(!isAll) Object.keys(m).forEach(function(pid){ assignedTotal += (m[pid]||0); });
+  var newCls;
+  if(item.done)         newCls = 's-confirmed';
+  else if(isAll)        newCls = 's-full';
+  else if(assignedTotal === 0) newCls = 's-empty';
+  else if(assignedTotal < newQty) newCls = 's-partial';
+  else                  newCls = 's-full';
   ['s-confirmed','s-full','s-partial','s-empty'].forEach(function(cls){ row.classList.remove(cls); });
-  row.classList.add(itemStatusClass(tempItem));
+  row.classList.add(newCls);
 }
 
 function itemStatusClass(item){
@@ -786,7 +792,7 @@ function renderItems(){
         html+='<div class="edit-panel">'
           +'<div class="edit-row">'
             +'<input style="flex:1;min-width:120px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+item.id+'" type="text" value="'+esc(item.name)+'">'
-            +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty" oninput="onEditQtyChange(this)">'
+            +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty">'
             +'<input style="width:90px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-serves-'+item.id+'" type="number" min="1" value="'+(item.serves||'')+'" placeholder="For N people">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
               +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
@@ -810,6 +816,13 @@ function renderItems(){
   list.innerHTML=html;
   if(editingId&&state.items[editingId]){
     renderAW('edit-aw-'+editingId, editMaps[editingId]||{}, state.items[editingId].qty);
+    // Attach qty change listener after DOM is ready
+    var qtyInp=document.getElementById('ed-qty-'+editingId);
+    if(qtyInp){
+      qtyInp.removeEventListener('input',qtyInp._bbqHandler||null);
+      qtyInp._bbqHandler=function(){ onEditQtyChange(qtyInp); };
+      qtyInp.addEventListener('input',qtyInp._bbqHandler);
+    }
   }
 }
 
