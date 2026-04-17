@@ -273,19 +273,19 @@ var NAME_KEY = 'bbq_my_name';
 var CAT_LABEL = {food:'Food',drink:'Drinks',equip:'Equipment',other:'Other'};
 var CAT_CLASS  = {food:'lbl-food',drink:'lbl-drink',equip:'lbl-equip',other:'lbl-other'};
 var SUGGESTIONS=[
-  {cat:'food',name:'Burger patties',per:2,min:10},{cat:'food',name:'Burger buns',per:2,min:10},
-  {cat:'food',name:'Hot dogs',per:1,min:8},{cat:'food',name:'Hot dog buns',per:1,min:8},
-  {cat:'food',name:'Veggie burgers',per:0.3,min:4},{cat:'food',name:'Corn on the cob',per:1,min:6},
-  {cat:'food',name:'Salad (bag)',per:0.15,min:1},{cat:'food',name:'Coleslaw (kg)',per:0.08,min:1},
-  {cat:'food',name:'Bread rolls',per:1,min:10},{cat:'food',name:'Condiment set',per:0.04,min:1},
-  {cat:'drink',name:'Soft drinks (cans)',per:3,min:12},{cat:'drink',name:'Beer / cider (cans)',per:4,min:12},
-  {cat:'drink',name:'Water (1.5L bottles)',per:0.4,min:4},{cat:'drink',name:'Juice (cartons)',per:0.12,min:2},
-  {cat:'drink',name:'Ice (bags)',per:0.12,min:2},{cat:'equip',name:'Charcoal (bags)',per:0.06,min:2},
-  {cat:'equip',name:'Lighter fluid',per:0.02,min:1},{cat:'equip',name:'Disposable plates',per:1.5,min:20},
-  {cat:'equip',name:'Napkins (pack)',per:0.04,min:1},{cat:'equip',name:'Plastic cups',per:2,min:20},
-  {cat:'equip',name:'Cutlery sets',per:1.2,min:20},{cat:'equip',name:'BBQ skewers (pack)',per:0.04,min:1},
+  {cat:'food',name:'Burger patties',per:1,min:10},{cat:'food',name:'Burger buns',per:1,min:10},
+  {cat:'food',name:'Hot dogs',per:0.5,min:6},{cat:'food',name:'Hot dog buns',per:0.5,min:6},
+  {cat:'food',name:'Veggie burgers',per:0.2,min:4},{cat:'food',name:'Corn on the cob',per:0.5,min:4},
+  {cat:'food',name:'Salad (bag)',per:0.1,min:1},{cat:'food',name:'Coleslaw (kg)',per:0.05,min:1},
+  {cat:'food',name:'Bread rolls',per:0.5,min:8},{cat:'food',name:'Condiment set',per:0.02,min:1},
+  {cat:'drink',name:'Soft drinks (cans)',per:2,min:10},{cat:'drink',name:'Beer / cider (cans)',per:2,min:10},
+  {cat:'drink',name:'Water (1.5L bottles)',per:0.3,min:3},{cat:'drink',name:'Juice (cartons)',per:0.1,min:2},
+  {cat:'drink',name:'Ice (bags)',per:0.1,min:2},{cat:'equip',name:'Charcoal (bags)',per:0.04,min:1},
+  {cat:'equip',name:'Lighter fluid',per:0.02,min:1},{cat:'equip',name:'Disposable plates',per:1,min:20},
+  {cat:'equip',name:'Napkins (pack)',per:0.04,min:1},{cat:'equip',name:'Plastic cups',per:1,min:20},
+  {cat:'equip',name:'Cutlery sets',per:1,min:20},{cat:'equip',name:'BBQ skewers (pack)',per:0.04,min:1},
   {cat:'equip',name:'Aluminium foil (roll)',per:0.02,min:1},{cat:'equip',name:'Trash bags (pack)',per:0.02,min:1},
-  {cat:'equip',name:'Picnic chairs',per:1,min:6},{cat:'equip',name:'Picnic blankets',per:0.08,min:1},
+  {cat:'equip',name:'Picnic chairs',per:1,min:6},{cat:'equip',name:'Picnic blankets',per:0.06,min:1},
   {cat:'equip',name:'Tongs / BBQ tools',per:0.02,min:1},{cat:'equip',name:'Cool box / cooler',per:0.04,min:1}
 ];
 
@@ -608,7 +608,14 @@ function addSuggestedItem(idx){
   if(!state.items) state.items={};
   var id='i'+Date.now();
   state.items[id]={id:id, name:s.name, qty:qty, cat:s.cat, notes:'', assignedTo:[], splits:{}, done:false};
-  render(); schedulePush(); showToast(s.name+' added!');
+  // Open in edit mode immediately so user can adjust qty, note, assignment
+  editingId=id;
+  var m={}; editMaps[id]=m;
+  // Close suggestions panel
+  var panel=document.getElementById('suggest-panel');
+  if(panel) panel.classList.remove('open');
+  render(); schedulePush();
+  showToast(s.name+' added — adjust quantity and assignment below ↓');
 }
 
 function toggleDone(id){
