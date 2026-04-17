@@ -7,23 +7,22 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#faf9f7;color:#1a1a1a;min-height:100vh}
-button,input,textarea{font-family:inherit}
+button,input{font-family:inherit}
 #loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:14px}
 .spinner{width:30px;height:30px;border:2.5px solid #ebe7e2;border-top-color:#e85d26;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-#setup{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center}
-.setup-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:2rem;width:100%;max-width:460px;text-align:left}
+#setup{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.setup-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:2rem;width:100%;max-width:460px}
 .setup-title{font-size:22px;font-weight:800;margin-bottom:6px;text-align:center}
 .setup-sub{font-size:14px;color:#888;text-align:center;margin-bottom:1.75rem;line-height:1.6}
 .step{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start}
 .step-num{width:24px;height:24px;border-radius:50%;background:#e85d26;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .step-txt{font-size:14px;color:#444;line-height:1.5}
 .step-txt a{color:#e85d26;text-decoration:none;font-weight:600}
-.step-txt a:hover{text-decoration:underline}
 .step-txt code{background:#f4f1ec;padding:2px 6px;border-radius:5px;font-size:13px;font-family:monospace}
-.url-input{width:100%;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;outline:none;margin-top:1.25rem;transition:border-color .15s}
+.url-input{width:100%;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;outline:none;margin-top:1.25rem}
 .url-input:focus{border-color:#e85d26}
-.primary-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px;transition:background .15s}
+.primary-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px}
 .primary-btn:hover{background:#d04f1e}
 .setup-err{color:#e85d26;font-size:13px;margin-top:8px;display:none}
 #welcome{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center}
@@ -32,12 +31,12 @@ button,input,textarea{font-family:inherit}
 .w-title{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
 .w-sub{font-size:15px;color:#888;margin-bottom:2.5rem}
 .w-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:1.75rem;width:100%;max-width:360px}
-.start-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.start-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer}
 .start-btn:hover{background:#d04f1e}
 .divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0;color:#ccc;font-size:13px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:#ebe7e2}
 .join-row{display:flex;gap:8px}
-.code-input{flex:1;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:15px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;outline:none;transition:border-color .15s}
+.code-input{flex:1;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:15px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;outline:none}
 .code-input:focus{border-color:#e85d26}
 .join-btn{padding:11px 16px;background:#fff;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
 .join-btn:hover{background:#f5f3f0}
@@ -46,9 +45,9 @@ button,input,textarea{font-family:inherit}
 .app-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;gap:12px;flex-wrap:wrap}
 .app-title{font-size:22px;font-weight:800;letter-spacing:-.3px}
 .by-line{font-size:12px;color:#bbb;margin-top:3px;min-height:16px}
-.room-pill{display:flex;align-items:center;gap:8px;background:#f4f1ec;border-radius:99px;padding:8px 14px;cursor:pointer;border:none;transition:background .15s}
+.room-pill{display:flex;align-items:center;gap:8px;background:#f4f1ec;border-radius:99px;padding:8px 14px;cursor:pointer;border:none}
 .room-pill:hover{background:#ebe7e2}
-.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;transition:background .3s}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
 .dot.syncing{background:#f59e0b;animation:blink 1s infinite}
 .dot.offline{background:#ef4444}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
@@ -59,15 +58,15 @@ button,input,textarea{font-family:inherit}
 .guest-lbl{font-size:14px;color:#777}
 .guest-lbl strong{color:#1a1a1a;font-size:16px;font-weight:700}
 .g-ctrl{display:flex;align-items:center;gap:10px}
-.g-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid #ebe7e2;background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.g-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid #ebe7e2;background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .g-btn:hover{background:#f5f3f0}
 .g-num{font-size:18px;font-weight:700;min-width:28px;text-align:center}
 .tabs{display:flex;border-bottom:1px solid #ebe7e2;margin-bottom:18px}
-.tab-btn{padding:10px 20px;background:none;border:none;border-bottom:2.5px solid transparent;font-size:14px;color:#aaa;margin-bottom:-1px;cursor:pointer;transition:all .15s;font-weight:500}
+.tab-btn{padding:10px 20px;background:none;border:none;border-bottom:2.5px solid transparent;font-size:14px;color:#aaa;margin-bottom:-1px;cursor:pointer;font-weight:500}
 .tab-btn.active{border-bottom-color:#e85d26;color:#1a1a1a;font-weight:700}
 .hint{font-size:13px;color:#aaa;margin-bottom:14px}
 .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.rc{background:#fff;border:1.5px solid #ebe7e2;border-radius:14px;padding:13px 15px;cursor:pointer;transition:border-color .15s;user-select:none}
+.rc{background:#fff;border:1.5px solid #ebe7e2;border-radius:14px;padding:13px 15px;cursor:pointer;user-select:none}
 .rc:hover{border-color:#ccc}
 .rc.on{border-color:#e85d26;background:#fff9f7}
 .card-top{display:flex;align-items:center;gap:9px;margin-bottom:7px}
@@ -80,7 +79,7 @@ button,input,textarea{font-family:inherit}
 .sbar-txt{font-size:14px;color:#e85d26;font-weight:700}
 .sbar-link{font-size:13px;background:none;border:none;color:#e85d26;font-weight:600;cursor:pointer}
 .add-row{display:flex;gap:8px;margin-bottom:16px}
-.add-input{flex:1;font-size:14px;padding:10px 14px;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;outline:none;transition:border-color .15s}
+.add-input{flex:1;font-size:14px;padding:10px 14px;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;outline:none}
 .add-input:focus{border-color:#e85d26}
 .add-btn{padding:10px 16px;font-size:14px;font-weight:600;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;cursor:pointer}
 .add-btn:hover{background:#f5f3f0}
@@ -114,32 +113,28 @@ button,input,textarea{font-family:inherit}
 
 <div id="setup">
   <div class="setup-card">
-    <div class="setup-title">One-time setup 🔧</div>
-    <div class="setup-sub">You need a free Firebase Realtime Database URL to enable real-time sync. Takes about 5 minutes.</div>
+    <div class="setup-title">One-time setup</div>
+    <div class="setup-sub">You need a free Firebase Realtime Database URL to enable real-time sync.</div>
     <div class="step">
       <div class="step-num">1</div>
-      <div class="step-txt">Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in with your Google account.</div>
+      <div class="step-txt">Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in.</div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-txt">Click <strong>Add project</strong>, give it any name, skip Analytics, click <strong>Create project</strong>.</div>
+      <div class="step-txt">Open your project, then go to <strong>Build &rarr; Realtime Database &rarr; Create database &rarr; Start in test mode &rarr; Enable</strong>.</div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-txt">In the left menu: <strong>Build → Realtime Database → Create database → Start in test mode → Enable</strong>.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-txt">Copy the database URL at the top — it looks like:<br><code>https://your-project-default-rtdb.firebaseio.com</code></div>
+      <div class="step-txt">Copy the database URL shown at the top, e.g.<br><code>https://your-project-default-rtdb.firebaseio.com</code></div>
     </div>
     <input class="url-input" id="fb-url-input" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com"/>
     <div class="setup-err" id="setup-err">Please enter a valid Firebase Realtime Database URL.</div>
-    <button class="primary-btn" onclick="saveFirebaseUrl()">Save and continue →</button>
+    <button class="primary-btn" onclick="saveFirebaseUrl()">Save and continue</button>
   </div>
 </div>
 
 <div id="welcome">
-  <div class="flame">🔥</div>
+  <div class="flame">&#x1F525;</div>
   <h1 class="w-title">Park BBQ Planner</h1>
   <p class="w-sub">Plan your cookout together, in real time</p>
   <div class="w-card">
@@ -147,7 +142,7 @@ button,input,textarea{font-family:inherit}
     <div class="divider">or join one</div>
     <div class="join-row">
       <input class="code-input" id="join-input" placeholder="XXXXXX" maxlength="6" onkeydown="if(event.key==='Enter')joinRoom()"/>
-      <button class="join-btn" onclick="joinRoom()">Join →</button>
+      <button class="join-btn" onclick="joinRoom()">Join &rarr;</button>
     </div>
     <div class="join-err" id="join-err">Room not found. Check the code and try again.</div>
   </div>
@@ -157,7 +152,7 @@ button,input,textarea{font-family:inherit}
 <div id="main">
   <div class="app-header">
     <div>
-      <div class="app-title">Park BBQ 🔥</div>
+      <div class="app-title">Park BBQ &#x1F525;</div>
       <div class="by-line" id="by-line"></div>
     </div>
     <button class="room-pill" onclick="copyCode()">
@@ -166,13 +161,13 @@ button,input,textarea{font-family:inherit}
         <div class="room-label">ROOM CODE</div>
         <div class="room-code" id="room-display"></div>
       </div>
-      <span class="copy-icon" id="copy-icon">⎘</span>
+      <span class="copy-icon" id="copy-icon">&#x2398;</span>
     </button>
   </div>
   <div class="guest-bar">
     <div class="guest-lbl">Planning for <strong id="gnum">15</strong> guests</div>
     <div class="g-ctrl">
-      <button class="g-btn" onclick="adj(-5)">−</button>
+      <button class="g-btn" onclick="adj(-5)">&#8722;</button>
       <span class="g-num" id="gnum2">15</span>
       <button class="g-btn" onclick="adj(5)">+</button>
     </div>
@@ -186,7 +181,7 @@ button,input,textarea{font-family:inherit}
     <div class="rgrid" id="rgrid"></div>
     <div class="sbar" id="sbar">
       <span class="sbar-txt" id="sbar-txt"></span>
-      <button class="sbar-link" onclick="goTab('shop')">See shopping list →</button>
+      <button class="sbar-link" onclick="goTab('shop')">See shopping list &rarr;</button>
     </div>
   </div>
   <div id="v-shop" style="display:none">
@@ -208,27 +203,26 @@ button,input,textarea{font-family:inherit}
 </div>
 
 <script>
-const POLL=3500;
-const NAMES=['Grill King','Sauce Boss','Smoke Whisperer','Burger Baron','Wing Commander','Charcoal Champ','Brisket Boss','Kebab Knight','Patty Master','Flame Tamer'];
-const R=[
+var POLL=3500;
+var NAMES=['Grill King','Sauce Boss','Smoke Whisperer','Burger Baron','Wing Commander','Charcoal Champ','Brisket Boss','Kebab Knight','Patty Master','Flame Tamer'];
+var R=[
   {id:'burgers',name:'Burgers',col:'#dbeafe',tc:'#1e40af',ing:[{n:'Ground beef (80/20)',u:'lb',c:'Meat',p:.25},{n:'Burger buns',u:'',c:'Bread',p:1},{n:'Cheddar slices',u:'pack',c:'Dairy',f:1},{n:'Lettuce',u:'head',c:'Produce',p:.07},{n:'Tomatoes',u:'',c:'Produce',p:.25},{n:'Red onion',u:'',c:'Produce',p:.1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Mustard',u:'bottle',c:'Condiments',f:1}]},
   {id:'hotdogs',name:'Hot dogs',col:'#fef3c7',tc:'#92400e',ing:[{n:'Hot dogs',u:'',c:'Meat',p:1.5},{n:'Hot dog buns',u:'pack',c:'Bread',p:1.5},{n:'Yellow mustard',u:'bottle',c:'Condiments',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Relish',u:'jar',c:'Condiments',f:1}]},
-  {id:'chicken',name:'BBQ chicken',col:'#ffe4e6',tc:'#9f1239',ing:[{n:'Chicken thighs & drumsticks',u:'lb',c:'Meat',p:.5},{n:'BBQ sauce',u:'bottle',c:'Condiments',f:1},{n:'Garlic powder',u:'',c:'Spices',f:1},{n:'Paprika',u:'',c:'Spices',f:1},{n:'Olive oil',u:'bottle',c:'Pantry',f:1}]},
+  {id:'chicken',name:'BBQ chicken',col:'#ffe4e6',tc:'#9f1239',ing:[{n:'Chicken thighs',u:'lb',c:'Meat',p:.5},{n:'BBQ sauce',u:'bottle',c:'Condiments',f:1},{n:'Garlic powder',u:'',c:'Spices',f:1},{n:'Paprika',u:'',c:'Spices',f:1},{n:'Olive oil',u:'bottle',c:'Pantry',f:1}]},
   {id:'corn',name:'Grilled corn',col:'#fef9c3',tc:'#713f12',ing:[{n:'Corn on the cob',u:'ears',c:'Produce',p:1},{n:'Butter',u:'sticks',c:'Dairy',p:.1},{n:'Salt',u:'',c:'Spices',f:1}]},
   {id:'coleslaw',name:'Coleslaw',col:'#dcfce7',tc:'#14532d',ing:[{n:'Green cabbage',u:'head',c:'Produce',p:.06},{n:'Carrots',u:'',c:'Produce',p:.25},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Apple cider vinegar',u:'bottle',c:'Pantry',f:1},{n:'Sugar',u:'',c:'Pantry',f:1}]},
   {id:'potatosalad',name:'Potato salad',col:'#f1f5f9',tc:'#334155',ing:[{n:'Yukon gold potatoes',u:'lb',c:'Produce',p:.35},{n:'Eggs',u:'',c:'Dairy',p:.4},{n:'Celery stalks',u:'',c:'Produce',p:.2},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Dijon mustard',u:'jar',c:'Condiments',f:1}]},
-  {id:'beans',name:'Baked beans',col:'#fff7ed',tc:'#7c2d12',ing:[{n:'Canned navy beans (16 oz)',u:'cans',c:'Pantry',p:.25},{n:'Bacon',u:'pack',c:'Meat',f:1},{n:'Brown sugar',u:'',c:'Pantry',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1}]},
+  {id:'beans',name:'Baked beans',col:'#fff7ed',tc:'#7c2d12',ing:[{n:'Canned navy beans',u:'cans',c:'Pantry',p:.25},{n:'Bacon',u:'pack',c:'Meat',f:1},{n:'Brown sugar',u:'',c:'Pantry',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1}]},
   {id:'watermelon',name:'Watermelon',col:'#d1fae5',tc:'#065f46',ing:[{n:'Watermelon',u:'',c:'Produce',p:.07}]},
   {id:'lemonade',name:'Lemonade',col:'#fef9c3',tc:'#713f12',ing:[{n:'Lemons',u:'',c:'Produce',p:.5},{n:'Sugar',u:'cups',c:'Pantry',f:2},{n:'Water jugs (1 gal)',u:'',c:'Drinks',p:.04}]},
-  {id:'chips',name:'Chips & dips',col:'#fef3c7',tc:'#92400e',ing:[{n:'Tortilla chips',u:'bags',c:'Pantry',p:.05},{n:'Guacamole',u:'tub',c:'Produce',f:1},{n:'Salsa',u:'jars',c:'Condiments',f:2}]},
+  {id:'chips',name:'Chips & dips',col:'#fef3c7',tc:'#92400e',ing:[{n:'Tortilla chips',u:'bags',c:'Pantry',p:.05},{n:'Guacamole',u:'tub',c:'Produce',f:1},{n:'Salsa',u:'jars',c:'Condiments',f:2}]}
 ];
-const CATS=['Meat','Produce','Dairy','Bread','Condiments','Pantry','Spices','Drinks','Other'];
-
-let fbUrl='',roomId=null,G=15,sel=new Set(),ck=new Set(),cust=[],cid=0;
-let myName='',lastTs=0,pushing=false,pollTimer=null;
+var CATS=['Meat','Produce','Dairy','Bread','Condiments','Pantry','Spices','Drinks','Other'];
+var fbUrl='',roomId=null,G=15,sel=new Set(),ck=new Set(),cust=[],cid=0;
+var myName='',lastTs=0,pushing=false,pollTimer=null;
 
 function roomRef(){return fbUrl+'/rooms/'+roomId+'.json';}
-async function fbGet(){const r=await fetch(roomRef());if(!r.ok)throw new Error();return r.json();}
+async function fbGet(){var r=await fetch(roomRef());if(!r.ok)throw new Error('fetch failed');return r.json();}
 async function fbPut(data){await fetch(roomRef(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}
 
 function init(){
@@ -236,42 +230,58 @@ function init(){
   localStorage.setItem('bbq-name',myName);
   fbUrl=(localStorage.getItem('bbq-fb-url')||'').replace(/\/$/,'');
   if(!fbUrl){elhide('loading');elshow('setup');return;}
-  const saved=localStorage.getItem('bbq-room');
+  var saved=localStorage.getItem('bbq-room');
   if(saved){try{roomId=JSON.parse(saved).roomId;rejoin();return;}catch(e){}}
   elhide('loading');elshow('welcome');
 }
 
 function saveFirebaseUrl(){
-  const val=document.getElementById('fb-url-input').value.trim().replace(/\/$/,'');
-  const err=document.getElementById('setup-err');
-  if(!val.includes('firebaseio.com')){err.style.display='block';return;}
+  var val=document.getElementById('fb-url-input').value.trim().replace(/\/$/,'');
+  var err=document.getElementById('setup-err');
+  if(!val||!val.includes('firebaseio.com')){err.style.display='block';return;}
   err.style.display='none';
-  localStorage.setItem('bbq-fb-url',val);fbUrl=val;
+  localStorage.setItem('bbq-fb-url',val);
+  fbUrl=val;
   elhide('setup');elshow('welcome');
 }
 
 function resetSetup(){localStorage.removeItem('bbq-fb-url');fbUrl='';elhide('welcome');elshow('setup');}
 
-function randCode(){return Array.from({length:6},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]).join('');}
+function randCode(){var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';return Array.from({length:6},function(){return chars[Math.floor(Math.random()*chars.length)];}).join('');}
 
 async function createRoom(){
   elhide('welcome');elshow('loading');
   roomId=randCode();
-  try{await fbPut(buildState());lastTs=Date.now();localStorage.setItem('bbq-room',JSON.stringify({roomId}));elhide('loading');openMain();}
-  catch(e){elhide('loading');elshow('welcome');alert('Could not create room. Make sure your Firebase database is in test mode.');}
+  try{
+    await fbPut(buildState());
+    lastTs=Date.now();
+    localStorage.setItem('bbq-room',JSON.stringify({roomId:roomId}));
+    elhide('loading');openMain();
+  }catch(e){
+    elhide('loading');elshow('welcome');
+    alert('Could not create room. Make sure your Firebase URL is correct and database is in test mode.');
+  }
 }
 
 async function joinRoom(){
-  const code=document.getElementById('join-input').value.trim().toUpperCase();
+  var code=document.getElementById('join-input').value.trim().toUpperCase();
   if(!code)return;
   document.getElementById('join-err').style.display='none';
   elhide('welcome');elshow('loading');roomId=code;
-  try{const data=await fbGet();if(!data)throw new Error();absorb(data);localStorage.setItem('bbq-room',JSON.stringify({roomId}));elhide('loading');openMain();}
-  catch(e){roomId=null;elhide('loading');elshow('welcome');document.getElementById('join-err').style.display='block';}
+  try{
+    var data=await fbGet();
+    if(!data)throw new Error('empty');
+    absorb(data);
+    localStorage.setItem('bbq-room',JSON.stringify({roomId:roomId}));
+    elhide('loading');openMain();
+  }catch(e){
+    roomId=null;elhide('loading');elshow('welcome');
+    document.getElementById('join-err').style.display='block';
+  }
 }
 
 async function rejoin(){
-  try{const data=await fbGet();if(!data)throw new Error();absorb(data);elhide('loading');openMain();}
+  try{var data=await fbGet();if(!data)throw new Error();absorb(data);elhide('loading');openMain();}
   catch(e){localStorage.removeItem('bbq-room');roomId=null;elhide('loading');elshow('welcome');}
 }
 
@@ -284,19 +294,19 @@ function leaveRoom(){
   elhide('main');elshow('welcome');
 }
 
-function buildState(){return{G,sel:[...sel],ck:[...ck],cust,cid,ts:Date.now(),by:myName};}
+function buildState(){return{G:G,sel:Array.from(sel),ck:Array.from(ck),cust:cust,cid:cid,ts:Date.now(),by:myName};}
 
 function absorb(data){
   if(!data||(data.ts||0)<=lastTs)return;
   G=data.G||15;sel=new Set(data.sel||[]);ck=new Set(data.ck||[]);
   cust=data.cust||[];cid=data.cid||0;lastTs=data.ts||0;
-  const who=data.by||'';
+  var who=data.by||'';
   document.getElementById('gnum').textContent=G;
   document.getElementById('gnum2').textContent=G;
   if(who&&who!==myName){
     document.getElementById('by-line').textContent=who+' just updated';
     document.getElementById('last-upd').textContent='Last updated by '+who;
-    setTimeout(()=>document.getElementById('by-line').textContent='',4000);
+    setTimeout(function(){document.getElementById('by-line').textContent='';},4000);
   }
   renderMenu();renderShop();
 }
@@ -313,72 +323,88 @@ async function poll(){
 }
 
 function startPolling(){pollTimer=setInterval(poll,POLL);}
-function setDot(s){const d=document.getElementById('sync-dot');d.className='dot'+(s==='syncing'?' syncing':s==='offline'?' offline':'');}
+function setDot(s){var d=document.getElementById('sync-dot');d.className='dot'+(s==='syncing'?' syncing':s==='offline'?' offline':'');}
 
 function adj(n){G=Math.max(5,Math.min(100,G+n));document.getElementById('gnum').textContent=G;document.getElementById('gnum2').textContent=G;renderMenu();renderShop();push();}
 
 function copyCode(){
-  navigator.clipboard.writeText(roomId).catch(()=>{});
-  const ic=document.getElementById('copy-icon');ic.textContent='✓';setTimeout(()=>ic.textContent='⎘',1800);
+  navigator.clipboard.writeText(roomId).catch(function(){});
+  var ic=document.getElementById('copy-icon');ic.textContent='✓';setTimeout(function(){ic.textContent='⎘';},1800);
 }
 
 function goTab(t){
-  ['menu','shop'].forEach(x=>{document.getElementById('v-'+x).style.display=x===t?'':'none';document.getElementById('t-'+x).classList.toggle('active',x===t);});
+  ['menu','shop'].forEach(function(x){
+    document.getElementById('v-'+x).style.display=x===t?'':'none';
+    document.getElementById('t-'+x).classList.toggle('active',x===t);
+  });
 }
 
 function renderMenu(){
-  document.getElementById('rgrid').innerHTML=R.map(r=>`
-    <div class="rc${sel.has(r.id)?' on':''}" onclick="togR('${r.id}')">
-      <div class="card-top">
-        <div class="card-ico" style="background:${r.col};color:${r.tc}">${r.name[0]}</div>
-        <span class="card-name">${r.name}</span>
-        ${sel.has(r.id)?'<span class="on-badge">Added</span>':''}
-      </div>
-      <div class="card-ing">${r.ing.slice(0,3).map(i=>i.n).join(', ')}${r.ing.length>3?' +'+(r.ing.length-3)+' more':''}</div>
-    </div>`).join('');
-  const sb=document.getElementById('sbar');
+  document.getElementById('rgrid').innerHTML=R.map(function(r){
+    return '<div class="rc'+(sel.has(r.id)?' on':'')+'" onclick="togR(\''+r.id+'\')">'
+      +'<div class="card-top">'
+      +'<div class="card-ico" style="background:'+r.col+';color:'+r.tc+'">'+r.name[0]+'</div>'
+      +'<span class="card-name">'+r.name+'</span>'
+      +(sel.has(r.id)?'<span class="on-badge">Added</span>':'')
+      +'</div>'
+      +'<div class="card-ing">'+r.ing.slice(0,3).map(function(i){return i.n;}).join(', ')+(r.ing.length>3?' +'+(r.ing.length-3)+' more':'')+'</div>'
+      +'</div>';
+  }).join('');
+  var sb=document.getElementById('sbar');
   if(!sel.size){sb.classList.remove('show');return;}
-  sb.classList.add('show');document.getElementById('sbar-txt').textContent=sel.size+' dish'+(sel.size>1?'es':'')+' for '+G+' guests';
+  sb.classList.add('show');
+  document.getElementById('sbar-txt').textContent=sel.size+' dish'+(sel.size>1?'es':'')+' for '+G+' guests';
 }
 
-function togR(id){sel.has(id)?sel.delete(id):sel.add(id);renderMenu();push();}
+function togR(id){if(sel.has(id))sel.delete(id);else sel.add(id);renderMenu();push();}
 
 function buildList(){
-  const map={};
-  sel.forEach(id=>{const r=R.find(x=>x.id===id);if(!r)return;r.ing.forEach(i=>{const qty=i.f?i.f:Math.ceil(i.p*G),k=i.n.toLowerCase();map[k]?map[k].qty=Math.max(map[k].qty,qty):(map[k]={name:i.n,unit:i.u,qty,cat:i.c});});});
+  var map={};
+  sel.forEach(function(id){
+    var r=R.find(function(x){return x.id===id;});if(!r)return;
+    r.ing.forEach(function(i){
+      var qty=i.f?i.f:Math.ceil(i.p*G),k=i.n.toLowerCase();
+      if(map[k])map[k].qty=Math.max(map[k].qty,qty);
+      else map[k]={name:i.n,unit:i.u,qty:qty,cat:i.c};
+    });
+  });
   return Object.values(map);
 }
 
 function ikey(item){return item.cid!=null?'c'+item.cid:item.name.toLowerCase().replace(/\W+/g,'-');}
-function fmt(item){return[item.qty>0?item.qty:null,item.unit||null,item.name].filter(x=>x!=null&&x!=='').join(' ');}
+function fmt(item){return[item.qty>0?item.qty:null,item.unit||null,item.name].filter(function(x){return x!=null&&x!=='';}).join(' ');}
 
 function renderShop(){
-  const ri=buildList();
-  const all=[...ri,...cust.map(c=>({name:c.name,unit:'',qty:1,cat:'Other',cid:c.id}))];
-  const slist=document.getElementById('slist'),semp=document.getElementById('semp'),sprog=document.getElementById('sprog');
+  var ri=buildList();
+  var all=ri.concat(cust.map(function(c){return{name:c.name,unit:'',qty:1,cat:'Other',cid:c.id};}));
+  var slist=document.getElementById('slist'),semp=document.getElementById('semp'),sprog=document.getElementById('sprog');
   if(!all.length){slist.innerHTML='';semp.style.display='block';sprog.textContent='';return;}
   semp.style.display='none';
-  const grp={};CATS.forEach(c=>grp[c]=[]);
-  all.forEach(i=>{const c=i.cat||'Other';if(!grp[c])grp[c]=[];grp[c].push(i);});
-  const cked=all.filter(i=>ck.has(ikey(i))).length;
+  var grp={};CATS.forEach(function(c){grp[c]=[];});
+  all.forEach(function(i){var c=i.cat||'Other';if(!grp[c])grp[c]=[];grp[c].push(i);});
+  var cked=all.filter(function(i){return ck.has(ikey(i));}).length;
   sprog.textContent=cked+' of '+all.length+' items checked';
-  slist.innerHTML=CATS.filter(c=>grp[c].length).map(cat=>`
-    <div class="cat-lbl">${cat}</div>
-    <div class="cat-group">${grp[cat].map(item=>{
-      const k=ikey(item),isck=ck.has(k);
-      return '<div class="si'+(isck?' ck':'')+'"><input type="checkbox" id="k-'+k+'" '+(isck?'checked':'')+' onchange="togCk(\''+k+'\')"/><label for="k-'+k+'">'+fmt(item)+'</label>'+(item.cid!=null?'<button class="rm-btn" onclick="rmC('+item.cid+')">×</button>':'')+'</div>';
-    }).join('')}</div>`).join('');
+  slist.innerHTML=CATS.filter(function(c){return grp[c].length;}).map(function(cat){
+    return '<div class="cat-lbl">'+cat+'</div><div class="cat-group">'
+      +grp[cat].map(function(item){
+        var k=ikey(item),isck=ck.has(k);
+        return '<div class="si'+(isck?' ck':'')+'"><input type="checkbox" id="k-'+k+'" '+(isck?'checked':'')+' onchange="togCk(\''+k+'\')" />'
+          +'<label for="k-'+k+'">'+fmt(item)+'</label>'
+          +(item.cid!=null?'<button class="rm-btn" onclick="rmC('+item.cid+')">&#215;</button>':'')
+          +'</div>';
+      }).join('')+'</div>';
+  }).join('');
 }
 
-function togCk(k){ck.has(k)?ck.delete(k):ck.add(k);renderShop();push();}
-function addC(){const i=document.getElementById('ni'),v=i.value.trim();if(!v)return;cust.push({id:cid++,name:v});i.value='';renderShop();push();}
-function rmC(id){cust=cust.filter(c=>c.id!==id);renderShop();push();}
+function togCk(k){if(ck.has(k))ck.delete(k);else ck.add(k);renderShop();push();}
+function addC(){var i=document.getElementById('ni'),v=i.value.trim();if(!v)return;cust.push({id:cid++,name:v});i.value='';renderShop();push();}
+function rmC(id){cust=cust.filter(function(c){return c.id!==id;});renderShop();push();}
 function clrCk(){ck.clear();renderShop();push();}
 
-function elshow(id){const el=document.getElementById(id);el.style.display=['setup','welcome'].includes(id)?'flex':'';}
+function elshow(id){var el=document.getElementById(id);el.style.display=(id==='setup'||id==='welcome')?'flex':'';}
 function elhide(id){document.getElementById(id).style.display='none';}
 
-window.addEventListener('load',()=>setTimeout(init,200));
+window.addEventListener('load',function(){setTimeout(init,200);});
 </script>
 </body>
 </html>
