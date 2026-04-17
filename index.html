@@ -222,8 +222,11 @@ textarea{resize:vertical;line-height:1.5}
         <input type="text" id="item-note" placeholder="e.g. at least 10 should be veggie" style="width:100%">
       </div>
       <div>
-        <span class="field-label">Who brings what &amp; how much</span>
-        <div class="aw" id="add-aw"><div class="aw-empty">Add friends above to assign them items</div></div>
+        <button type="button" class="btn btn-sm" id="assign-toggle-btn" onclick="toggleAddAssign()" style="border-style:dashed">+ Assign to someone</button>
+        <div id="add-aw-wrap" style="display:none;margin-top:8px">
+          <span class="field-label">Who brings what &amp; how much</span>
+          <div class="aw" id="add-aw"><div class="aw-empty">Add friends above to assign them items</div></div>
+        </div>
       </div>
       <div><button class="btn btn-primary" onclick="addItem()">Add item</button></div>
     </div>
@@ -560,6 +563,16 @@ function mapToFields(map){
   return {assignedTo:ids, splits:splits, qty:qty};
 }
 
+function toggleAddAssign(){
+  var wrap=document.getElementById('add-aw-wrap');
+  var btn=document.getElementById('assign-toggle-btn');
+  if(!wrap||!btn) return;
+  var open=wrap.style.display==='none';
+  wrap.style.display=open?'block':'none';
+  btn.textContent=open?'− Hide assignment':'+ Assign to someone';
+  if(open) renderAW('add-aw',addMap,null);
+}
+
 function addItem(){
   var inp=document.getElementById('item-input'), name=inp.value.trim(); if(!name) return;
   if(!state.items) state.items={};
@@ -570,6 +583,11 @@ function addItem(){
   state.items[id] = {id:id, name:name, qty:f.qty, cat:cat, notes:note, assignedTo:f.assignedTo, splits:f.splits, done:false};
   inp.value=''; document.getElementById('item-note').value='';
   addMap={};
+  // collapse assign widget
+  var wrap=document.getElementById('add-aw-wrap');
+  var btn=document.getElementById('assign-toggle-btn');
+  if(wrap) wrap.style.display='none';
+  if(btn) btn.textContent='+ Assign to someone';
   render(); schedulePush();
 }
 
@@ -643,7 +661,7 @@ function render(){
   try{ renderPeople(); }catch(e){ console.warn(e); }
   try{ renderItems();  }catch(e){ console.warn(e); }
   try{ renderStats();  }catch(e){ console.warn(e); }
-  try{ renderAW('add-aw', addMap, null); }catch(e){ console.warn(e); }
+  try{ if(document.getElementById('add-aw-wrap')&&document.getElementById('add-aw-wrap').style.display!=='none') renderAW('add-aw',addMap,null); }catch(e){ console.warn(e); }
 }
 
 function renderPeople(){
