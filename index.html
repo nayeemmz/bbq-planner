@@ -711,21 +711,18 @@ function renderPeople(){
 }
 
 function onEditQtyChange(input){
-  // input is the ed-qty-ITEMID element
   var id = input.id.replace('ed-qty-','');
-  // Refresh AW total bar with new target
-  var cid = 'edit-aw-'+id;
-  refreshAWTotal(cid, editMaps[id]||{}, parseInt(input.value)||0);
-  // Recompute and apply status colour to the item row in place
-  var row = input.closest('.edit-panel');
-  if(row) row = row.previousElementSibling;
-  if(!row || !row.classList.contains('item-row')) return;
+  // Update split total bar
+  refreshAWTotal('edit-aw-'+id, editMaps[id]||{}, parseInt(input.value)||0);
+  // Update row colour directly by id
+  var row = document.getElementById('item-row-'+id);
+  if(!row) return;
   var item = state.items && state.items[id]; if(!item) return;
   var m = editMaps[id]||{};
-  var at = Object.keys(m).indexOf('all')>=0 ? ['all'] : Object.keys(m);
-  var sp = {};
-  at.forEach(function(pid){ sp[pid] = m[pid]||0; });
-  var newQty = parseInt(input.value)||item.qty;
+  var isAll = 'all' in m;
+  var at = isAll ? ['all'] : Object.keys(m);
+  var sp = isAll ? {} : m;
+  var newQty = parseInt(input.value)||1;
   var tempItem = {done:item.done, assignedTo:at, splits:sp, qty:newQty};
   ['s-confirmed','s-full','s-partial','s-empty'].forEach(function(cls){ row.classList.remove(cls); });
   row.classList.add(itemStatusClass(tempItem));
@@ -767,7 +764,7 @@ function renderItems(){
     its.forEach(function(item){
       var sc=itemStatusClass(item);
       var serves=item.serves||0;
-      html+='<div class="item-row '+sc+'">'
+      html+='<div class="item-row '+sc+'" id="item-row-'+item.id+'">'
         +'<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')" title="'+(item.done?'Unmark':'Mark confirmed')+'">'+(item.done?'\u2713':'')+'</div>'
         +'<div class="item-main">'
           +'<div class="item-name-line'+(item.done?' confirmed':'')+'">'+esc(item.name)
