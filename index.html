@@ -32,7 +32,7 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 input[type=text],input[type=date],input[type=number],select,textarea{font-family:'DM Sans',sans-serif;font-size:14px;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
 select{cursor:pointer}
-textarea{resize:vertical;min-height:60px;line-height:1.5}
+textarea{resize:vertical;line-height:1.5}
 .btn{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:9px 18px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn:hover{background:var(--surface2);border-color:var(--accent)}
 .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -48,21 +48,30 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .btn-green:hover{background:#d4ecb8}
 .btn-claim{font-family:'DM Sans',sans-serif;font-size:12px;padding:3px 9px;border-radius:20px;border:1px dashed var(--border2);background:none;color:var(--text3);cursor:pointer;white-space:nowrap}
 .btn-claim:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.field-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;display:block}
+
+/* Event meta */
 .event-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .meta-field label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px}
 .meta-field input{width:100%}
 @media(max-width:500px){.event-meta{grid-template-columns:1fr}}
+
+/* People */
 .people-grid{display:flex;flex-wrap:wrap;gap:7px;min-height:10px;margin-bottom:12px}
 .person-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:500;background:var(--accent-light);color:var(--accent);border:1px solid #F5C4B3}
 .person-chip button{background:none;border:none;cursor:pointer;color:var(--accent);font-size:15px;line-height:1;padding:0;opacity:.7}
 .person-chip button:hover{opacity:1}
 .myname-bar{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:10px 12px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border)}
 .myname-bar span{flex:1}
+
+/* Category labels */
 .items-group-label{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:500;margin:12px 0 4px}
 .lbl-food{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .lbl-drink{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .lbl-equip{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
 .lbl-other{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-border)}
+
+/* Item rows */
 .item-row{display:flex;align-items:flex-start;gap:10px;padding:10px 2px;border-bottom:1px solid var(--border)}
 .item-row:last-of-type{border-bottom:none}
 .check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:12px;user-select:none;margin-top:2px}
@@ -73,26 +82,61 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .item-name-line.crossed{text-decoration:line-through;color:var(--text3)}
 .qty-badge{font-size:12px;color:var(--text3);font-weight:400}
 .item-note{font-size:12px;color:var(--text3);margin-top:3px;font-style:italic}
-.assignees-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center}
-.assignee-chip{display:inline-flex;align-items:center;font-size:12px;padding:2px 9px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.assignees-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;align-items:center}
+.assignee-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:3px 10px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
 .assignee-chip.is-all{background:var(--accent-light);border-color:#F5C4B3;color:var(--accent);font-weight:500}
+.assignee-qty{font-weight:700;color:var(--accent)}
 .item-actions{display:flex;gap:2px;flex-shrink:0}
+
+/* Edit panel */
 .edit-panel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin:4px 0 10px 30px}
-.edit-panel .edit-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.field-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;display:block}
-.assign-checks{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.assign-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;color:var(--text2);user-select:none;transition:all .15s}
-.assign-chip:hover{border-color:var(--accent);color:var(--accent)}
-.assign-chip.selected{background:var(--accent-light);border-color:#F5C4B3;color:var(--accent);font-weight:500}
-.assign-chip.all-chip.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
-.splits-wrap{border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;background:var(--surface);margin-bottom:8px}
-.split-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--border)}
-.split-row:last-child{border-bottom:none}
-.split-name{flex:1;font-size:13px}
-.split-total{font-size:12px;margin-top:6px}
-.split-total.ok{color:var(--green)}
-.split-total.warn{color:#A32D2D}
-.add-assign-wrap{border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;background:var(--surface)}
+.edit-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+
+/* ── New assignment widget ───────────────────────────── */
+.assign-widget{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
+
+/* Top row: unselected people to click */
+.assign-available{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--border);min-height:42px;align-items:center}
+.assign-available:empty::before{content:'All friends assigned';font-size:13px;color:var(--text3)}
+.avail-chip{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;user-select:none}
+.avail-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.avail-chip.all-avail{border-style:solid;font-weight:500}
+.avail-chip.all-avail.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Bottom: selected people with qty inputs */
+.assign-selected{padding:0}
+.assign-person-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--border)}
+.assign-person-row:last-child{border-bottom:none}
+.assign-person-name{flex:1;font-size:14px;font-weight:500;color:var(--text)}
+.assign-qty-inp{width:70px;font-size:14px;padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center}
+.assign-qty-inp:focus{border-color:var(--accent);outline:none}
+.assign-qty-label{font-size:12px;color:var(--text3);white-space:nowrap}
+.assign-remove{background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;padding:0 4px;line-height:1;border-radius:4px}
+.assign-remove:hover{color:var(--accent);background:var(--accent-light)}
+
+/* Total indicator */
+.assign-total{padding:8px 12px;background:var(--surface2);border-top:1px solid var(--border);font-size:13px;display:flex;align-items:center;justify-content:space-between}
+.assign-total.ok{color:var(--green)}
+.assign-total.warn{color:#A32D2D}
+.assign-total.neutral{color:var(--text3)}
+
+/* Suggestions */
+.suggest-panel{margin-top:12px;display:none}
+.suggest-panel.open{display:block}
+.suggest-grid{display:flex;flex-direction:column;gap:4px;max-height:380px;overflow-y:auto;margin-top:8px}
+.suggest-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface)}
+.suggest-item:hover:not(.added){background:var(--accent-light);border-color:#F5C4B3}
+.suggest-item.added{opacity:.4;pointer-events:none}
+.suggest-cat{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:10px;margin-bottom:2px}
+.suggest-name{flex:1;font-size:14px}
+.suggest-qty{font-size:13px;color:var(--text3);min-width:50px;text-align:right}
+
+/* Reminder */
+.reminder-panel{margin-top:12px;display:none}
+.reminder-panel.open{display:block}
+.reminder-text{width:100%;font-size:13px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);font-family:monospace;line-height:1.6;min-height:220px;resize:vertical}
+
+/* Stats */
 .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.25rem}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center}
 .stat-num{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--accent)}
@@ -101,25 +145,17 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .progress-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:flex;justify-content:space-between}
 .progress-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .5s ease}
+
+/* Room bar */
 .room-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-top:1.25rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .room-code{font-family:monospace;font-size:1.1rem;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-light);padding:6px 14px;border-radius:6px}
-.room-label{font-size:13px;color:var(--text2);flex:1;min-width:120px}
+.room-label{font-size:13px;color:var(--text2);flex:1;min-width:100px}
 .sync-dot{width:8px;height:8px;border-radius:50%;background:#639922;display:inline-block;margin-right:5px}
 .sync-dot.live{animation:pulse 2s infinite}
 .sync-dot.offline{background:#E24B4A}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.suggest-panel{margin-top:12px;display:none}
-.suggest-panel.open{display:block}
-.suggest-grid{display:flex;flex-direction:column;gap:4px;max-height:380px;overflow-y:auto;margin-top:8px}
-.suggest-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);transition:all .15s}
-.suggest-item:hover:not(.added){background:var(--accent-light);border-color:#F5C4B3}
-.suggest-item.added{opacity:.4;pointer-events:none}
-.suggest-cat{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:10px;margin-bottom:2px}
-.suggest-name{flex:1;font-size:14px}
-.suggest-qty{font-size:13px;color:var(--text3);min-width:55px;text-align:right}
-.reminder-panel{margin-top:12px;display:none}
-.reminder-panel.open{display:block}
-.reminder-text{width:100%;font-size:13px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);font-family:monospace;line-height:1.6;min-height:220px;resize:vertical}
+
+/* Setup */
 .setup{max-width:620px;margin:3rem auto;padding:0 1rem}
 .setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
 .setup-card h2{font-size:1.5rem;color:var(--accent);margin-bottom:.5rem}
@@ -140,6 +176,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 </head>
 <body>
 
+<!-- SETUP -->
 <div id="setup-screen" class="setup" style="display:none">
   <div class="setup-card">
     <h2>&#x1F525; One-time setup</h2>
@@ -160,11 +197,13 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
   </div>
 </div>
 
+<!-- LOADING -->
 <div id="loading-screen" class="loading" style="display:none">
   <div class="spinner"></div>
   <div>Loading your BBQ plan...</div>
 </div>
 
+<!-- MAIN APP -->
 <div id="main-app" style="display:none">
 <div class="app">
   <div class="hero">
@@ -172,6 +211,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
     <p>Plan your cookout &amp; divide the load with friends &mdash; live</p>
   </div>
 
+  <!-- Room bar -->
   <div class="room-bar">
     <div>
       <div style="font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">Room</div>
@@ -186,13 +226,10 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
     <button class="btn btn-sm btn-danger" onclick="newRoom()">New plan</button>
   </div>
 
-  <!-- Reminder panel -->
+  <!-- Reminder -->
   <div class="card reminder-panel" id="reminder-panel">
-    <div class="section-title">
-      Reminder message
-      <button class="btn btn-sm btn-primary" onclick="copyReminder()">Copy</button>
-    </div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">Copy &amp; paste into WhatsApp, iMessage, or email.</p>
+    <div class="section-title">Reminder message <button class="btn btn-sm btn-primary" onclick="copyReminder()">Copy</button></div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">Paste into WhatsApp, iMessage, or email to remind everyone what they're bringing.</p>
     <textarea class="reminder-text" id="reminder-text" readonly></textarea>
   </div>
 
@@ -211,7 +248,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
   <div class="card">
     <div class="section-title">Friends coming</div>
     <div class="myname-bar" id="myname-bar">
-      <span id="myname-text">&#x1F44B; Who are you? Set your name to self-assign items.</span>
+      <span id="myname-text">&#x1F44B; Who are you? Set your name to claim items.</span>
       <button class="btn btn-sm" onclick="setMyName()">Set my name</button>
     </div>
     <div class="people-grid" id="people-grid"></div>
@@ -229,7 +266,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
     </div>
 
     <div class="suggest-panel" id="suggest-panel">
-      <p style="font-size:13px;color:var(--text2)" id="suggest-intro">Suggested items based on guest count. Click + to add to your plan.</p>
+      <p style="font-size:13px;color:var(--text2)" id="suggest-intro">Suggested items based on guest count.</p>
       <div class="suggest-grid" id="suggest-grid"></div>
     </div>
 
@@ -237,10 +274,10 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
     <div id="items-list"></div>
     <div class="divider"></div>
 
-    <div style="display:flex;flex-direction:column;gap:10px">
+    <!-- Add form -->
+    <div style="display:flex;flex-direction:column;gap:12px">
       <div class="row" style="gap:8px">
         <input type="text" id="item-input" placeholder="Item to bring..." style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addItem()">
-        <input type="number" id="item-qty" placeholder="Total qty" min="1" style="width:90px">
         <select id="item-cat" style="min-width:110px">
           <option value="food">&#x1F356; Food</option>
           <option value="drink">&#x1F37B; Drinks</option>
@@ -250,18 +287,23 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
       </div>
       <div>
         <span class="field-label">Note (optional)</span>
-        <input type="text" id="item-note" placeholder="e.g. make sure some are veggie" style="width:100%">
+        <input type="text" id="item-note" placeholder="e.g. at least 10 should be veggie" style="width:100%">
       </div>
-      <div class="add-assign-wrap">
-        <span class="field-label">Assign to:</span>
-        <div class="assign-checks" id="add-assign-checks">
-          <span style="font-size:13px;color:var(--text3)">Add friends above to assign items</span>
+      <div>
+        <span class="field-label">Assign &amp; set quantities</span>
+        <div class="assign-widget" id="add-assign-widget">
+          <div class="assign-available" id="add-avail">
+            <span style="font-size:13px;color:var(--text3)">Add friends above first</span>
+          </div>
+          <div class="assign-selected" id="add-selected"></div>
+          <div class="assign-total neutral" id="add-total" style="display:none"></div>
         </div>
       </div>
       <div><button class="btn btn-primary" onclick="addItem()">Add item</button></div>
     </div>
   </div>
 
+  <!-- Stats -->
   <div id="stats-section" style="display:none">
     <div class="stats-bar">
       <div class="stat"><div class="stat-num" id="s-total">0</div><div class="stat-lbl">Items total</div></div>
@@ -283,7 +325,6 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
   </p>
 </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -301,7 +342,7 @@ var SUGGESTIONS=[
   {cat:'food',name:'Salad (bag)',per:0.15,min:1},
   {cat:'food',name:'Coleslaw (kg)',per:0.08,min:1},
   {cat:'food',name:'Bread rolls',per:1,min:10},
-  {cat:'food',name:'Condiment set (ketchup / mustard / mayo)',per:0.04,min:1},
+  {cat:'food',name:'Condiment set',per:0.04,min:1},
   {cat:'drink',name:'Soft drinks (cans)',per:3,min:12},
   {cat:'drink',name:'Beer / cider (cans)',per:4,min:12},
   {cat:'drink',name:'Water (1.5L bottles)',per:0.4,min:4},
@@ -323,7 +364,10 @@ var SUGGESTIONS=[
 ];
 
 var dbUrl='',roomKey='',state=freshState(),es=null,pushTimer=null,ignoring=false;
-var editingId=null,addAssignees=[],myName='';
+var editingId=null,myName='';
+
+// addMap: {personId: qty} for the add form. Special key 'all' means everyone.
+var addMap={};
 
 function freshState(){return {event:{},people:{},items:{}};}
 
@@ -355,17 +399,17 @@ function init(){
     history.replaceState(null,'',location.origin+location.pathname+'?room='+roomKey);
     setEl('room-code-display',roomKey);
     show('loading-screen');
-    fetchState().then(function(){show('main-app');updateMyNameBar();startStream();bindFormEvents();})
+    fetchState()
+      .then(function(){show('main-app');updateMyNameBar();startStream();bindFormEvents();})
       .catch(function(){show('main-app');render();updateMyNameBar();startStream();bindFormEvents();setSyncStatus(false,'Could not reach Firebase');});
   }catch(e){console.error(e);show('setup-screen');}
 }
 function makeCode(){return Math.random().toString(36).slice(2,8).toUpperCase();}
-
 function cleanUrl(u){return (u||'').trim().replace(/\/+$/,'');}
 function roomUrl(){return cleanUrl(dbUrl)+'/bbq/'+roomKey+'.json';}
 
 function fetchState(){
-  return fetch(roomUrl()).then(function(r){if(!r.ok) throw new Error();return r.json();})
+  return fetch(roomUrl()).then(function(r){if(!r.ok)throw new Error();return r.json();})
     .then(function(data){mergeState(data);render();setSyncStatus(true,'Live \u2014 changes sync instantly');});
 }
 function pushState(){
@@ -379,12 +423,8 @@ function startStream(){
   try{
     if(es){es.close();es=null;}
     es=new EventSource(roomUrl());
-    es.addEventListener('put',function(e){
-      try{if(ignoring){ignoring=false;return;}var p=JSON.parse(e.data);if(p&&p.path==='/'&&p.data!==undefined){mergeState(p.data);syncFormFromState();render();}}catch(_){}
-    });
-    es.addEventListener('patch',function(e){
-      try{if(ignoring){ignoring=false;return;}var p=JSON.parse(e.data);if(p&&p.data){var d=p.data;if(d.event)state.event=d.event;if(d.people)state.people=d.people;if(d.items)state.items=d.items;mergeState(state);syncFormFromState();render();}}catch(_){}
-    });
+    es.addEventListener('put',function(e){try{if(ignoring){ignoring=false;return;}var p=JSON.parse(e.data);if(p&&p.path==='/'&&p.data!==undefined){mergeState(p.data);syncFormFromState();render();}}catch(_){}});
+    es.addEventListener('patch',function(e){try{if(ignoring){ignoring=false;return;}var p=JSON.parse(e.data);if(p&&p.data){var d=p.data;if(d.event)state.event=d.event;if(d.people)state.people=d.people;if(d.items)state.items=d.items;mergeState(state);syncFormFromState();render();}}catch(_){}});
     es.onerror=function(){setSyncStatus(false,'Disconnected \u2014 retrying...');};
     es.onopen=function(){setSyncStatus(true,'Live \u2014 changes sync instantly');};
   }catch(e){setSyncStatus(false,'Real-time stream unavailable');}
@@ -403,7 +443,7 @@ function syncFormFromState(){
 }
 
 function setMyName(){
-  var n=prompt('Your name (to self-assign items):','');if(!n||!n.trim())return;
+  var n=prompt('Your name (to claim items):','');if(!n||!n.trim())return;
   myName=n.trim();localStorage.setItem(MY_NAME_KEY,myName);
   var people=Object.values(state.people||{});
   if(!people.some(function(p){return p.name.toLowerCase()===myName.toLowerCase();})){
@@ -414,7 +454,7 @@ function setMyName(){
 function updateMyNameBar(){
   var bar=document.getElementById('myname-bar'),text=document.getElementById('myname-text');if(!bar||!text)return;
   if(myName){text.textContent='\uD83D\uDC4B Signed in as '+myName;bar.querySelector('button').textContent='Change';}
-  else{text.textContent='\uD83D\uDC4B Who are you? Set your name to self-assign items.';bar.querySelector('button').textContent='Set my name';}
+  else{text.textContent='\uD83D\uDC4B Who are you? Set your name to claim items.';bar.querySelector('button').textContent='Set my name';}
 }
 
 function addPerson(){
@@ -427,44 +467,159 @@ function removePerson(id){
     if(Array.isArray(item.assignedTo))item.assignedTo=item.assignedTo.filter(function(x){return x!==id;});
     if(item.splits)delete item.splits[id];
   });
+  delete addMap[id];
   render();schedulePush();
 }
 
-function renderAddAssignChecks(){
-  var people=Object.values(state.people||{}),wrap=document.getElementById('add-assign-checks');if(!wrap)return;
-  if(!people.length){wrap.innerHTML='<span style="font-size:13px;color:var(--text3)">Add friends above to assign items</span>';return;}
-  var validIds=people.map(function(p){return p.id;}).concat(['all']);
-  addAssignees=addAssignees.filter(function(x){return validIds.indexOf(x)>=0;});
-  var isAll=addAssignees.indexOf('all')>=0;
-  var html=mkChip('all','Everyone',isAll,true,'toggleAddAssign(\'all\')');
-  people.forEach(function(p){html+=mkChip(p.id,p.name,!isAll&&addAssignees.indexOf(p.id)>=0,false,'toggleAddAssign(\''+p.id+'\')')});
-  wrap.innerHTML=html;
+// ── Assignment widget (shared by add form + edit panel) ──────────
+
+// prefix: 'add' or item id for edit
+// map: reference to the object being mutated {personId: qty} or {all: 1}
+function renderAssignWidget(prefix, map, totalQty){
+  var people=Object.values(state.people||{});
+  var isAll='all' in map;
+  var selectedIds=isAll?[]:Object.keys(map);
+
+  // Available (unselected) row
+  var availHtml='';
+  // Everyone chip (always shown)
+  availHtml+='<div class="avail-chip all-avail'+(isAll?' selected':'')+'" onclick="toggleAssignAll(\''+prefix+'\')">\uD83D\uDD25 Everyone</div>';
+  // Unselected people
+  var unselected=people.filter(function(p){return selectedIds.indexOf(p.id)<0;});
+  unselected.forEach(function(p){
+    availHtml+='<div class="avail-chip" onclick="toggleAssignPerson(\''+prefix+'\',\''+p.id+'\')">+ '+esc(p.name)+'</div>';
+  });
+  if(!people.length) availHtml='<span style="font-size:13px;color:var(--text3)">Add friends above to assign</span>';
+
+  // Selected rows with qty inputs
+  var selectedHtml='';
+  if(isAll){
+    // Everyone — single row, no qty needed
+    selectedHtml='<div class="assign-person-row">'
+      +'<span class="assign-person-name">\uD83D\uDD25 Everyone brings one each</span>'
+      +'<button class="assign-remove" onclick="toggleAssignAll(\''+prefix+'\')" title="Remove">\xd7</button>'
+      +'</div>';
+  } else {
+    var assignedPeople=people.filter(function(p){return selectedIds.indexOf(p.id)>=0;});
+    assignedPeople.forEach(function(p){
+      var qty=map[p.id]||1;
+      selectedHtml+='<div class="assign-person-row">'
+        +'<span class="assign-person-name">\uD83D\uDC64 '+esc(p.name)+'</span>'
+        +'<input class="assign-qty-inp" type="number" min="0" value="'+qty+'" '
+          +'oninput="updateAssignQty(\''+prefix+'\',\''+p.id+'\',this.value)" '
+          +'onclick="event.stopPropagation()">'
+        +'<span class="assign-qty-label">qty</span>'
+        +'<button class="assign-remove" onclick="toggleAssignPerson(\''+prefix+'\',\''+p.id+'\')" title="Remove">\xd7</button>'
+        +'</div>';
+    });
+  }
+
+  // Total indicator
+  var totalHtml='',totalCls='neutral';
+  if(!isAll && selectedIds.length>0 && totalQty){
+    var sum=selectedIds.reduce(function(s,pid){return s+(map[pid]||0);},0);
+    var tq=parseInt(totalQty)||0;
+    if(tq>0){
+      var diff=sum-tq;
+      if(diff===0){totalCls='ok';totalHtml='\u2713 Splits add up to '+sum;}
+      else if(diff>0){totalCls='warn';totalHtml='\u26A0 Over by '+diff+' (total: '+sum+' / '+tq+')';}
+      else{totalCls='warn';totalHtml='\u26A0 Still '+Math.abs(diff)+' unaccounted (total: '+sum+' / '+tq+')';}
+    } else {
+      totalHtml='Total across all: '+sum;
+    }
+  } else if(!isAll && selectedIds.length>1) {
+    var sum2=selectedIds.reduce(function(s,pid){return s+(map[pid]||0);},0);
+    totalHtml='Combined total: '+sum2;
+  }
+
+  var availEl=document.getElementById(prefix+'-avail');
+  var selEl=document.getElementById(prefix+'-selected');
+  var totEl=document.getElementById(prefix+'-total');
+  if(availEl) availEl.innerHTML=availHtml;
+  if(selEl)   selEl.innerHTML=selectedHtml;
+  if(totEl){
+    if(totalHtml){totEl.style.display='flex';totEl.className='assign-total '+totalCls;totEl.textContent=totalHtml;}
+    else{totEl.style.display='none';}
+  }
 }
-function mkChip(id,label,sel,isAll,onclick){
-  return '<div class="assign-chip'+(sel?' selected':'')+(isAll?' all-chip':'')+'" onclick="'+onclick+'">'+esc(label)+'</div>';
+
+function toggleAssignAll(prefix){
+  var map=getMap(prefix);
+  if('all' in map){delete map['all'];}
+  else{Object.keys(map).forEach(function(k){delete map[k];});map['all']=1;}
+  renderAssignWidget(prefix,map,getTotalQty(prefix));
 }
-function toggleAddAssign(id){
-  if(id==='all'){addAssignees=addAssignees.indexOf('all')>=0?[]:['all'];}
-  else{addAssignees=addAssignees.filter(function(x){return x!=='all';});var i=addAssignees.indexOf(id);if(i>=0)addAssignees.splice(i,1);else addAssignees.push(id);}
-  renderAddAssignChecks();
+
+function toggleAssignPerson(prefix,pid){
+  var map=getMap(prefix);
+  if(pid in map){delete map[pid];}
+  else{map[pid]=1;}
+  renderAssignWidget(prefix,map,getTotalQty(prefix));
 }
+
+function updateAssignQty(prefix,pid,rawVal){
+  var map=getMap(prefix);
+  map[pid]=Math.max(0,parseInt(rawVal)||0);
+  // just update total indicator, don't re-render inputs (avoid cursor jump)
+  renderAssignTotalOnly(prefix,map,getTotalQty(prefix));
+}
+
+function renderAssignTotalOnly(prefix,map,totalQty){
+  var totEl=document.getElementById(prefix+'-total');if(!totEl)return;
+  var selectedIds=Object.keys(map).filter(function(k){return k!=='all';});
+  if(selectedIds.length>0&&!('all' in map)){
+    var sum=selectedIds.reduce(function(s,pid){return s+(map[pid]||0);},0);
+    var tq=parseInt(totalQty)||0;
+    var html,cls;
+    if(tq>0){
+      var diff=sum-tq;
+      if(diff===0){cls='ok';html='\u2713 Splits add up to '+sum;}
+      else if(diff>0){cls='warn';html='\u26A0 Over by '+diff+' (total: '+sum+' / '+tq+')';}
+      else{cls='warn';html='\u26A0 Still '+Math.abs(diff)+' unaccounted (total: '+sum+' / '+tq+')';}
+    } else {html='Combined total: '+sum;cls='neutral';}
+    totEl.style.display='flex';totEl.className='assign-total '+cls;totEl.textContent=html;
+  } else {totEl.style.display='none';}
+}
+
+function getMap(prefix){
+  if(prefix==='add') return addMap;
+  // edit panel: read from editMaps cache
+  if(!window.editMaps) window.editMaps={};
+  if(!window.editMaps[prefix]) window.editMaps[prefix]={};
+  return window.editMaps[prefix];
+}
+
+function getTotalQty(prefix){
+  if(prefix==='add') return null; // add form has no separate total field anymore
+  var item=state.items&&state.items[prefix];
+  return item?item.qty:null;
+}
+
+function renderAddWidget(){
+  renderAssignWidget('add',addMap,null);
+}
+
+// ── Items ──────────────────────────────────────────────────
 
 function addItem(){
   var inp=document.getElementById('item-input'),name=inp.value.trim();if(!name)return;
   if(!state.items)state.items={};
-  var qty=Math.max(1,parseInt(document.getElementById('item-qty').value)||1);
   var cat=document.getElementById('item-cat').value;
   var note=document.getElementById('item-note').value.trim();
   var id='i'+Date.now();
-  // Auto-split evenly when multiple specific people assigned
-  var splits={};
-  if(addAssignees.indexOf('all')<0&&addAssignees.length>1){
-    var each=Math.floor(qty/addAssignees.length),rem=qty%addAssignees.length;
-    addAssignees.forEach(function(pid,i){splits[pid]=each+(i<rem?1:0);});
+  var assignedTo=[],splits={},qty=0;
+  if('all' in addMap){
+    assignedTo=['all'];qty=1;
+  } else {
+    assignedTo=Object.keys(addMap);
+    splits={};
+    assignedTo.forEach(function(pid){splits[pid]=addMap[pid]||1;});
+    qty=assignedTo.reduce(function(s,pid){return s+(splits[pid]||0);},0)||1;
   }
-  state.items[id]={id:id,name:name,qty:qty,cat:cat,notes:note,assignedTo:addAssignees.slice(),splits:splits,done:false};
-  inp.value='';document.getElementById('item-qty').value='';document.getElementById('item-note').value='';
-  addAssignees=[];render();schedulePush();
+  state.items[id]={id:id,name:name,qty:qty,cat:cat,notes:note,assignedTo:assignedTo,splits:splits,done:false};
+  inp.value='';document.getElementById('item-note').value='';
+  addMap={};
+  render();schedulePush();
 }
 
 function addSuggestedItem(idx){
@@ -479,105 +634,61 @@ function addSuggestedItem(idx){
 
 function toggleDone(id){if(state.items&&state.items[id]){state.items[id].done=!state.items[id].done;render();schedulePush();}}
 function removeItem(id){if(editingId===id)editingId=null;if(state.items)delete state.items[id];render();schedulePush();}
-function startEdit(id){editingId=(editingId===id)?null:id;render();}
+function startEdit(id){
+  editingId=(editingId===id)?null:id;
+  if(editingId){
+    // Seed editMaps from current item
+    if(!window.editMaps)window.editMaps={};
+    var item=state.items[id];
+    var at=item.assignedTo||[];
+    var m={};
+    if(at.indexOf('all')>=0){m['all']=1;}
+    else{at.forEach(function(pid){m[pid]=(item.splits&&item.splits[pid]!=null)?item.splits[pid]:1;});}
+    window.editMaps[id]=m;
+  }
+  render();
+}
 function cancelEdit(){editingId=null;render();}
 
 function saveEdit(id){
   var item=state.items&&state.items[id];if(!item)return;
-  var nn=document.getElementById('ed-name-'+id),nq=document.getElementById('ed-qty-'+id),
-      nc=document.getElementById('ed-cat-'+id),no=document.getElementById('ed-note-'+id);
+  var nn=document.getElementById('ed-name-'+id),nc=document.getElementById('ed-cat-'+id),no=document.getElementById('ed-note-'+id);
   if(nn)item.name=nn.value.trim()||item.name;
-  if(nq)item.qty=Math.max(1,parseInt(nq.value)||1);
   if(nc)item.cat=nc.value;
   if(no)item.notes=no.value.trim();
-  // Save splits
-  if(item.assignedTo.indexOf('all')<0&&item.assignedTo.length>1){
-    var ns={};
-    item.assignedTo.forEach(function(pid){var inp=document.getElementById('split-'+id+'-'+pid);if(inp)ns[pid]=Math.max(0,parseInt(inp.value)||0);});
-    item.splits=ns;
-  } else {item.splits={};}
-  editingId=null;render();schedulePush();
-}
-
-function toggleEditAssign(itemId,assignId){
-  var item=state.items&&state.items[itemId];if(!item)return;
-  if(!Array.isArray(item.assignedTo))item.assignedTo=[];
-  if(assignId==='all'){item.assignedTo=item.assignedTo.indexOf('all')>=0?[]:['all'];item.splits={};}
+  // Read from editMaps
+  var m=(window.editMaps&&window.editMaps[id])||{};
+  if('all' in m){item.assignedTo=['all'];item.splits={};item.qty=1;}
   else{
-    item.assignedTo=item.assignedTo.filter(function(x){return x!=='all';});
-    var idx=item.assignedTo.indexOf(assignId);
-    if(idx>=0){item.assignedTo.splice(idx,1);delete item.splits[assignId];}else item.assignedTo.push(assignId);
+    var ids=Object.keys(m);
+    item.assignedTo=ids;
+    item.splits={};ids.forEach(function(pid){item.splits[pid]=m[pid]||0;});
+    item.qty=ids.reduce(function(s,pid){return s+(m[pid]||0);},0)||1;
   }
-  var ep=document.getElementById('edit-panel-'+itemId);if(ep)ep.innerHTML=buildEditInner(itemId);
-}
-
-function buildEditInner(id){
-  var item=state.items[id],people=Object.values(state.people||{});
-  var at=item.assignedTo||[],isAll=at.indexOf('all')>=0;
-  var chips=mkChip('all','Everyone',isAll,true,'toggleEditAssign(\''+id+'\',\'all\')');
-  people.forEach(function(p){chips+=mkChip(p.id,p.name,!isAll&&at.indexOf(p.id)>=0,false,'toggleEditAssign(\''+id+'\',\''+p.id+'\')')});
-  if(!people.length)chips='<span style="font-size:13px;color:var(--text3)">Add friends first</span>';
-  // Splits
-  var splitsHtml='';
-  if(!isAll&&at.length>1){
-    var total=item.qty||1;
-    var sumNow=at.reduce(function(s,pid){return s+((item.splits||{})[pid]||0);},0);
-    var ok=sumNow===total;
-    splitsHtml='<div style="margin-bottom:10px"><span class="field-label">Split quantities (total: '+total+')</span><div class="splits-wrap">';
-    at.forEach(function(pid){
-      var p=people.find(function(x){return x.id===pid;});
-      var pq=(item.splits&&item.splits[pid]!=null)?item.splits[pid]:Math.floor(total/at.length);
-      splitsHtml+='<div class="split-row"><span class="split-name">'+(p?esc(p.name):pid)+'</span>'
-        +'<input style="width:70px;font-size:13px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="split-'+id+'-'+pid+'" type="number" min="0" value="'+pq+'" oninput="updateSplitTotal(\''+id+'\')"></div>';
-    });
-    splitsHtml+='</div><div class="split-total '+(ok?'ok':'warn')+'" id="split-total-'+id+'">'+(ok?'\u2713 Splits add up to '+total:'! Splits total: '+sumNow+' / '+total)+'</div></div>';
-  }
-  return '<div class="edit-row">'
-    +'<input style="flex:1;min-width:130px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+id+'" type="text" value="'+esc(item.name)+'">'
-    +'<input style="width:70px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-qty-'+id+'" type="number" min="1" value="'+item.qty+'">'
-    +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+id+'">'
-      +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
-      +'<option value="drink"'+(item.cat==='drink'?' selected':'')+'>Drinks</option>'
-      +'<option value="equip"'+(item.cat==='equip'?' selected':'')+'>Equipment</option>'
-      +'<option value="other"'+(item.cat==='other'?' selected':'')+'>Other</option>'
-    +'</select></div>'
-    +'<div style="margin-bottom:10px"><span class="field-label">Note</span>'
-      +'<input style="width:100%;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-note-'+id+'" type="text" placeholder="e.g. check for dietary needs" value="'+esc(item.notes||'')+'"></div>'
-    +'<span class="field-label">Assigned to:</span><div class="assign-checks" style="margin-bottom:10px">'+chips+'</div>'
-    +splitsHtml
-    +'<div class="row"><button class="btn btn-primary btn-sm" onclick="saveEdit(\''+id+'\')">Save</button><button class="btn btn-sm" onclick="cancelEdit()">Cancel</button></div>';
-}
-
-function updateSplitTotal(id){
-  var item=state.items&&state.items[id];if(!item)return;
-  var at=item.assignedTo||[];
-  var total=parseInt((document.getElementById('ed-qty-'+id)||{}).value)||item.qty||1;
-  var sum=at.reduce(function(s,pid){var inp=document.getElementById('split-'+id+'-'+pid);return s+(inp?parseInt(inp.value)||0:0);},0);
-  var ok=sum===total,el=document.getElementById('split-total-'+id);
-  if(el){el.className='split-total '+(ok?'ok':'warn');el.textContent=ok?'\u2713 Splits add up to '+total:'! Splits total: '+sum+' / '+total;}
+  editingId=null;render();schedulePush();
 }
 
 function claimItem(itemId){
   if(!myName){setMyName();return;}
   var people=Object.values(state.people||{});
   var me=people.find(function(p){return p.name.toLowerCase()===myName.toLowerCase();});
-  if(!me){var newId='p'+Date.now();if(!state.people)state.people={};state.people[newId]={id:newId,name:myName};me={id:newId,name:myName};}
+  if(!me){var nid='p'+Date.now();if(!state.people)state.people={};state.people[nid]={id:nid,name:myName};me={id:nid,name:myName};}
   var item=state.items&&state.items[itemId];if(!item)return;
   if(!Array.isArray(item.assignedTo))item.assignedTo=[];
   if(item.assignedTo.indexOf('all')>=0||item.assignedTo.indexOf(me.id)>=0){showToast('You\'re already on this!');return;}
-  item.assignedTo.push(me.id);render();schedulePush();showToast('You\'re bringing '+item.name+'!');
+  item.assignedTo.push(me.id);
+  if(!item.splits)item.splits={};item.splits[me.id]=1;
+  render();schedulePush();showToast('You\'re bringing '+item.name+'! Edit to set your quantity.');
 }
-function myPersonId(){
-  if(!myName)return null;
-  var me=Object.values(state.people||{}).find(function(p){return p.name.toLowerCase()===myName.toLowerCase();});
-  return me?me.id:null;
-}
+function myPersonId(){if(!myName)return null;var me=Object.values(state.people||{}).find(function(p){return p.name.toLowerCase()===myName.toLowerCase();});return me?me.id:null;}
+
+// ── Render ───────────────────────────────────────────────
 
 function render(){
   try{renderPeople();}catch(e){console.warn(e);}
   try{renderItems();}catch(e){console.warn(e);}
   try{renderStats();}catch(e){console.warn(e);}
-  try{renderAddAssignChecks();}catch(e){console.warn(e);}
+  try{renderAddWidget();}catch(e){console.warn(e);}
 }
 
 function renderPeople(){
@@ -587,13 +698,41 @@ function renderPeople(){
 
 function assigneeDisplay(item){
   var at=item.assignedTo||[],people=state.people||{},meId=myPersonId();
-  if(!at.length) return '<span style="font-size:12px;color:var(--text3)">Not assigned</span> &nbsp;<button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this</button>';
-  if(at.indexOf('all')>=0) return '<span class="assignee-chip is-all">\uD83D\uDD25 Everyone brings one</span><button class="btn-claim" style="margin-left:4px" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
+  if(!at.length){
+    return '<span style="font-size:12px;color:var(--text3)">Not assigned</span>'
+      +'<button class="btn-claim" style="margin-left:6px" onclick="claimItem(\''+item.id+'\')">I\'ll bring this</button>';
+  }
+  if(at.indexOf('all')>=0){
+    return '<span class="assignee-chip is-all">\uD83D\uDD25 Everyone brings one</span>'
+      +'<button class="btn-claim" style="margin-left:4px" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
+  }
   var splits=item.splits||{};
-  var chips=at.map(function(pid){var p=people[pid];var qStr=splits[pid]!=null?' \xd7'+splits[pid]:'';return p?'<span class="assignee-chip">\uD83D\uDC64 '+esc(p.name)+qStr+'</span>':'';}).join('');
+  var chips=at.map(function(pid){
+    var p=people[pid];if(!p)return '';
+    var qty=splits[pid];
+    return '<span class="assignee-chip">\uD83D\uDC64 '+esc(p.name)
+      +(qty!=null?'&nbsp;<span class="assignee-qty">\xd7'+qty+'</span>':'')
+      +'</span>';
+  }).join('');
+  // Show total if splits
+  var hasQtys=at.some(function(pid){return splits[pid]!=null;});
+  if(hasQtys&&at.length>1){
+    var tot=at.reduce(function(s,pid){return s+(splits[pid]||0);},0);
+    chips+='<span style="font-size:12px;color:var(--text3);margin-left:2px">= '+tot+' total</span>';
+  }
   var iAssigned=meId&&at.indexOf(meId)>=0;
   if(!iAssigned)chips+='<button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
   return chips;
+}
+
+function buildEditWidget(id){
+  var item=state.items[id];
+  var m=(window.editMaps&&window.editMaps[id])||{};
+  return '<div class="assign-widget">'
+    +'<div class="assign-available" id="'+id+'-avail"></div>'
+    +'<div class="assign-selected" id="'+id+'-selected"></div>'
+    +'<div class="assign-total neutral" id="'+id+'-total" style="display:none"></div>'
+    +'</div>';
 }
 
 function renderItems(){
@@ -607,18 +746,46 @@ function renderItems(){
       html+='<div class="item-row">'
         +'<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')">'+(item.done?'\u2713':'')+'</div>'
         +'<div class="item-main">'
-          +'<div class="item-name-line'+(item.done?' crossed':'')+'">'+esc(item.name)+(item.qty>1?' <span class="qty-badge">\xd7'+item.qty+'</span>':'')+'</div>'
-          +(item.notes?'<div class="item-note">'+esc(item.notes)+'</div>':'')
+          +'<div class="item-name-line'+(item.done?' crossed':'')+'">'+esc(item.name)
+            +(item.qty>1?' <span class="qty-badge">\xd7'+item.qty+' total</span>':'')+'</div>'
+          +(item.notes?'<div style="font-size:12px;color:var(--text3);margin-top:3px;font-style:italic">'+esc(item.notes)+'</div>':'')
           +'<div class="assignees-row">'+assigneeDisplay(item)+'</div>'
         +'</div>'
         +'<div class="item-actions">'
           +'<button class="btn-ghost" onclick="startEdit(\''+item.id+'\')" title="Edit">'+(editingId===item.id?'\u2715':'\u270f\ufe0f')+'</button>'
           +'<button class="btn-ghost" onclick="removeItem(\''+item.id+'\')" title="Remove">\xd7</button>'
         +'</div></div>';
-      if(editingId===item.id) html+='<div class="edit-panel" id="edit-panel-'+item.id+'">'+buildEditInner(item.id)+'</div>';
+      // Edit panel
+      if(editingId===item.id){
+        html+='<div class="edit-panel" id="ep-'+item.id+'">'
+          +'<div class="edit-row">'
+            +'<input style="flex:1;min-width:130px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+item.id+'" type="text" value="'+esc(item.name)+'">'
+            +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
+              +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
+              +'<option value="drink"'+(item.cat==='drink'?' selected':'')+'>Drinks</option>'
+              +'<option value="equip"'+(item.cat==='equip'?' selected':'')+'>Equipment</option>'
+              +'<option value="other"'+(item.cat==='other'?' selected':'')+'>Other</option>'
+            +'</select>'
+          +'</div>'
+          +'<div style="margin-bottom:10px">'
+            +'<span class="field-label">Note</span>'
+            +'<input style="width:100%;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-note-'+item.id+'" type="text" value="'+esc(item.notes||'')+'"></div>'
+          +'<span class="field-label">Who brings what</span>'
+          +buildEditWidget(item.id)
+          +'<div class="row" style="margin-top:10px">'
+            +'<button class="btn btn-primary btn-sm" onclick="saveEdit(\''+item.id+'\')">Save</button>'
+            +'<button class="btn btn-sm" onclick="cancelEdit()">Cancel</button>'
+          +'</div>'
+        +'</div>';
+      }
     });
   });
   list.innerHTML=html;
+  // Now wire up edit widgets (needs DOM to exist)
+  if(editingId&&state.items[editingId]){
+    var m=(window.editMaps&&window.editMaps[editingId])||{};
+    renderAssignWidget(editingId,m,state.items[editingId].qty);
+  }
 }
 
 function renderStats(){
@@ -633,13 +800,11 @@ function renderStats(){
 }
 
 function toggleSuggestions(){
-  var panel=document.getElementById('suggest-panel');panel.classList.toggle('open');
-  if(panel.classList.contains('open'))renderSuggestions();
+  var p=document.getElementById('suggest-panel');p.classList.toggle('open');if(p.classList.contains('open'))renderSuggestions();
 }
 function renderSuggestions(){
   var guests=parseInt((state.event&&state.event.guests)||20)||20;
-  var intro=document.getElementById('suggest-intro');
-  if(intro)intro.textContent='Suggested for '+guests+' guests. Click + to add to your plan.';
+  var intro=document.getElementById('suggest-intro');if(intro)intro.textContent='Suggested for '+guests+' guests. Click + to add.';
   var existing=Object.values(state.items||{}).map(function(i){return i.name.toLowerCase();});
   var grid=document.getElementById('suggest-grid');if(!grid)return;
   var html='',lastCat='';
@@ -656,15 +821,11 @@ function renderSuggestions(){
   grid.innerHTML=html;
 }
 
-function toggleReminder(){
-  var panel=document.getElementById('reminder-panel');panel.classList.toggle('open');
-  if(panel.classList.contains('open'))buildReminder();
-}
+function toggleReminder(){var p=document.getElementById('reminder-panel');p.classList.toggle('open');if(p.classList.contains('open'))buildReminder();}
 function buildReminder(){
   var ev=state.event||{},people=state.people||{},items=Object.values(state.items||{});
   var lines=['\uD83D\uDD25 BBQ Reminder'+(ev.name?' \u2014 '+ev.name:'')];
-  if(ev.date)lines.push('\uD83D\uDCC5 '+ev.date);
-  if(ev.loc) lines.push('\uD83D\uDCCD '+ev.loc);
+  if(ev.date)lines.push('\uD83D\uDCC5 '+ev.date);if(ev.loc)lines.push('\uD83D\uDCCD '+ev.loc);
   lines.push('','Here\'s what everyone is bringing:','');
   Object.values(people).forEach(function(p){
     var myItems=items.filter(function(i){var at=i.assignedTo||[];return at.indexOf('all')>=0||at.indexOf(p.id)>=0;});
@@ -672,37 +833,27 @@ function buildReminder(){
     lines.push('\uD83D\uDC64 '+p.name+':');
     myItems.forEach(function(i){
       var at=i.assignedTo||[],splits=i.splits||{};
-      var qStr=at.indexOf('all')>=0?' (everyone brings one)':splits[p.id]!=null?' \xd7'+splits[p.id]:' \xd7'+i.qty;
+      var qStr=at.indexOf('all')>=0?' (bring one)':splits[p.id]!=null?' \xd7'+splits[p.id]:'';
       lines.push('   \u2022 '+i.name+qStr+(i.notes?' \u2014 '+i.notes:''));
     });
     lines.push('');
   });
-  var allItems=items.filter(function(i){return (i.assignedTo||[]).indexOf('all')>=0;});
-  if(allItems.length){lines.push('\uD83D\uDD25 Everyone should bring:');allItems.forEach(function(i){lines.push('   \u2022 '+i.name+(i.notes?' \u2014 '+i.notes:''));});lines.push('');}
   var unassigned=items.filter(function(i){return !(i.assignedTo||[]).length;});
   if(unassigned.length){lines.push('\u26A0\uFE0F Still needs someone:');unassigned.forEach(function(i){lines.push('   \u2022 '+i.name+' \xd7'+i.qty+(i.notes?' \u2014 '+i.notes:''));});lines.push('');}
   lines.push('See you there! \uD83C\uDF89');
   var ta=document.getElementById('reminder-text');if(ta)ta.value=lines.join('\n');
 }
-function copyReminder(){
-  buildReminder();
-  var ta=document.getElementById('reminder-text');if(!ta)return;
-  navigator.clipboard.writeText(ta.value).then(function(){showToast('Reminder copied! Paste into WhatsApp or iMessage.');}).catch(function(){ta.select();document.execCommand('copy');showToast('Copied!');});
-}
+function copyReminder(){buildReminder();var ta=document.getElementById('reminder-text');if(!ta)return;navigator.clipboard.writeText(ta.value).then(function(){showToast('Reminder copied!');}).catch(function(){ta.select();document.execCommand('copy');showToast('Copied!');});}
 
-function copyShareLink(){
-  var url=location.origin+location.pathname+'?room='+roomKey;
-  navigator.clipboard.writeText(url).then(function(){showToast('Invite link copied!');}).catch(function(){prompt('Copy this link:',url);});
-}
+function copyShareLink(){var url=location.origin+location.pathname+'?room='+roomKey;navigator.clipboard.writeText(url).then(function(){showToast('Invite link copied!');}).catch(function(){prompt('Copy this link:',url);});}
 function newRoom(){
   if(!confirm('Start a brand new empty plan with a new invite link?'))return;
   if(es){es.close();es=null;}
   roomKey=makeCode();localStorage.setItem(ROOM_KEY_KEY,roomKey);
-  state=freshState();editingId=null;addAssignees=[];
+  state=freshState();editingId=null;addMap={};window.editMaps={};
   history.replaceState(null,'',location.origin+location.pathname+'?room='+roomKey);
   setEl('room-code-display',roomKey);syncFormFromState();render();pushState();startStream();showToast('New plan created!');
 }
-
 function saveDbUrl(){
   var v=(document.getElementById('setup-url').value||'').trim().replace(/\/+$/,'');
   document.getElementById('setup-error').style.display='none';
@@ -710,7 +861,7 @@ function saveDbUrl(){
   localStorage.setItem(DB_URL_KEY,v);location.reload();
 }
 
-function setSyncStatus(ok,msg){var dot=document.getElementById('sync-dot'),label=document.getElementById('sync-label');if(!dot||!label)return;dot.className='sync-dot '+(ok?'live':'offline');label.textContent=msg||(ok?'Live':'Offline');}
+function setSyncStatus(ok,msg){var d=document.getElementById('sync-dot'),l=document.getElementById('sync-label');if(!d||!l)return;d.className='sync-dot '+(ok?'live':'offline');l.textContent=msg||(ok?'Live':'Offline');}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
 function showError(id,msg){var el=document.getElementById(id);if(el){el.textContent='\u26a0 '+msg;el.style.display='block';}}
 function setEl(id,text){var el=document.getElementById(id);if(el)el.textContent=text;}
