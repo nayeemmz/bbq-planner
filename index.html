@@ -543,7 +543,11 @@ function getAWMap(cid){
 }
 function getAWTarget(cid){
   if(cid==='add-aw') return null;
-  var item = state.items && state.items[cid.replace('edit-aw-','')];
+  var itemId=cid.replace('edit-aw-','');
+  // Prefer the live qty input value if it exists
+  var liveInput=document.getElementById('ed-qty-'+itemId);
+  if(liveInput) return parseInt(liveInput.value)||null;
+  var item = state.items && state.items[itemId];
   return item ? item.qty : null;
 }
 
@@ -645,13 +649,26 @@ function cancelEdit(){ editingId=null; render(); }
 function saveEdit(id){
   var item=state.items&&state.items[id]; if(!item) return;
   var nn=document.getElementById('ed-name-'+id);
+  var nq=document.getElementById('ed-qty-'+id);
   var nc=document.getElementById('ed-cat-'+id);
   var no=document.getElementById('ed-note-'+id);
   if(nn) item.name  = nn.value.trim()||item.name;
   if(nc) item.cat   = nc.value;
   if(no) item.notes = no.value.trim();
-  var f = mapToFields(editMaps[id]||{});
-  item.assignedTo=f.assignedTo; item.splits=f.splits; item.qty=f.qty;
+  // If user edited total qty manually and no splits set, use it directly
+  var m=editMaps[id]||{};
+  var f=mapToFields(m);
+  if('all' in m){
+    item.assignedTo=f.assignedTo; item.splits={}; 
+    item.qty=nq?Math.max(1,parseInt(nq.value)||1):f.qty;
+  } else if(f.assignedTo.length===0){
+    // No one assigned — just use the qty field directly
+    item.assignedTo=[]; item.splits={};
+    item.qty=nq?Math.max(1,parseInt(nq.value)||1):item.qty;
+  } else {
+    // Assigned to specific people — qty comes from their splits sum
+    item.assignedTo=f.assignedTo; item.splits=f.splits; item.qty=f.qty;
+  }
   editingId=null; render(); schedulePush();
 }
 
@@ -742,6 +759,7 @@ function renderItems(){
         html+='<div class="edit-panel">'
           +'<div class="edit-row">'
             +'<input style="flex:1;min-width:130px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+item.id+'" type="text" value="'+esc(item.name)+'">'
+            +'<input style="width:75px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Qty">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
               +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
               +'<option value="drink"'+(item.cat==='drink'?' selected':'')+'>Drinks</option>'
