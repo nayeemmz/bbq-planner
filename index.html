@@ -37,36 +37,77 @@ select{cursor:pointer}
 .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
 .btn-primary:hover{background:var(--accent-hover)}
 .btn-sm{padding:6px 13px;font-size:13px}
-.btn-ghost{background:none;border:none;padding:5px 8px;font-size:16px;cursor:pointer;color:var(--text3);border-radius:4px}
+.btn-xs{padding:4px 10px;font-size:12px}
+.btn-ghost{background:none;border:none;padding:5px 8px;font-size:15px;cursor:pointer;color:var(--text3);border-radius:4px;line-height:1}
 .btn-ghost:hover{background:var(--surface2);color:var(--text)}
 .btn-share{background:var(--accent-light);color:var(--accent);border-color:#F5C4B3}
 .btn-share:hover{background:#FFE5D3}
 .btn-danger{color:#A32D2D;border-color:#F7C1C1}
 .btn-danger:hover{background:#FCEBEB}
+.btn-claim{font-family:'DM Sans',sans-serif;font-size:12px;padding:3px 9px;border-radius:20px;border:1px dashed var(--border2);background:none;color:var(--text3);cursor:pointer;white-space:nowrap}
+.btn-claim:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+
+/* Event meta */
 .event-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .meta-field label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px}
-.meta-field input,.meta-field select{width:100%}
+.meta-field input{width:100%}
 @media(max-width:500px){.event-meta{grid-template-columns:1fr}}
+
+/* People */
 .people-grid{display:flex;flex-wrap:wrap;gap:7px;min-height:10px;margin-bottom:12px}
 .person-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:500;background:var(--accent-light);color:var(--accent);border:1px solid #F5C4B3}
 .person-chip button{background:none;border:none;cursor:pointer;color:var(--accent);font-size:15px;line-height:1;padding:0;opacity:.7}
 .person-chip button:hover{opacity:1}
+
+/* My name bar */
+.myname-bar{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:10px 12px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.myname-bar span{flex:1}
+
+/* Category labels */
 .items-group-label{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:500;margin:12px 0 4px}
 .lbl-food{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .lbl-drink{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .lbl-equip{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
 .lbl-other{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-border)}
-.item-row{display:flex;align-items:center;gap:10px;padding:10px 2px;border-bottom:1px solid var(--border)}
-.item-row:last-child{border-bottom:none}
-.check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:12px;user-select:none}
+
+/* Item rows */
+.item-row{display:flex;align-items:flex-start;gap:10px;padding:10px 2px;border-bottom:1px solid var(--border)}
+.item-row:last-of-type{border-bottom:none}
+.check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:12px;user-select:none;margin-top:2px}
 .check:hover{border-color:var(--accent)}
 .check.done{background:var(--accent);border-color:var(--accent);color:#fff}
-.item-name{flex:1;font-size:14px;font-weight:500;min-width:0}
-.item-name.crossed{text-decoration:line-through;color:var(--text3)}
-.item-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.item-main{flex:1;min-width:0}
+.item-name-line{font-size:14px;font-weight:500}
+.item-name-line.crossed{text-decoration:line-through;color:var(--text3)}
 .qty-badge{font-size:12px;color:var(--text3);font-weight:400}
-.assign-sel{font-size:13px;padding:5px 9px;max-width:140px;border-radius:var(--radius-sm);border:1px solid var(--border);color:var(--text2);background:var(--surface);cursor:pointer}
-.empty{text-align:center;padding:2.5rem;color:var(--text3);font-size:14px}
+.assignees-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center}
+.assignee-chip{display:inline-flex;align-items:center;font-size:12px;padding:2px 9px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.assignee-chip.is-all{background:var(--accent-light);border-color:#F5C4B3;color:var(--accent);font-weight:500}
+.item-actions{display:flex;gap:2px;flex-shrink:0;margin-top:0}
+
+/* Edit panel */
+.edit-panel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin:6px 0 10px 30px}
+.edit-panel .edit-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.edit-panel input[type=text],
+.edit-panel input[type=number],
+.edit-panel select{font-size:13px;padding:7px 10px}
+.edit-panel .edit-name{flex:1;min-width:140px}
+.edit-panel .edit-qty{width:65px}
+
+/* Assign checkboxes */
+.assign-checks-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
+.assign-checks{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.assign-check-item{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;color:var(--text2);user-select:none;transition:all .15s}
+.assign-check-item:hover{border-color:var(--accent);color:var(--accent)}
+.assign-check-item.selected{background:var(--accent-light);border-color:#F5C4B3;color:var(--accent);font-weight:500}
+.assign-check-item.is-all-chip.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+.assign-check-item input{display:none}
+
+/* Add form assign area */
+.add-assign-wrap{border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;background:var(--surface)}
+.add-assign-wrap .assign-checks-label{display:block;margin-bottom:8px}
+
+/* Stats */
 .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.25rem}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center}
 .stat-num{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--accent)}
@@ -75,6 +116,8 @@ select{cursor:pointer}
 .progress-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:flex;justify-content:space-between}
 .progress-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .5s ease}
+
+/* Room bar */
 .room-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-top:1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .room-code{font-family:monospace;font-size:1.1rem;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-light);padding:6px 14px;border-radius:6px}
 .room-label{font-size:13px;color:var(--text2);flex:1;min-width:120px}
@@ -82,6 +125,8 @@ select{cursor:pointer}
 .sync-dot.live{animation:pulse 2s infinite}
 .sync-dot.offline{background:#E24B4A}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Setup */
 .setup{max-width:620px;margin:3rem auto;padding:0 1rem}
 .setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
 .setup-card h2{font-size:1.5rem;color:var(--accent);margin-bottom:.5rem}
@@ -92,7 +137,9 @@ select{cursor:pointer}
 .setup-card input[type=text]{width:100%;margin:.5rem 0 .75rem;font-size:15px}
 .alert{font-size:13px;padding:10px 14px;border-radius:var(--radius-sm);margin-top:.5rem;display:none}
 .alert-error{background:#FCEBEB;color:#A32D2D;border:1px solid #F7C1C1}
-.alert-info{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* Empty / Toast / Loading */
+.empty{text-align:center;padding:2.5rem;color:var(--text3);font-size:14px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;font-size:14px;padding:11px 22px;border-radius:24px;opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .loading{text-align:center;padding:4rem 1rem;color:var(--text2);font-size:15px}
@@ -102,7 +149,7 @@ select{cursor:pointer}
 </head>
 <body>
 
-<!-- SETUP SCREEN -->
+<!-- SETUP -->
 <div id="setup-screen" class="setup" style="display:none">
   <div class="setup-card">
     <h2>&#x1F525; One-time setup</h2>
@@ -112,14 +159,13 @@ select{cursor:pointer}
       <li>Name it anything, skip Analytics, click Create</li>
       <li>Left sidebar: <strong>Build &rarr; Realtime Database</strong></li>
       <li><strong>Create Database</strong> &rarr; any region &rarr; <strong>start in test mode</strong> &rarr; Enable</li>
-      <li>Copy your database URL, e.g.<br><code>https://my-bbq-default-rtdb.firebaseio.com</code></li>
-      <li>Paste it below and save</li>
+      <li>Copy your database URL e.g. <code>https://my-bbq-default-rtdb.firebaseio.com</code></li>
+      <li>Paste below and save</li>
     </ol>
     <label style="font-size:13px;font-weight:500;color:var(--text2)">Firebase Database URL</label>
     <input type="text" id="setup-url" placeholder="https://your-project-default-rtdb.firebaseio.com">
     <div id="setup-error" class="alert alert-error"></div>
-    <div id="setup-testing" class="alert alert-info">Testing connection to Firebase...</div>
-    <button class="btn btn-primary" id="setup-btn" onclick="saveDbUrl()">Save &amp; Start Planning</button>
+    <button class="btn btn-primary" onclick="saveDbUrl()">Save &amp; Start Planning</button>
     <p style="margin-top:1rem;font-size:12px;color:var(--text3)">URL is stored only in your browser's localStorage.</p>
   </div>
 </div>
@@ -127,7 +173,7 @@ select{cursor:pointer}
 <!-- LOADING -->
 <div id="loading-screen" class="loading" style="display:none">
   <div class="spinner"></div>
-  <div id="loading-msg">Loading your BBQ plan...</div>
+  <div>Loading your BBQ plan...</div>
 </div>
 
 <!-- MAIN APP -->
@@ -138,6 +184,7 @@ select{cursor:pointer}
     <p>Plan your cookout &amp; divide the load with friends &mdash; live</p>
   </div>
 
+  <!-- Room bar -->
   <div class="room-bar">
     <div>
       <div style="font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">Room</div>
@@ -151,6 +198,7 @@ select{cursor:pointer}
     <button class="btn btn-sm btn-danger" onclick="newRoom()">New plan</button>
   </div>
 
+  <!-- Event Details -->
   <div class="card">
     <div class="section-title">Event details</div>
     <div class="event-meta">
@@ -161,8 +209,14 @@ select{cursor:pointer}
     </div>
   </div>
 
+  <!-- Friends -->
   <div class="card">
     <div class="section-title">Friends coming</div>
+    <!-- My name bar -->
+    <div class="myname-bar" id="myname-bar">
+      <span id="myname-text">&#x1F44B; Who are you? Set your name to self-assign items.</span>
+      <button class="btn btn-sm" onclick="setMyName()">Set my name</button>
+    </div>
     <div class="people-grid" id="people-grid"></div>
     <div class="row">
       <input type="text" id="person-input" placeholder="Add a friend's name..." style="flex:1;min-width:150px" onkeydown="if(event.key==='Enter')addPerson()">
@@ -170,24 +224,37 @@ select{cursor:pointer}
     </div>
   </div>
 
+  <!-- Checklist -->
   <div class="card">
     <div class="section-title">What to bring</div>
     <div id="items-list"></div>
     <div class="divider"></div>
-    <div class="row" style="flex-wrap:wrap;gap:8px">
-      <input type="text" id="item-input" placeholder="Item to bring..." style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addItem()">
-      <input type="number" id="item-qty" placeholder="Qty" min="1" style="width:70px">
-      <select id="item-cat" style="min-width:120px">
-        <option value="food">&#x1F356; Food</option>
-        <option value="drink">&#x1F37B; Drinks</option>
-        <option value="equip">&#x1F6E0; Equipment</option>
-        <option value="other">&#x1F4E6; Other</option>
-      </select>
-      <select id="item-assign" style="min-width:130px"><option value="">Unassigned</option></select>
-      <button class="btn btn-primary" onclick="addItem()">Add item</button>
+
+    <!-- Add form -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="row" style="gap:8px">
+        <input type="text" id="item-input" placeholder="Item to bring..." style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addItem()">
+        <input type="number" id="item-qty" placeholder="Qty" min="1" style="width:70px">
+        <select id="item-cat" style="min-width:110px">
+          <option value="food">&#x1F356; Food</option>
+          <option value="drink">&#x1F37B; Drinks</option>
+          <option value="equip">&#x1F6E0; Equipment</option>
+          <option value="other">&#x1F4E6; Other</option>
+        </select>
+      </div>
+      <div class="add-assign-wrap">
+        <span class="assign-checks-label">Assign to:</span>
+        <div class="assign-checks" id="add-assign-checks">
+          <span style="font-size:13px;color:var(--text3)">Add friends above to assign items</span>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary" onclick="addItem()">Add item</button>
+      </div>
     </div>
   </div>
 
+  <!-- Stats -->
   <div id="stats-section" style="display:none">
     <div class="stats-bar">
       <div class="stat"><div class="stat-num" id="s-total">0</div><div class="stat-lbl">Items total</div></div>
@@ -213,429 +280,490 @@ select{cursor:pointer}
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Constants ────────────────────────────────────────────
 var DB_URL_KEY   = 'bbq_firebase_url';
 var ROOM_KEY_KEY = 'bbq_room_key';
+var MY_NAME_KEY  = 'bbq_my_name';
 var CAT_LABEL    = {food:'Food',drink:'Drinks',equip:'Equipment',other:'Other'};
 var CAT_CLASS    = {food:'lbl-food',drink:'lbl-drink',equip:'lbl-equip',other:'lbl-other'};
 
-// ── State ────────────────────────────────────────────────
-var dbUrl     = '';
-var roomKey   = '';
-var state     = freshState();
-var es        = null;
-var pushTimer = null;
-var ignoring  = false;
+var dbUrl       = '';
+var roomKey     = '';
+var state       = freshState();
+var es          = null;
+var pushTimer   = null;
+var ignoring    = false;
+var editingId   = null;       // item currently being edited
+var addAssignees = [];        // selected assignees in add form (array of ids or ['all'])
+var myName      = '';         // current user's name
 
-function freshState() {
-  return { event: {}, people: {}, items: {} };
-}
+function freshState() { return {event:{}, people:{}, items:{}}; }
 
-// Merge remote data safely — never let missing keys break anything
 function mergeState(remote) {
   if (!remote || typeof remote !== 'object') return;
-  state.event  = (remote.event  && typeof remote.event  === 'object') ? remote.event  : {};
-  state.people = (remote.people && typeof remote.people === 'object') ? remote.people : {};
-  state.items  = (remote.items  && typeof remote.items  === 'object') ? remote.items  : {};
+  state.event  = (remote.event  && typeof remote.event  ==='object') ? remote.event  : {};
+  state.people = (remote.people && typeof remote.people ==='object') ? remote.people : {};
+  state.items  = (remote.items  && typeof remote.items  ==='object') ? remote.items  : {};
+  // Migrate old string assignedTo to array
+  Object.values(state.items).forEach(function(item) {
+    if (typeof item.assignedTo === 'string') {
+      item.assignedTo = item.assignedTo ? [item.assignedTo] : [];
+    }
+    if (!Array.isArray(item.assignedTo)) item.assignedTo = [];
+  });
 }
 
-// ── Screens ──────────────────────────────────────────────
+// ── Screens ───────────────────────────────────────────────
 function show(id) {
   ['setup-screen','loading-screen','main-app'].forEach(function(s){
-    document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
+    document.getElementById(s).style.display = (s===id)?'block':'none';
   });
 }
 function goToSetup() {
   document.getElementById('setup-url').value = dbUrl || '';
-  document.getElementById('setup-error').style.display   = 'none';
-  document.getElementById('setup-testing').style.display = 'none';
+  document.getElementById('setup-error').style.display = 'none';
   show('setup-screen');
 }
-function setLoadingMsg(msg) {
-  document.getElementById('loading-msg').textContent = msg;
-}
 
-// ── Init ─────────────────────────────────────────────────
+// ── Init ──────────────────────────────────────────────────
 function init() {
   try {
-    dbUrl = localStorage.getItem(DB_URL_KEY) || '';
+    myName = localStorage.getItem(MY_NAME_KEY) || '';
+    dbUrl  = localStorage.getItem(DB_URL_KEY)  || '';
     if (!dbUrl) { show('setup-screen'); return; }
 
-    // Room from URL param or localStorage
     var params  = new URLSearchParams(location.search);
     var urlRoom = params.get('room');
-    if (urlRoom) {
-      roomKey = urlRoom;
-      localStorage.setItem(ROOM_KEY_KEY, roomKey);
-    } else {
-      roomKey = localStorage.getItem(ROOM_KEY_KEY) || '';
-    }
-    if (!roomKey) {
-      roomKey = makeCode();
-      localStorage.setItem(ROOM_KEY_KEY, roomKey);
-    }
+    if (urlRoom) { roomKey = urlRoom; localStorage.setItem(ROOM_KEY_KEY, roomKey); }
+    else { roomKey = localStorage.getItem(ROOM_KEY_KEY) || ''; }
+    if (!roomKey) { roomKey = makeCode(); localStorage.setItem(ROOM_KEY_KEY, roomKey); }
 
-    history.replaceState(null, '', location.origin + location.pathname + '?room=' + roomKey);
+    history.replaceState(null,'',location.origin+location.pathname+'?room='+roomKey);
     setEl('room-code-display', roomKey);
 
     show('loading-screen');
-    setLoadingMsg('Connecting to Firebase...');
-
-    fetchState().then(function() {
+    fetchState().then(function(){
       show('main-app');
+      updateMyNameBar();
       startStream();
       bindFormEvents();
-    }).catch(function(err) {
-      console.error('fetchState failed:', err);
-      // Still show app — maybe Firebase is slow or empty
+    }).catch(function(){
       show('main-app');
       render();
+      updateMyNameBar();
       startStream();
       bindFormEvents();
-      setSyncStatus(false, 'Could not reach Firebase');
+      setSyncStatus(false,'Could not reach Firebase');
     });
-
-  } catch(e) {
-    console.error('init error:', e);
-    show('setup-screen');
-    showError('setup-error', 'Something went wrong: ' + e.message);
-  }
+  } catch(e) { console.error(e); show('setup-screen'); }
 }
 
-function makeCode() {
-  return Math.random().toString(36).slice(2,8).toUpperCase();
-}
+function makeCode() { return Math.random().toString(36).slice(2,8).toUpperCase(); }
 
-// ── Firebase URL ─────────────────────────────────────────
-function cleanUrl(u) {
-  return (u || '').trim().replace(/\/+$/, '');
-}
-function roomUrl() {
-  return cleanUrl(dbUrl) + '/bbq/' + roomKey + '.json';
-}
+// ── Firebase ──────────────────────────────────────────────
+function cleanUrl(u){ return (u||'').trim().replace(/\/+$/,''); }
+function roomUrl()  { return cleanUrl(dbUrl)+'/bbq/'+roomKey+'.json'; }
 
-// ── Firebase REST ─────────────────────────────────────────
 function fetchState() {
-  return fetch(roomUrl())
-    .then(function(r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    })
-    .then(function(data) {
-      mergeState(data);   // safe even if data is null
-      render();
-      setSyncStatus(true, 'Live \u2014 changes sync instantly');
-    });
-}
-
-function pushState() {
-  return fetch(roomUrl(), {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(state)
-  }).then(function(r) {
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    setSyncStatus(true, 'Live \u2014 changes sync instantly');
-  }).catch(function(e) {
-    console.warn('push failed:', e);
-    setSyncStatus(false, 'Sync failed \u2014 check connection');
+  return fetch(roomUrl()).then(function(r){
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(data){
+    mergeState(data);
+    render();
+    setSyncStatus(true,'Live \u2014 changes sync instantly');
   });
 }
 
-function schedulePush() {
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(function() {
-    ignoring = true;
-    pushState();
-  }, 500);
+function pushState() {
+  fetch(roomUrl(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)})
+    .then(function(r){ if(!r.ok) throw new Error(); setSyncStatus(true,'Live \u2014 changes sync instantly'); })
+    .catch(function(){ setSyncStatus(false,'Sync failed \u2014 check connection'); });
 }
+function schedulePush() { clearTimeout(pushTimer); pushTimer=setTimeout(function(){ ignoring=true; pushState(); },500); }
 
-// ── Firebase SSE ──────────────────────────────────────────
 function startStream() {
   try {
-    if (es) { es.close(); es = null; }
+    if(es){es.close();es=null;}
     es = new EventSource(roomUrl());
-
-    es.addEventListener('put', function(e) {
-      try {
-        if (ignoring) { ignoring = false; return; }
-        var payload = JSON.parse(e.data);
-        // payload.path === '/' means full replace; nested path means patch
-        if (payload && payload.path === '/' && payload.data !== undefined) {
-          mergeState(payload.data);
-          syncFormFromState();
-          render();
-        }
-      } catch(err) { console.warn('SSE put error:', err); }
+    es.addEventListener('put',function(e){
+      try{
+        if(ignoring){ignoring=false;return;}
+        var p=JSON.parse(e.data);
+        if(p&&p.path==='/'&&p.data!==undefined){mergeState(p.data);syncFormFromState();render();}
+      }catch(_){}
     });
-
-    es.addEventListener('patch', function(e) {
-      try {
-        if (ignoring) { ignoring = false; return; }
-        var payload = JSON.parse(e.data);
-        if (payload && payload.data) {
-          // patch merges at root level
-          var d = payload.data;
-          if (d.event)  state.event  = d.event;
-          if (d.people) state.people = d.people;
-          if (d.items)  state.items  = d.items;
-          syncFormFromState();
-          render();
+    es.addEventListener('patch',function(e){
+      try{
+        if(ignoring){ignoring=false;return;}
+        var p=JSON.parse(e.data);
+        if(p&&p.data){
+          var d=p.data;
+          if(d.event) state.event=d.event;
+          if(d.people) state.people=d.people;
+          if(d.items) state.items=d.items;
+          mergeState(state);syncFormFromState();render();
         }
-      } catch(err) { console.warn('SSE patch error:', err); }
+      }catch(_){}
     });
-
-    es.onerror = function() {
-      setSyncStatus(false, 'Disconnected \u2014 retrying...');
-    };
-    es.onopen = function() {
-      setSyncStatus(true, 'Live \u2014 changes sync instantly');
-    };
-  } catch(e) {
-    console.warn('EventSource failed:', e);
-    setSyncStatus(false, 'Real-time stream unavailable');
-  }
+    es.onerror=function(){setSyncStatus(false,'Disconnected \u2014 retrying...');};
+    es.onopen =function(){setSyncStatus(true,'Live \u2014 changes sync instantly');};
+  }catch(e){setSyncStatus(false,'Real-time stream unavailable');}
 }
 
 // ── Form sync ─────────────────────────────────────────────
 function bindFormEvents() {
-  ['evt-name','evt-date','evt-loc','evt-guests'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.addEventListener('input', function() {
-      syncStateFromForm();
-      schedulePush();
-    });
+  ['evt-name','evt-date','evt-loc','evt-guests'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('input',function(){syncStateFromForm();schedulePush();});
   });
 }
-function syncStateFromForm() {
-  state.event = {
-    name:   val('evt-name'),
-    date:   val('evt-date'),
-    loc:    val('evt-loc'),
-    guests: val('evt-guests')
-  };
+function syncStateFromForm(){
+  state.event={name:val('evt-name'),date:val('evt-date'),loc:val('evt-loc'),guests:val('evt-guests')};
 }
-function syncFormFromState() {
-  var ev = state.event || {};
-  setValIfNotFocused('evt-name',   ev.name   || '');
-  setValIfNotFocused('evt-date',   ev.date   || '');
-  setValIfNotFocused('evt-loc',    ev.loc    || '');
-  setValIfNotFocused('evt-guests', ev.guests || '');
+function syncFormFromState(){
+  var ev=state.event||{};
+  setValIfNotFocused('evt-name',  ev.name  ||'');
+  setValIfNotFocused('evt-date',  ev.date  ||'');
+  setValIfNotFocused('evt-loc',   ev.loc   ||'');
+  setValIfNotFocused('evt-guests',ev.guests||'');
+}
+
+// ── My name ───────────────────────────────────────────────
+function setMyName() {
+  var n = prompt('Your name (so you can self-assign items):','');
+  if (!n || !n.trim()) return;
+  myName = n.trim();
+  localStorage.setItem(MY_NAME_KEY, myName);
+  // Add to people list if not already there
+  var people = Object.values(state.people||{});
+  var exists = people.some(function(p){ return p.name.toLowerCase()===myName.toLowerCase(); });
+  if (!exists) {
+    var id='p'+Date.now();
+    if(!state.people) state.people={};
+    state.people[id]={id:id,name:myName};
+    schedulePush();
+  }
+  updateMyNameBar();
+  render();
+}
+function updateMyNameBar() {
+  var bar  = document.getElementById('myname-bar');
+  var text = document.getElementById('myname-text');
+  if (!bar||!text) return;
+  if (myName) {
+    text.textContent = '\uD83D\uDC4B Signed in as '+myName;
+    bar.querySelector('button').textContent = 'Change';
+  } else {
+    text.textContent = '\uD83D\uDC4B Who are you? Set your name to self-assign items.';
+    bar.querySelector('button').textContent = 'Set my name';
+  }
 }
 
 // ── People ────────────────────────────────────────────────
 function addPerson() {
-  var inp  = document.getElementById('person-input');
-  var name = inp.value.trim();
-  if (!name) return;
-  if (!state.people) state.people = {};
-  var id = 'p' + Date.now();
-  state.people[id] = { id: id, name: name };
-  inp.value = '';
-  render();
-  schedulePush();
+  var inp=document.getElementById('person-input');
+  var name=inp.value.trim(); if(!name)return;
+  if(!state.people) state.people={};
+  var id='p'+Date.now();
+  state.people[id]={id:id,name:name};
+  inp.value='';
+  render(); schedulePush();
 }
 function removePerson(id) {
-  if (state.people) delete state.people[id];
-  var items = state.items || {};
-  Object.keys(items).forEach(function(k) {
-    if (items[k].assignedTo === id) items[k].assignedTo = '';
+  if(state.people) delete state.people[id];
+  Object.values(state.items||{}).forEach(function(item){
+    if(Array.isArray(item.assignedTo)){
+      item.assignedTo=item.assignedTo.filter(function(x){return x!==id;});
+    }
   });
-  render();
-  schedulePush();
+  render(); schedulePush();
+}
+
+// ── Add-form assignment checkboxes ────────────────────────
+function renderAddAssignChecks() {
+  var people = Object.values(state.people||{});
+  var wrap   = document.getElementById('add-assign-checks');
+  if(!wrap) return;
+  if(!people.length){
+    wrap.innerHTML='<span style="font-size:13px;color:var(--text3)">Add friends above to assign items</span>';
+    return;
+  }
+  // Sanitise addAssignees
+  var validIds = people.map(function(p){return p.id;}).concat(['all']);
+  addAssignees = addAssignees.filter(function(x){return validIds.indexOf(x)>=0;});
+  var isAll = addAssignees.indexOf('all')>=0;
+  var html = chipHtml('all','Everyone',isAll,true,'toggleAddAssign(\'all\')');
+  people.forEach(function(p){
+    var sel = !isAll && addAssignees.indexOf(p.id)>=0;
+    html += chipHtml(p.id,p.name,sel,false,'toggleAddAssign(\''+p.id+'\')');
+  });
+  wrap.innerHTML = html;
+}
+function chipHtml(id,label,selected,isAll,onclick){
+  var cls='assign-check-item'+(selected?' selected':'')+(isAll?' is-all-chip':'');
+  return '<div class="'+cls+'" onclick="'+onclick+'">'+esc(label)+'</div>';
+}
+function toggleAddAssign(id) {
+  if(id==='all'){
+    addAssignees = addAssignees.indexOf('all')>=0 ? [] : ['all'];
+  } else {
+    // Remove 'all' if present
+    addAssignees = addAssignees.filter(function(x){return x!=='all';});
+    var idx = addAssignees.indexOf(id);
+    if(idx>=0) addAssignees.splice(idx,1);
+    else addAssignees.push(id);
+  }
+  renderAddAssignChecks();
 }
 
 // ── Items ─────────────────────────────────────────────────
 function addItem() {
-  var inp  = document.getElementById('item-input');
-  var name = inp.value.trim();
-  if (!name) return;
-  if (!state.items) state.items = {};
-  var qty        = Math.max(1, parseInt(document.getElementById('item-qty').value) || 1);
-  var cat        = document.getElementById('item-cat').value;
-  var assignedTo = document.getElementById('item-assign').value;
-  var id = 'i' + Date.now();
-  state.items[id] = { id: id, name: name, qty: qty, cat: cat, assignedTo: assignedTo, done: false };
-  inp.value = '';
-  document.getElementById('item-qty').value = '';
-  render();
-  schedulePush();
+  var inp=document.getElementById('item-input');
+  var name=inp.value.trim(); if(!name)return;
+  if(!state.items) state.items={};
+  var qty = Math.max(1,parseInt(document.getElementById('item-qty').value)||1);
+  var cat = document.getElementById('item-cat').value;
+  var id  = 'i'+Date.now();
+  state.items[id]={id:id,name:name,qty:qty,cat:cat,assignedTo:addAssignees.slice(),done:false};
+  inp.value=''; document.getElementById('item-qty').value='';
+  addAssignees=[];
+  render(); schedulePush();
 }
 function toggleDone(id) {
-  if (state.items && state.items[id]) {
-    state.items[id].done = !state.items[id].done;
-    render();
-    schedulePush();
-  }
+  if(state.items&&state.items[id]){state.items[id].done=!state.items[id].done; render(); schedulePush();}
 }
 function removeItem(id) {
-  if (state.items) delete state.items[id];
-  render();
-  schedulePush();
+  if(editingId===id) editingId=null;
+  if(state.items) delete state.items[id];
+  render(); schedulePush();
 }
-function changeAssign(id, v) {
-  if (state.items && state.items[id]) {
-    state.items[id].assignedTo = v;
-    schedulePush();
+
+// ── Edit item ─────────────────────────────────────────────
+function startEdit(id) {
+  editingId = (editingId===id) ? null : id;
+  render();
+}
+function cancelEdit() { editingId=null; render(); }
+function saveEdit(id) {
+  if(!state.items||!state.items[id]) return;
+  var item = state.items[id];
+  var newName = document.getElementById('edit-name-'+id);
+  var newQty  = document.getElementById('edit-qty-'+id);
+  var newCat  = document.getElementById('edit-cat-'+id);
+  if(newName) item.name = newName.value.trim()||item.name;
+  if(newQty)  item.qty  = Math.max(1,parseInt(newQty.value)||1);
+  if(newCat)  item.cat  = newCat.value;
+  // assignedTo updated live via toggleEditAssign
+  editingId=null;
+  render(); schedulePush();
+}
+function toggleEditAssign(itemId, assignId) {
+  if(!state.items||!state.items[itemId]) return;
+  var item = state.items[itemId];
+  if(!Array.isArray(item.assignedTo)) item.assignedTo=[];
+  if(assignId==='all'){
+    item.assignedTo = item.assignedTo.indexOf('all')>=0 ? [] : ['all'];
+  } else {
+    item.assignedTo = item.assignedTo.filter(function(x){return x!=='all';});
+    var idx=item.assignedTo.indexOf(assignId);
+    if(idx>=0) item.assignedTo.splice(idx,1);
+    else item.assignedTo.push(assignId);
   }
+  // Re-render just the edit panel assign chips
+  var wrap=document.getElementById('edit-assign-'+itemId);
+  if(wrap) wrap.innerHTML=editAssignChipsHtml(itemId);
+}
+function claimItem(itemId) {
+  if(!myName){ setMyName(); return; }
+  // Find my person id
+  var people=Object.values(state.people||{});
+  var me=people.find(function(p){return p.name.toLowerCase()===myName.toLowerCase();});
+  if(!me){
+    var id='p'+Date.now();
+    if(!state.people) state.people={};
+    state.people[id]={id:id,name:myName};
+    me={id:id,name:myName};
+  }
+  var item=state.items&&state.items[itemId];
+  if(!item) return;
+  if(!Array.isArray(item.assignedTo)) item.assignedTo=[];
+  if(item.assignedTo.indexOf('all')>=0||item.assignedTo.indexOf(me.id)>=0){
+    showToast('You\'re already on this!'); return;
+  }
+  item.assignedTo.push(me.id);
+  render(); schedulePush();
+  showToast('You\'re bringing '+item.name+'!');
 }
 
 // ── Render ────────────────────────────────────────────────
 function render() {
-  try { renderPeople(); } catch(e) { console.warn('renderPeople:', e); }
-  try { renderItems();  } catch(e) { console.warn('renderItems:', e); }
-  try { renderStats();  } catch(e) { console.warn('renderStats:', e); }
+  try{renderPeople();}catch(e){console.warn(e);}
+  try{renderItems();}catch(e){console.warn(e);}
+  try{renderStats();}catch(e){console.warn(e);}
+  try{renderAddAssignChecks();}catch(e){console.warn(e);}
 }
 
 function renderPeople() {
-  var people = Object.values(state.people || {});
-  var grid   = document.getElementById('people-grid');
-  if (!grid) return;
-  grid.innerHTML = people.length
-    ? people.map(function(p){ return '<div class="person-chip">'+esc(p.name)+'<button onclick="removePerson(\''+p.id+'\')" title="Remove">\xd7</button></div>'; }).join('')
+  var people=Object.values(state.people||{});
+  var grid=document.getElementById('people-grid');
+  if(!grid) return;
+  grid.innerHTML=people.length
+    ? people.map(function(p){return '<div class="person-chip">'+esc(p.name)+'<button onclick="removePerson(\''+p.id+'\')" title="Remove">\xd7</button></div>';}).join('')
     : '';
-  var sel = document.getElementById('item-assign');
-  if (!sel) return;
-  var cur = sel.value;
-  sel.innerHTML = '<option value="">Unassigned</option>' +
-    people.map(function(p){ return '<option value="'+p.id+'">'+esc(p.name)+'</option>'; }).join('');
-  if (cur) sel.value = cur;
+}
+
+function assigneeDisplay(item) {
+  var at=item.assignedTo||[];
+  if(!at.length) return '<span style="font-size:12px;color:var(--text3)">Not assigned &mdash; <button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this</button></span>';
+  if(at.indexOf('all')>=0) return '<span class="assignee-chip is-all">\uD83D\uDD25 Everyone brings one</span><button class="btn-claim" style="margin-left:4px" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
+  var people=state.people||{};
+  var chips=at.map(function(id){
+    var p=people[id];
+    return p?'<span class="assignee-chip">\uD83D\uDC64 '+esc(p.name)+'</span>':'';
+  }).join('');
+  // Is current user already assigned?
+  var me=myPersonId();
+  var iAssigned=me&&at.indexOf(me)>=0;
+  if(!iAssigned) chips+='<button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
+  return chips;
+}
+
+function myPersonId() {
+  if(!myName) return null;
+  var people=Object.values(state.people||{});
+  var me=people.find(function(p){return p.name.toLowerCase()===myName.toLowerCase();});
+  return me?me.id:null;
+}
+
+function editAssignChipsHtml(itemId) {
+  var people=Object.values(state.people||{});
+  var item=state.items&&state.items[itemId];
+  var at=item?(item.assignedTo||[]):[];
+  var isAll=at.indexOf('all')>=0;
+  var html=chipHtml('all','Everyone',isAll,true,'toggleEditAssign(\''+itemId+'\',\'all\')');
+  people.forEach(function(p){
+    var sel=!isAll&&at.indexOf(p.id)>=0;
+    html+=chipHtml(p.id,p.name,sel,false,'toggleEditAssign(\''+itemId+'\',\''+p.id+'\')');
+  });
+  return html||'<span style="font-size:13px;color:var(--text3)">Add friends first</span>';
 }
 
 function renderItems() {
-  var items  = Object.values(state.items  || {});
-  var people = state.people || {};
-  var list   = document.getElementById('items-list');
-  if (!list) return;
-  if (!items.length) {
-    list.innerHTML = '<div class="empty">No items yet \u2014 add food, drinks, equipment below!</div>';
-    return;
-  }
-  var html = '';
-  ['food','drink','equip','other'].forEach(function(cat) {
-    var its = items.filter(function(i){ return i.cat === cat; });
-    if (!its.length) return;
-    html += '<div class="items-group-label '+CAT_CLASS[cat]+'">'+CAT_LABEL[cat]+'</div>';
-    its.forEach(function(item) {
-      var p    = people[item.assignedTo || ''];
-      var opts = '<option value="">Unassigned</option>' +
-        Object.values(people).map(function(x){
-          return '<option value="'+x.id+'"'+(x.id===item.assignedTo?' selected':'')+'>'+esc(x.name)+'</option>';
-        }).join('');
-      html += '<div class="item-row">'
-        + '<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')">'+(item.done?'\u2713':'')+'</div>'
-        + '<div class="item-name'+(item.done?' crossed':'')+'">'+esc(item.name)
-          +(item.qty>1?' <span class="qty-badge">\xd7'+item.qty+'</span>':'')
-          +'<div class="item-sub">'+(p?'\ud83d\udc64 '+esc(p.name):'Not assigned')+'</div>'
+  var items =Object.values(state.items||{});
+  var list  =document.getElementById('items-list');
+  if(!list) return;
+  if(!items.length){list.innerHTML='<div class="empty">No items yet \u2014 add food, drinks, equipment below!</div>';return;}
+  var html='';
+  ['food','drink','equip','other'].forEach(function(cat){
+    var its=items.filter(function(i){return i.cat===cat;});
+    if(!its.length) return;
+    html+='<div class="items-group-label '+CAT_CLASS[cat]+'">'+CAT_LABEL[cat]+'</div>';
+    its.forEach(function(item){
+      // Main row
+      html+='<div class="item-row">'
+        +'<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')">'+(item.done?'\u2713':'')+'</div>'
+        +'<div class="item-main">'
+          +'<div class="item-name-line'+(item.done?' crossed':'')+'">'+esc(item.name)+(item.qty>1?' <span class="qty-badge">\xd7'+item.qty+'</span>':'')+'</div>'
+          +'<div class="assignees-row">'+assigneeDisplay(item)+'</div>'
         +'</div>'
-        +'<select class="assign-sel" onchange="changeAssign(\''+item.id+'\',this.value)">'+opts+'</select>'
-        +'<button class="btn-ghost" onclick="removeItem(\''+item.id+'\')" title="Remove">\xd7</button>'
+        +'<div class="item-actions">'
+          +'<button class="btn-ghost" onclick="startEdit(\''+item.id+'\')" title="Edit">'+(editingId===item.id?'\u2715':'\u270f\ufe0f')+'</button>'
+          +'<button class="btn-ghost" onclick="removeItem(\''+item.id+'\')" title="Remove">\xd7</button>'
+        +'</div>'
         +'</div>';
+      // Edit panel
+      if(editingId===item.id){
+        html+='<div class="edit-panel">'
+          +'<div class="edit-row">'
+            +'<input class="edit-name" id="edit-name-'+item.id+'" type="text" value="'+esc(item.name)+'" placeholder="Item name" style="flex:1;min-width:130px">'
+            +'<input class="edit-qty" id="edit-qty-'+item.id+'" type="number" value="'+item.qty+'" min="1" style="width:65px">'
+            +'<select id="edit-cat-'+item.id+'">'
+              +'<option value="food"'+(item.cat==='food'?' selected':'')+'>&#x1F356; Food</option>'
+              +'<option value="drink"'+(item.cat==='drink'?' selected':'')+'>&#x1F37B; Drinks</option>'
+              +'<option value="equip"'+(item.cat==='equip'?' selected':'')+'>&#x1F6E0; Equipment</option>'
+              +'<option value="other"'+(item.cat==='other'?' selected':'')+'>&#x1F4E6; Other</option>'
+            +'</select>'
+          +'</div>'
+          +'<div class="assign-checks-label">Assigned to:</div>'
+          +'<div class="assign-checks" id="edit-assign-'+item.id+'">'
+            +editAssignChipsHtml(item.id)
+          +'</div>'
+          +'<div class="row">'
+            +'<button class="btn btn-primary btn-sm" onclick="saveEdit(\''+item.id+'\')">Save</button>'
+            +'<button class="btn btn-sm" onclick="cancelEdit()">Cancel</button>'
+          +'</div>'
+        +'</div>';
+      }
     });
   });
-  list.innerHTML = html;
+  list.innerHTML=html;
 }
 
 function renderStats() {
-  var items  = Object.values(state.items  || {});
-  var people = Object.values(state.people || {});
-  var total  = items.length;
-  var done   = items.filter(function(i){ return i.done; }).length;
-  var sec    = document.getElementById('stats-section');
-  if (!sec) return;
-  if (!total && !people.length) { sec.style.display = 'none'; return; }
-  sec.style.display = 'block';
-  setEl('s-total', total);
-  setEl('s-done',  done);
-  setEl('s-ppl',   people.length);
-  var pct = total ? Math.round(done / total * 100) : 0;
-  setEl('prog-label', done + ' of ' + total + ' items confirmed');
-  setEl('prog-pct',   pct + '%');
-  var fill = document.getElementById('prog-fill');
-  if (fill) fill.style.width = pct + '%';
+  var items =Object.values(state.items||{});
+  var people=Object.values(state.people||{});
+  var total=items.length, done=items.filter(function(i){return i.done;}).length;
+  var sec=document.getElementById('stats-section');
+  if(!sec) return;
+  if(!total&&!people.length){sec.style.display='none';return;}
+  sec.style.display='block';
+  setEl('s-total',total); setEl('s-done',done); setEl('s-ppl',people.length);
+  var pct=total?Math.round(done/total*100):0;
+  setEl('prog-label',done+' of '+total+' items confirmed');
+  setEl('prog-pct',pct+'%');
+  var fill=document.getElementById('prog-fill');
+  if(fill) fill.style.width=pct+'%';
 }
 
-// ── Share ─────────────────────────────────────────────────
+// ── Share / Room ──────────────────────────────────────────
 function copyShareLink() {
-  var url = location.origin + location.pathname + '?room=' + roomKey;
+  var url=location.origin+location.pathname+'?room='+roomKey;
   navigator.clipboard.writeText(url)
-    .then(function(){ showToast('Invite link copied! Send it to your friends.'); })
-    .catch(function(){ prompt('Copy this link:', url); });
+    .then(function(){showToast('Invite link copied! Send it to your friends.');})
+    .catch(function(){prompt('Copy this link:',url);});
 }
-
 function newRoom() {
-  if (!confirm('Start a brand new empty plan with a new invite link?')) return;
-  if (es) { es.close(); es = null; }
-  roomKey = makeCode();
-  localStorage.setItem(ROOM_KEY_KEY, roomKey);
-  state   = freshState();
-  history.replaceState(null, '', location.origin + location.pathname + '?room=' + roomKey);
-  setEl('room-code-display', roomKey);
-  syncFormFromState();
-  render();
-  pushState();
-  startStream();
+  if(!confirm('Start a brand new empty plan with a new invite link?')) return;
+  if(es){es.close();es=null;}
+  roomKey=makeCode(); localStorage.setItem(ROOM_KEY_KEY,roomKey);
+  state=freshState(); editingId=null; addAssignees=[];
+  history.replaceState(null,'',location.origin+location.pathname+'?room='+roomKey);
+  setEl('room-code-display',roomKey);
+  syncFormFromState(); render(); pushState(); startStream();
   showToast('New plan created!');
 }
 
-// ── Setup save ────────────────────────────────────────────
+// ── Setup ─────────────────────────────────────────────────
 function saveDbUrl() {
-  var v = (document.getElementById('setup-url').value || '').trim().replace(/\/+$/, '');
-  document.getElementById('setup-error').style.display   = 'none';
-  document.getElementById('setup-testing').style.display = 'none';
-
-  if (!v.startsWith('https://') || !v.includes('.firebaseio.com')) {
-    showError('setup-error', 'Must start with https:// and contain .firebaseio.com');
-    return;
+  var v=(document.getElementById('setup-url').value||'').trim().replace(/\/+$/,'');
+  document.getElementById('setup-error').style.display='none';
+  if(!v.startsWith('https://')||!v.includes('.firebaseio.com')){
+    showError('setup-error','Must start with https:// and contain .firebaseio.com'); return;
   }
-
-  localStorage.setItem(DB_URL_KEY, v);
+  localStorage.setItem(DB_URL_KEY,v);
   location.reload();
 }
 
 // ── Helpers ───────────────────────────────────────────────
-function setSyncStatus(ok, msg) {
-  var dot   = document.getElementById('sync-dot');
-  var label = document.getElementById('sync-label');
-  if (!dot || !label) return;
-  dot.className = 'sync-dot ' + (ok ? 'live' : 'offline');
-  label.textContent = msg || (ok ? 'Live' : 'Offline');
+function setSyncStatus(ok,msg){
+  var dot=document.getElementById('sync-dot'),label=document.getElementById('sync-label');
+  if(!dot||!label) return;
+  dot.className='sync-dot '+(ok?'live':'offline');
+  label.textContent=msg||(ok?'Live':'Offline');
 }
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
 }
-function showError(id, msg) {
-  var el = document.getElementById(id);
-  if (el) { el.textContent = '\u26a0 ' + msg; el.style.display = 'block'; }
-}
-function setEl(id, text) {
-  var el = document.getElementById(id);
-  if (el) el.textContent = text;
-}
-function val(id) {
-  var el = document.getElementById(id);
-  return el ? el.value.trim() : '';
-}
-function setValIfNotFocused(id, v) {
-  var el = document.getElementById(id);
-  if (el && document.activeElement !== el) el.value = v;
-}
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function showError(id,msg){var el=document.getElementById(id);if(el){el.textContent='\u26a0 '+msg;el.style.display='block';}}
+function setEl(id,text){var el=document.getElementById(id);if(el)el.textContent=text;}
+function val(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function setValIfNotFocused(id,v){var el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-document.getElementById('setup-url').addEventListener('keydown', function(e){
-  if (e.key === 'Enter') saveDbUrl();
-});
-
-// Global error catcher — shows useful message instead of blank screen
-window.onerror = function(msg, src, line, col, err) {
-  console.error('Global error:', msg, err);
-  return false;
-};
+document.getElementById('setup-url').addEventListener('keydown',function(e){if(e.key==='Enter')saveDbUrl();});
+window.onerror=function(m,s,l,c,e){console.error('Global error:',m,e);return false;};
 
 init();
 </script>
