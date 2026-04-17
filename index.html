@@ -29,7 +29,11 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 .section-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--accent);margin-bottom:.9rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .divider{height:1px;background:var(--border);margin:1rem 0}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-input[type=text],input[type=date],input[type=number],select,textarea{font-family:'DM Sans',sans-serif;font-size:14px;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
+input[type=text],input[type=date],input[type=number],select,textarea{
+  font-family:'DM Sans',sans-serif;font-size:14px;padding:9px 12px;
+  border:1px solid var(--border2);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--text);outline:none;transition:border-color .15s
+}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
 select{cursor:pointer}
 textarea{resize:vertical;line-height:1.5}
@@ -48,7 +52,7 @@ textarea{resize:vertical;line-height:1.5}
 .btn-green:hover{background:#d4ecb8}
 .btn-claim{font-family:'DM Sans',sans-serif;font-size:12px;padding:3px 9px;border-radius:20px;border:1px dashed var(--border2);background:none;color:var(--text3);cursor:pointer;white-space:nowrap}
 .btn-claim:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.field-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;display:block}
+.field-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px;display:block}
 
 /* Event meta */
 .event-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -80,61 +84,57 @@ textarea{resize:vertical;line-height:1.5}
 .item-main{flex:1;min-width:0}
 .item-name-line{font-size:14px;font-weight:500}
 .item-name-line.crossed{text-decoration:line-through;color:var(--text3)}
-.qty-badge{font-size:12px;color:var(--text3);font-weight:400}
 .item-note{font-size:12px;color:var(--text3);margin-top:3px;font-style:italic}
 .assignees-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;align-items:center}
-.assignee-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:3px 10px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.assignee-chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:3px 10px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
 .assignee-chip.is-all{background:var(--accent-light);border-color:#F5C4B3;color:var(--accent);font-weight:500}
-.assignee-qty{font-weight:700;color:var(--accent)}
+.assignee-qty{font-weight:700;color:var(--accent);font-size:13px}
 .item-actions{display:flex;gap:2px;flex-shrink:0}
 
 /* Edit panel */
 .edit-panel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin:4px 0 10px 30px}
 .edit-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 
-/* ── New assignment widget ───────────────────────────── */
-.assign-widget{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
+/* ── Assignment Widget ─────────────────────────────────── */
+.aw{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
+.aw-empty{padding:12px 14px;font-size:13px;color:var(--text3)}
 
-/* Top row: unselected people to click */
-.assign-available{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--border);min-height:42px;align-items:center}
-.assign-available:empty::before{content:'All friends assigned';font-size:13px;color:var(--text3)}
-.avail-chip{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;user-select:none}
-.avail-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.avail-chip.all-avail{border-style:solid;font-weight:500}
-.avail-chip.all-avail.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Each person row */
+.aw-person{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);transition:background .1s}
+.aw-person:last-of-type{border-bottom:none}
+.aw-person.checked{background:var(--accent-light)}
+.aw-person label{display:flex;align-items:center;gap:10px;flex:1;cursor:pointer;min-width:0}
+.aw-person input[type=checkbox]{width:17px;height:17px;cursor:pointer;accent-color:var(--accent);flex-shrink:0}
+.aw-name{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aw-name.muted{color:var(--text3)}
 
-/* Bottom: selected people with qty inputs */
-.assign-selected{padding:0}
-.assign-person-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--border)}
-.assign-person-row:last-child{border-bottom:none}
-.assign-person-name{flex:1;font-size:14px;font-weight:500;color:var(--text)}
-.assign-qty-inp{width:70px;font-size:14px;padding:6px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center}
-.assign-qty-inp:focus{border-color:var(--accent);outline:none}
-.assign-qty-label{font-size:12px;color:var(--text3);white-space:nowrap}
-.assign-remove{background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;padding:0 4px;line-height:1;border-radius:4px}
-.assign-remove:hover{color:var(--accent);background:var(--accent-light)}
+/* qty input — always visible, disabled when unchecked */
+.aw-qty{
+  width:64px;font-size:14px;padding:5px 8px;text-align:center;
+  border:1px solid var(--border2);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--text);flex-shrink:0
+}
+.aw-qty:disabled{background:var(--surface2);color:var(--text3);border-color:var(--border)}
+.aw-qty-label{font-size:12px;color:var(--text3);flex-shrink:0}
 
-/* Total indicator */
-.assign-total{padding:8px 12px;background:var(--surface2);border-top:1px solid var(--border);font-size:13px;display:flex;align-items:center;justify-content:space-between}
-.assign-total.ok{color:var(--green)}
-.assign-total.warn{color:#A32D2D}
-.assign-total.neutral{color:var(--text3)}
+/* Everyone row */
+.aw-everyone{background:var(--surface2);border-bottom:1px solid var(--border)}
+.aw-everyone.checked{background:#FFF0E8}
+.aw-everyone .aw-name{font-weight:500}
 
-/* Suggestions */
-.suggest-panel{margin-top:12px;display:none}
-.suggest-panel.open{display:block}
-.suggest-grid{display:flex;flex-direction:column;gap:4px;max-height:380px;overflow-y:auto;margin-top:8px}
-.suggest-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface)}
-.suggest-item:hover:not(.added){background:var(--accent-light);border-color:#F5C4B3}
-.suggest-item.added{opacity:.4;pointer-events:none}
-.suggest-cat{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:10px;margin-bottom:2px}
-.suggest-name{flex:1;font-size:14px}
-.suggest-qty{font-size:13px;color:var(--text3);min-width:50px;text-align:right}
-
-/* Reminder */
-.reminder-panel{margin-top:12px;display:none}
-.reminder-panel.open{display:block}
-.reminder-text{width:100%;font-size:13px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);font-family:monospace;line-height:1.6;min-height:220px;resize:vertical}
+/* Formula total bar */
+.aw-total{
+  padding:10px 14px;border-top:1px solid var(--border);
+  font-size:13px;background:var(--surface2);
+  display:flex;align-items:center;justify-content:space-between;gap:8px
+}
+.aw-formula{color:var(--text2);flex:1}
+.aw-formula strong{color:var(--text);font-weight:500}
+.aw-badge{font-size:12px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.aw-badge.ok{background:var(--green-bg);color:var(--green)}
+.aw-badge.over{background:#FCEBEB;color:#A32D2D}
+.aw-badge.under{background:var(--amber-bg);color:var(--amber)}
+.aw-badge.info{background:var(--blue-bg);color:var(--blue)}
 
 /* Stats */
 .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.25rem}
@@ -154,6 +154,22 @@ textarea{resize:vertical;line-height:1.5}
 .sync-dot.live{animation:pulse 2s infinite}
 .sync-dot.offline{background:#E24B4A}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Suggestions */
+.suggest-panel{margin-top:12px;display:none}
+.suggest-panel.open{display:block}
+.suggest-grid{display:flex;flex-direction:column;gap:4px;max-height:340px;overflow-y:auto;margin-top:8px}
+.suggest-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface)}
+.suggest-item:hover:not(.added){background:var(--accent-light);border-color:#F5C4B3}
+.suggest-item.added{opacity:.4;pointer-events:none}
+.suggest-cat{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:10px;margin-bottom:2px}
+.suggest-name{flex:1;font-size:14px}
+.suggest-qty{font-size:13px;color:var(--text3);min-width:50px;text-align:right}
+
+/* Reminder */
+.reminder-panel{margin-top:12px;display:none}
+.reminder-panel.open{display:block}
+.reminder-text{width:100%;font-size:13px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);font-family:monospace;line-height:1.6;min-height:220px;resize:vertical}
 
 /* Setup */
 .setup{max-width:620px;margin:3rem auto;padding:0 1rem}
@@ -193,7 +209,7 @@ textarea{resize:vertical;line-height:1.5}
     <input type="text" id="setup-url" placeholder="https://your-project-default-rtdb.firebaseio.com">
     <div id="setup-error" class="alert alert-error"></div>
     <button class="btn btn-primary" onclick="saveDbUrl()">Save &amp; Start Planning</button>
-    <p style="margin-top:1rem;font-size:12px;color:var(--text3)">URL is stored only in your browser's localStorage.</p>
+    <p style="margin-top:1rem;font-size:12px;color:var(--text3)">URL stored only in your browser's localStorage.</p>
   </div>
 </div>
 
@@ -229,7 +245,7 @@ textarea{resize:vertical;line-height:1.5}
   <!-- Reminder -->
   <div class="card reminder-panel" id="reminder-panel">
     <div class="section-title">Reminder message <button class="btn btn-sm btn-primary" onclick="copyReminder()">Copy</button></div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">Paste into WhatsApp, iMessage, or email to remind everyone what they're bringing.</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">Paste into WhatsApp, iMessage, or email.</p>
     <textarea class="reminder-text" id="reminder-text" readonly></textarea>
   </div>
 
@@ -290,13 +306,9 @@ textarea{resize:vertical;line-height:1.5}
         <input type="text" id="item-note" placeholder="e.g. at least 10 should be veggie" style="width:100%">
       </div>
       <div>
-        <span class="field-label">Assign &amp; set quantities</span>
-        <div class="assign-widget" id="add-assign-widget">
-          <div class="assign-available" id="add-avail">
-            <span style="font-size:13px;color:var(--text3)">Add friends above first</span>
-          </div>
-          <div class="assign-selected" id="add-selected"></div>
-          <div class="assign-total neutral" id="add-total" style="display:none"></div>
+        <span class="field-label">Who brings what &amp; how much</span>
+        <div class="aw" id="add-aw">
+          <div class="aw-empty">Add friends above to assign them items</div>
         </div>
       </div>
       <div><button class="btn btn-primary" onclick="addItem()">Add item</button></div>
@@ -328,49 +340,35 @@ textarea{resize:vertical;line-height:1.5}
 <div class="toast" id="toast"></div>
 
 <script>
-var DB_URL_KEY='bbq_firebase_url',ROOM_KEY_KEY='bbq_room_key',MY_NAME_KEY='bbq_my_name';
+var DB_URL_KEY='bbq_firebase_url', ROOM_KEY_KEY='bbq_room_key', MY_NAME_KEY='bbq_my_name';
 var CAT_LABEL={food:'Food',drink:'Drinks',equip:'Equipment',other:'Other'};
 var CAT_CLASS={food:'lbl-food',drink:'lbl-drink',equip:'lbl-equip',other:'lbl-other'};
-
 var SUGGESTIONS=[
-  {cat:'food',name:'Burger patties',per:2,min:10},
-  {cat:'food',name:'Burger buns',per:2,min:10},
-  {cat:'food',name:'Hot dogs',per:1,min:8},
-  {cat:'food',name:'Hot dog buns',per:1,min:8},
-  {cat:'food',name:'Veggie burgers',per:0.3,min:4},
-  {cat:'food',name:'Corn on the cob',per:1,min:6},
-  {cat:'food',name:'Salad (bag)',per:0.15,min:1},
-  {cat:'food',name:'Coleslaw (kg)',per:0.08,min:1},
-  {cat:'food',name:'Bread rolls',per:1,min:10},
-  {cat:'food',name:'Condiment set',per:0.04,min:1},
-  {cat:'drink',name:'Soft drinks (cans)',per:3,min:12},
-  {cat:'drink',name:'Beer / cider (cans)',per:4,min:12},
-  {cat:'drink',name:'Water (1.5L bottles)',per:0.4,min:4},
-  {cat:'drink',name:'Juice (cartons)',per:0.12,min:2},
-  {cat:'drink',name:'Ice (bags)',per:0.12,min:2},
-  {cat:'equip',name:'Charcoal (bags)',per:0.06,min:2},
-  {cat:'equip',name:'Lighter fluid',per:0.02,min:1},
-  {cat:'equip',name:'Disposable plates',per:1.5,min:20},
-  {cat:'equip',name:'Napkins (pack)',per:0.04,min:1},
-  {cat:'equip',name:'Plastic cups',per:2,min:20},
-  {cat:'equip',name:'Cutlery sets',per:1.2,min:20},
-  {cat:'equip',name:'BBQ skewers (pack)',per:0.04,min:1},
-  {cat:'equip',name:'Aluminium foil (roll)',per:0.02,min:1},
-  {cat:'equip',name:'Trash bags (pack)',per:0.02,min:1},
-  {cat:'equip',name:'Picnic chairs',per:1,min:6},
-  {cat:'equip',name:'Picnic blankets',per:0.08,min:1},
-  {cat:'equip',name:'Tongs / BBQ tools',per:0.02,min:1},
-  {cat:'equip',name:'Cool box / cooler',per:0.04,min:1}
+  {cat:'food',name:'Burger patties',per:2,min:10},{cat:'food',name:'Burger buns',per:2,min:10},
+  {cat:'food',name:'Hot dogs',per:1,min:8},{cat:'food',name:'Hot dog buns',per:1,min:8},
+  {cat:'food',name:'Veggie burgers',per:0.3,min:4},{cat:'food',name:'Corn on the cob',per:1,min:6},
+  {cat:'food',name:'Salad (bag)',per:0.15,min:1},{cat:'food',name:'Coleslaw (kg)',per:0.08,min:1},
+  {cat:'food',name:'Bread rolls',per:1,min:10},{cat:'food',name:'Condiment set',per:0.04,min:1},
+  {cat:'drink',name:'Soft drinks (cans)',per:3,min:12},{cat:'drink',name:'Beer / cider (cans)',per:4,min:12},
+  {cat:'drink',name:'Water (1.5L bottles)',per:0.4,min:4},{cat:'drink',name:'Juice (cartons)',per:0.12,min:2},
+  {cat:'drink',name:'Ice (bags)',per:0.12,min:2},{cat:'equip',name:'Charcoal (bags)',per:0.06,min:2},
+  {cat:'equip',name:'Lighter fluid',per:0.02,min:1},{cat:'equip',name:'Disposable plates',per:1.5,min:20},
+  {cat:'equip',name:'Napkins (pack)',per:0.04,min:1},{cat:'equip',name:'Plastic cups',per:2,min:20},
+  {cat:'equip',name:'Cutlery sets',per:1.2,min:20},{cat:'equip',name:'BBQ skewers (pack)',per:0.04,min:1},
+  {cat:'equip',name:'Aluminium foil (roll)',per:0.02,min:1},{cat:'equip',name:'Trash bags (pack)',per:0.02,min:1},
+  {cat:'equip',name:'Picnic chairs',per:1,min:6},{cat:'equip',name:'Picnic blankets',per:0.08,min:1},
+  {cat:'equip',name:'Tongs / BBQ tools',per:0.02,min:1},{cat:'equip',name:'Cool box / cooler',per:0.04,min:1}
 ];
 
 var dbUrl='',roomKey='',state=freshState(),es=null,pushTimer=null,ignoring=false;
-var editingId=null,myName='';
+var editingId=null, myName='';
 
-// addMap: {personId: qty} for the add form. Special key 'all' means everyone.
+// addMap: {personId: qty} or {'all': 1}
 var addMap={};
+// editMaps: {itemId: {personId: qty} or {'all':1}}
+var editMaps={};
 
 function freshState(){return {event:{},people:{},items:{}};}
-
 function mergeState(r){
   if(!r||typeof r!=='object') return;
   state.event =(r.event &&typeof r.event ==='object')?r.event :{};
@@ -410,7 +408,7 @@ function roomUrl(){return cleanUrl(dbUrl)+'/bbq/'+roomKey+'.json';}
 
 function fetchState(){
   return fetch(roomUrl()).then(function(r){if(!r.ok)throw new Error();return r.json();})
-    .then(function(data){mergeState(data);render();setSyncStatus(true,'Live \u2014 changes sync instantly');});
+    .then(function(d){mergeState(d);render();setSyncStatus(true,'Live \u2014 changes sync instantly');});
 }
 function pushState(){
   fetch(roomUrl(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)})
@@ -429,7 +427,6 @@ function startStream(){
     es.onopen=function(){setSyncStatus(true,'Live \u2014 changes sync instantly');};
   }catch(e){setSyncStatus(false,'Real-time stream unavailable');}
 }
-
 function bindFormEvents(){
   ['evt-name','evt-date','evt-loc','evt-guests'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.addEventListener('input',function(){syncStateFromForm();schedulePush();});
@@ -467,139 +464,168 @@ function removePerson(id){
     if(Array.isArray(item.assignedTo))item.assignedTo=item.assignedTo.filter(function(x){return x!==id;});
     if(item.splits)delete item.splits[id];
   });
-  delete addMap[id];
+  delete addMap[id];Object.keys(editMaps).forEach(function(k){delete editMaps[k][id];});
   render();schedulePush();
 }
 
-// ── Assignment widget (shared by add form + edit panel) ──────────
+// ── Assignment Widget ─────────────────────────────────────────────────────
+// map: {personId: qty} or {'all': 1}
+// containerId: e.g. 'add-aw' or 'edit-aw-i123'
+// targetTotal: number or null (null = no target, total is just sum)
+// prefix: unique string for input IDs to avoid collisions
 
-// prefix: 'add' or item id for edit
-// map: reference to the object being mutated {personId: qty} or {all: 1}
-function renderAssignWidget(prefix, map, totalQty){
+function buildAW(containerId, map, targetTotal){
   var people=Object.values(state.people||{});
   var isAll='all' in map;
-  var selectedIds=isAll?[]:Object.keys(map);
 
-  // Available (unselected) row
-  var availHtml='';
-  // Everyone chip (always shown)
-  availHtml+='<div class="avail-chip all-avail'+(isAll?' selected':'')+'" onclick="toggleAssignAll(\''+prefix+'\')">\uD83D\uDD25 Everyone</div>';
-  // Unselected people
-  var unselected=people.filter(function(p){return selectedIds.indexOf(p.id)<0;});
-  unselected.forEach(function(p){
-    availHtml+='<div class="avail-chip" onclick="toggleAssignPerson(\''+prefix+'\',\''+p.id+'\')">+ '+esc(p.name)+'</div>';
-  });
-  if(!people.length) availHtml='<span style="font-size:13px;color:var(--text3)">Add friends above to assign</span>';
+  if(!people.length){
+    return '<div class="aw-empty">Add friends above to assign them items</div>';
+  }
 
-  // Selected rows with qty inputs
-  var selectedHtml='';
-  if(isAll){
-    // Everyone — single row, no qty needed
-    selectedHtml='<div class="assign-person-row">'
-      +'<span class="assign-person-name">\uD83D\uDD25 Everyone brings one each</span>'
-      +'<button class="assign-remove" onclick="toggleAssignAll(\''+prefix+'\')" title="Remove">\xd7</button>'
+  var html='';
+
+  // Everyone row
+  html+='<div class="aw-person aw-everyone'+(isAll?' checked':'')+'">'
+    +'<label>'
+      +'<input type="checkbox"'+(isAll?' checked':'')+' onchange="awToggleAll(\''+containerId+'\')">'
+      +'<span class="aw-name">\uD83D\uDD25 Everyone</span>'
+      +'<span style="font-size:12px;color:var(--text3);margin-left:4px">(everyone brings one each)</span>'
+    +'</label>'
+    +'</div>';
+
+  // Individual people rows
+  people.forEach(function(p){
+    var checked=!isAll && (p.id in map);
+    var qty=(map[p.id]!=null)?map[p.id]:1;
+    html+='<div class="aw-person'+(checked?' checked':'')+'" id="aw-row-'+containerId+'-'+p.id+'">'
+      +'<label style="flex:1;display:flex;align-items:center;gap:10px;cursor:pointer">'
+        +'<input type="checkbox"'+(checked?' checked':'')+(isAll?' disabled':'')+' onchange="awTogglePerson(\''+containerId+'\',\''+p.id+'\')">'
+        +'<span class="aw-name'+(isAll?' muted':'')+'">'+esc(p.name)+'</span>'
+      +'</label>'
+      +'<input class="aw-qty" type="number" min="0" value="'+qty+'"'
+        +((!checked||isAll)?' disabled':'')+' id="aw-qty-'+containerId+'-'+p.id+'"'
+        +' oninput="awUpdateQty(\''+containerId+'\',\''+p.id+'\',this.value)"'
+        +' onclick="event.stopPropagation()">'
+      +'<span class="aw-qty-label">qty</span>'
       +'</div>';
-  } else {
-    var assignedPeople=people.filter(function(p){return selectedIds.indexOf(p.id)>=0;});
-    assignedPeople.forEach(function(p){
-      var qty=map[p.id]||1;
-      selectedHtml+='<div class="assign-person-row">'
-        +'<span class="assign-person-name">\uD83D\uDC64 '+esc(p.name)+'</span>'
-        +'<input class="assign-qty-inp" type="number" min="0" value="'+qty+'" '
-          +'oninput="updateAssignQty(\''+prefix+'\',\''+p.id+'\',this.value)" '
-          +'onclick="event.stopPropagation()">'
-        +'<span class="assign-qty-label">qty</span>'
-        +'<button class="assign-remove" onclick="toggleAssignPerson(\''+prefix+'\',\''+p.id+'\')" title="Remove">\xd7</button>'
+  });
+
+  // Total formula bar
+  if(!isAll){
+    var assigned=people.filter(function(p){return p.id in map;});
+    if(assigned.length>0){
+      var sum=assigned.reduce(function(s,p){return s+(map[p.id]||0);},0);
+      var parts=assigned.map(function(p){return esc(p.name)+' <strong>\xd7'+(map[p.id]||0)+'</strong>';});
+      var formula=parts.join(' &nbsp;+&nbsp; ')+' &nbsp;= &nbsp;<strong>'+sum+' total</strong>';
+      var badge='',badgeCls='info';
+      if(targetTotal!=null&&parseInt(targetTotal)>0){
+        var tq=parseInt(targetTotal);
+        if(sum===tq){badge='\u2713 Matches target';badgeCls='ok';}
+        else if(sum>tq){badge='\u26A0 '+(sum-tq)+' over target';badgeCls='over';}
+        else{badge=(tq-sum)+' still unaccounted';badgeCls='under';}
+      }
+      html+='<div class="aw-total">'
+        +'<span class="aw-formula">'+formula+'</span>'
+        +(badge?'<span class="aw-badge '+badgeCls+'">'+badge+'</span>':'')
         +'</div>';
-    });
-  }
-
-  // Total indicator
-  var totalHtml='',totalCls='neutral';
-  if(!isAll && selectedIds.length>0 && totalQty){
-    var sum=selectedIds.reduce(function(s,pid){return s+(map[pid]||0);},0);
-    var tq=parseInt(totalQty)||0;
-    if(tq>0){
-      var diff=sum-tq;
-      if(diff===0){totalCls='ok';totalHtml='\u2713 Splits add up to '+sum;}
-      else if(diff>0){totalCls='warn';totalHtml='\u26A0 Over by '+diff+' (total: '+sum+' / '+tq+')';}
-      else{totalCls='warn';totalHtml='\u26A0 Still '+Math.abs(diff)+' unaccounted (total: '+sum+' / '+tq+')';}
-    } else {
-      totalHtml='Total across all: '+sum;
     }
-  } else if(!isAll && selectedIds.length>1) {
-    var sum2=selectedIds.reduce(function(s,pid){return s+(map[pid]||0);},0);
-    totalHtml='Combined total: '+sum2;
   }
 
-  var availEl=document.getElementById(prefix+'-avail');
-  var selEl=document.getElementById(prefix+'-selected');
-  var totEl=document.getElementById(prefix+'-total');
-  if(availEl) availEl.innerHTML=availHtml;
-  if(selEl)   selEl.innerHTML=selectedHtml;
-  if(totEl){
-    if(totalHtml){totEl.style.display='flex';totEl.className='assign-total '+totalCls;totEl.textContent=totalHtml;}
-    else{totEl.style.display='none';}
+  return html;
+}
+
+function renderAW(containerId, map, targetTotal){
+  var el=document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML=buildAW(containerId,map,targetTotal);
+}
+
+// Only re-render the total bar (called on qty input to avoid cursor-jump)
+function refreshAWTotal(containerId, map, targetTotal){
+  // Remove old total bar and re-append
+  var container=document.getElementById(containerId);if(!container)return;
+  var old=container.querySelector('.aw-total');if(old)old.parentNode.removeChild(old);
+  var people=Object.values(state.people||{});
+  var isAll='all' in map;
+  if(!isAll){
+    var assigned=people.filter(function(p){return p.id in map;});
+    if(assigned.length>0){
+      var sum=assigned.reduce(function(s,p){return s+(map[p.id]||0);},0);
+      var parts=assigned.map(function(p){return esc(p.name)+' <strong>\xd7'+(map[p.id]||0)+'</strong>';});
+      var formula=parts.join(' &nbsp;+&nbsp; ')+' &nbsp;= &nbsp;<strong>'+sum+' total</strong>';
+      var badge='',badgeCls='info';
+      if(targetTotal!=null&&parseInt(targetTotal)>0){
+        var tq=parseInt(targetTotal);
+        if(sum===tq){badge='\u2713 Matches target';badgeCls='ok';}
+        else if(sum>tq){badge='\u26A0 '+(sum-tq)+' over';badgeCls='over';}
+        else{badge=(tq-sum)+' still unaccounted';badgeCls='under';}
+      }
+      var div=document.createElement('div');
+      div.className='aw-total';
+      div.innerHTML='<span class="aw-formula">'+formula+'</span>'+(badge?'<span class="aw-badge '+badgeCls+'">'+badge+'</span>':'');
+      container.appendChild(div);
+    }
   }
 }
 
-function toggleAssignAll(prefix){
-  var map=getMap(prefix);
-  if('all' in map){delete map['all'];}
-  else{Object.keys(map).forEach(function(k){delete map[k];});map['all']=1;}
-  renderAssignWidget(prefix,map,getTotalQty(prefix));
+// Toggle Everyone
+function awToggleAll(cid){
+  var map=getAWMap(cid);
+  var nowAll='all' in map;
+  // clear map
+  Object.keys(map).forEach(function(k){delete map[k];});
+  if(!nowAll) map['all']=1;
+  renderAW(cid,map,getAWTarget(cid));
 }
 
-function toggleAssignPerson(prefix,pid){
-  var map=getMap(prefix);
+// Toggle individual person
+function awTogglePerson(cid,pid){
+  var map=getAWMap(cid);
   if(pid in map){delete map[pid];}
   else{map[pid]=1;}
-  renderAssignWidget(prefix,map,getTotalQty(prefix));
+  renderAW(cid,map,getAWTarget(cid));
 }
 
-function updateAssignQty(prefix,pid,rawVal){
-  var map=getMap(prefix);
+// Update qty (doesn't re-render inputs, just updates total bar)
+function awUpdateQty(cid,pid,rawVal){
+  var map=getAWMap(cid);
   map[pid]=Math.max(0,parseInt(rawVal)||0);
-  // just update total indicator, don't re-render inputs (avoid cursor jump)
-  renderAssignTotalOnly(prefix,map,getTotalQty(prefix));
+  refreshAWTotal(cid,map,getAWTarget(cid));
 }
 
-function renderAssignTotalOnly(prefix,map,totalQty){
-  var totEl=document.getElementById(prefix+'-total');if(!totEl)return;
-  var selectedIds=Object.keys(map).filter(function(k){return k!=='all';});
-  if(selectedIds.length>0&&!('all' in map)){
-    var sum=selectedIds.reduce(function(s,pid){return s+(map[pid]||0);},0);
-    var tq=parseInt(totalQty)||0;
-    var html,cls;
-    if(tq>0){
-      var diff=sum-tq;
-      if(diff===0){cls='ok';html='\u2713 Splits add up to '+sum;}
-      else if(diff>0){cls='warn';html='\u26A0 Over by '+diff+' (total: '+sum+' / '+tq+')';}
-      else{cls='warn';html='\u26A0 Still '+Math.abs(diff)+' unaccounted (total: '+sum+' / '+tq+')';}
-    } else {html='Combined total: '+sum;cls='neutral';}
-    totEl.style.display='flex';totEl.className='assign-total '+cls;totEl.textContent=html;
-  } else {totEl.style.display='none';}
+function getAWMap(cid){
+  if(cid==='add-aw') return addMap;
+  // edit: cid is 'edit-aw-ITEMID'
+  var itemId=cid.replace('edit-aw-','');
+  if(!editMaps[itemId])editMaps[itemId]={};
+  return editMaps[itemId];
 }
-
-function getMap(prefix){
-  if(prefix==='add') return addMap;
-  // edit panel: read from editMaps cache
-  if(!window.editMaps) window.editMaps={};
-  if(!window.editMaps[prefix]) window.editMaps[prefix]={};
-  return window.editMaps[prefix];
-}
-
-function getTotalQty(prefix){
-  if(prefix==='add') return null; // add form has no separate total field anymore
-  var item=state.items&&state.items[prefix];
+function getAWTarget(cid){
+  if(cid==='add-aw') return null;
+  var itemId=cid.replace('edit-aw-','');
+  var item=state.items&&state.items[itemId];
   return item?item.qty:null;
 }
 
-function renderAddWidget(){
-  renderAssignWidget('add',addMap,null);
+// Seed editMaps from existing item data
+function seedEditMap(itemId){
+  var item=state.items&&state.items[itemId];if(!item)return;
+  var at=item.assignedTo||[],m={};
+  if(at.indexOf('all')>=0){m['all']=1;}
+  else{at.forEach(function(pid){m[pid]=(item.splits&&item.splits[pid]!=null)?item.splits[pid]:1;});}
+  editMaps[itemId]=m;
 }
 
-// ── Items ──────────────────────────────────────────────────
+// ── Items ─────────────────────────────────────────────────
+
+function mapToItemFields(map){
+  // returns {assignedTo, splits, qty}
+  if('all' in map) return {assignedTo:['all'],splits:{},qty:1};
+  var ids=Object.keys(map);
+  var splits={};ids.forEach(function(pid){splits[pid]=map[pid]||0;});
+  var qty=ids.reduce(function(s,pid){return s+(map[pid]||0);},0)||1;
+  return {assignedTo:ids,splits:splits,qty:qty};
+}
 
 function addItem(){
   var inp=document.getElementById('item-input'),name=inp.value.trim();if(!name)return;
@@ -607,16 +633,8 @@ function addItem(){
   var cat=document.getElementById('item-cat').value;
   var note=document.getElementById('item-note').value.trim();
   var id='i'+Date.now();
-  var assignedTo=[],splits={},qty=0;
-  if('all' in addMap){
-    assignedTo=['all'];qty=1;
-  } else {
-    assignedTo=Object.keys(addMap);
-    splits={};
-    assignedTo.forEach(function(pid){splits[pid]=addMap[pid]||1;});
-    qty=assignedTo.reduce(function(s,pid){return s+(splits[pid]||0);},0)||1;
-  }
-  state.items[id]={id:id,name:name,qty:qty,cat:cat,notes:note,assignedTo:assignedTo,splits:splits,done:false};
+  var f=mapToItemFields(addMap);
+  state.items[id]={id:id,name:name,qty:f.qty,cat:cat,notes:note,assignedTo:f.assignedTo,splits:f.splits,done:false};
   inp.value='';document.getElementById('item-note').value='';
   addMap={};
   render();schedulePush();
@@ -634,18 +652,10 @@ function addSuggestedItem(idx){
 
 function toggleDone(id){if(state.items&&state.items[id]){state.items[id].done=!state.items[id].done;render();schedulePush();}}
 function removeItem(id){if(editingId===id)editingId=null;if(state.items)delete state.items[id];render();schedulePush();}
+
 function startEdit(id){
-  editingId=(editingId===id)?null:id;
-  if(editingId){
-    // Seed editMaps from current item
-    if(!window.editMaps)window.editMaps={};
-    var item=state.items[id];
-    var at=item.assignedTo||[];
-    var m={};
-    if(at.indexOf('all')>=0){m['all']=1;}
-    else{at.forEach(function(pid){m[pid]=(item.splits&&item.splits[pid]!=null)?item.splits[pid]:1;});}
-    window.editMaps[id]=m;
-  }
+  if(editingId===id){editingId=null;}
+  else{editingId=id;seedEditMap(id);}
   render();
 }
 function cancelEdit(){editingId=null;render();}
@@ -656,15 +666,9 @@ function saveEdit(id){
   if(nn)item.name=nn.value.trim()||item.name;
   if(nc)item.cat=nc.value;
   if(no)item.notes=no.value.trim();
-  // Read from editMaps
-  var m=(window.editMaps&&window.editMaps[id])||{};
-  if('all' in m){item.assignedTo=['all'];item.splits={};item.qty=1;}
-  else{
-    var ids=Object.keys(m);
-    item.assignedTo=ids;
-    item.splits={};ids.forEach(function(pid){item.splits[pid]=m[pid]||0;});
-    item.qty=ids.reduce(function(s,pid){return s+(m[pid]||0);},0)||1;
-  }
+  var m=editMaps[id]||{};
+  var f=mapToItemFields(m);
+  item.assignedTo=f.assignedTo;item.splits=f.splits;item.qty=f.qty;
   editingId=null;render();schedulePush();
 }
 
@@ -675,20 +679,20 @@ function claimItem(itemId){
   if(!me){var nid='p'+Date.now();if(!state.people)state.people={};state.people[nid]={id:nid,name:myName};me={id:nid,name:myName};}
   var item=state.items&&state.items[itemId];if(!item)return;
   if(!Array.isArray(item.assignedTo))item.assignedTo=[];
-  if(item.assignedTo.indexOf('all')>=0||item.assignedTo.indexOf(me.id)>=0){showToast('You\'re already on this!');return;}
+  if(item.assignedTo.indexOf('all')>=0||item.assignedTo.indexOf(me.id)>=0){showToast('You\'re already assigned to this!');return;}
   item.assignedTo.push(me.id);
   if(!item.splits)item.splits={};item.splits[me.id]=1;
-  render();schedulePush();showToast('You\'re bringing '+item.name+'! Edit to set your quantity.');
+  render();schedulePush();showToast('You\'re bringing '+item.name+'! Hit ✏️ to set your quantity.');
 }
 function myPersonId(){if(!myName)return null;var me=Object.values(state.people||{}).find(function(p){return p.name.toLowerCase()===myName.toLowerCase();});return me?me.id:null;}
 
-// ── Render ───────────────────────────────────────────────
+// ── Render ────────────────────────────────────────────────
 
 function render(){
-  try{renderPeople();}catch(e){console.warn(e);}
-  try{renderItems();}catch(e){console.warn(e);}
-  try{renderStats();}catch(e){console.warn(e);}
-  try{renderAddWidget();}catch(e){console.warn(e);}
+  try{renderPeople();}catch(e){console.warn('renderPeople',e);}
+  try{renderItems();}catch(e){console.warn('renderItems',e);}
+  try{renderStats();}catch(e){console.warn('renderStats',e);}
+  try{renderAW('add-aw',addMap,null);}catch(e){console.warn('renderAddAW',e);}
 }
 
 function renderPeople(){
@@ -700,7 +704,7 @@ function assigneeDisplay(item){
   var at=item.assignedTo||[],people=state.people||{},meId=myPersonId();
   if(!at.length){
     return '<span style="font-size:12px;color:var(--text3)">Not assigned</span>'
-      +'<button class="btn-claim" style="margin-left:6px" onclick="claimItem(\''+item.id+'\')">I\'ll bring this</button>';
+      +'&nbsp;<button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this</button>';
   }
   if(at.indexOf('all')>=0){
     return '<span class="assignee-chip is-all">\uD83D\uDD25 Everyone brings one</span>'
@@ -711,33 +715,22 @@ function assigneeDisplay(item){
     var p=people[pid];if(!p)return '';
     var qty=splits[pid];
     return '<span class="assignee-chip">\uD83D\uDC64 '+esc(p.name)
-      +(qty!=null?'&nbsp;<span class="assignee-qty">\xd7'+qty+'</span>':'')
-      +'</span>';
+      +(qty!=null?'&nbsp;<span class="assignee-qty">\xd7'+qty+'</span>':'')+'</span>';
   }).join('');
-  // Show total if splits
+  // Running total across all splits
   var hasQtys=at.some(function(pid){return splits[pid]!=null;});
   if(hasQtys&&at.length>1){
     var tot=at.reduce(function(s,pid){return s+(splits[pid]||0);},0);
-    chips+='<span style="font-size:12px;color:var(--text3);margin-left:2px">= '+tot+' total</span>';
+    chips+='<span style="font-size:12px;color:var(--text3);margin-left:4px">= '+tot+' total</span>';
   }
   var iAssigned=meId&&at.indexOf(meId)>=0;
-  if(!iAssigned)chips+='<button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
+  if(!iAssigned)chips+='&nbsp;<button class="btn-claim" onclick="claimItem(\''+item.id+'\')">I\'ll bring this too</button>';
   return chips;
-}
-
-function buildEditWidget(id){
-  var item=state.items[id];
-  var m=(window.editMaps&&window.editMaps[id])||{};
-  return '<div class="assign-widget">'
-    +'<div class="assign-available" id="'+id+'-avail"></div>'
-    +'<div class="assign-selected" id="'+id+'-selected"></div>'
-    +'<div class="assign-total neutral" id="'+id+'-total" style="display:none"></div>'
-    +'</div>';
 }
 
 function renderItems(){
   var items=Object.values(state.items||{}),list=document.getElementById('items-list');if(!list)return;
-  if(!items.length){list.innerHTML='<div class="empty">No items yet \u2014 use suggestions or add below!</div>';return;}
+  if(!items.length){list.innerHTML='<div class="empty">No items yet \u2014 use suggestions or add one below!</div>';return;}
   var html='';
   ['food','drink','equip','other'].forEach(function(cat){
     var its=items.filter(function(i){return i.cat===cat;});if(!its.length)return;
@@ -747,17 +740,18 @@ function renderItems(){
         +'<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')">'+(item.done?'\u2713':'')+'</div>'
         +'<div class="item-main">'
           +'<div class="item-name-line'+(item.done?' crossed':'')+'">'+esc(item.name)
-            +(item.qty>1?' <span class="qty-badge">\xd7'+item.qty+' total</span>':'')+'</div>'
-          +(item.notes?'<div style="font-size:12px;color:var(--text3);margin-top:3px;font-style:italic">'+esc(item.notes)+'</div>':'')
+            +(item.qty>0?' <span style="font-size:12px;color:var(--text3);font-weight:400">\xd7'+item.qty+' total</span>':'')+'</div>'
+          +(item.notes?'<div class="item-note">'+esc(item.notes)+'</div>':'')
           +'<div class="assignees-row">'+assigneeDisplay(item)+'</div>'
         +'</div>'
         +'<div class="item-actions">'
           +'<button class="btn-ghost" onclick="startEdit(\''+item.id+'\')" title="Edit">'+(editingId===item.id?'\u2715':'\u270f\ufe0f')+'</button>'
           +'<button class="btn-ghost" onclick="removeItem(\''+item.id+'\')" title="Remove">\xd7</button>'
         +'</div></div>';
-      // Edit panel
+
       if(editingId===item.id){
-        html+='<div class="edit-panel" id="ep-'+item.id+'">'
+        var awCid='edit-aw-'+item.id;
+        html+='<div class="edit-panel">'
           +'<div class="edit-row">'
             +'<input style="flex:1;min-width:130px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+item.id+'" type="text" value="'+esc(item.name)+'">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
@@ -770,8 +764,8 @@ function renderItems(){
           +'<div style="margin-bottom:10px">'
             +'<span class="field-label">Note</span>'
             +'<input style="width:100%;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-note-'+item.id+'" type="text" value="'+esc(item.notes||'')+'"></div>'
-          +'<span class="field-label">Who brings what</span>'
-          +buildEditWidget(item.id)
+          +'<span class="field-label">Who brings what &amp; how much</span>'
+          +'<div class="aw" id="'+awCid+'"></div>'
           +'<div class="row" style="margin-top:10px">'
             +'<button class="btn btn-primary btn-sm" onclick="saveEdit(\''+item.id+'\')">Save</button>'
             +'<button class="btn btn-sm" onclick="cancelEdit()">Cancel</button>'
@@ -781,10 +775,11 @@ function renderItems(){
     });
   });
   list.innerHTML=html;
-  // Now wire up edit widgets (needs DOM to exist)
+  // Wire edit widget after DOM exists
   if(editingId&&state.items[editingId]){
-    var m=(window.editMaps&&window.editMaps[editingId])||{};
-    renderAssignWidget(editingId,m,state.items[editingId].qty);
+    var cid='edit-aw-'+editingId;
+    var m=editMaps[editingId]||{};
+    renderAW(cid,m,state.items[editingId].qty);
   }
 }
 
@@ -850,7 +845,7 @@ function newRoom(){
   if(!confirm('Start a brand new empty plan with a new invite link?'))return;
   if(es){es.close();es=null;}
   roomKey=makeCode();localStorage.setItem(ROOM_KEY_KEY,roomKey);
-  state=freshState();editingId=null;addMap={};window.editMaps={};
+  state=freshState();editingId=null;addMap={};editMaps={};
   history.replaceState(null,'',location.origin+location.pathname+'?room='+roomKey);
   setEl('room-code-display',roomKey);syncFormFromState();render();pushState();startStream();showToast('New plan created!');
 }
@@ -860,7 +855,6 @@ function saveDbUrl(){
   if(!v.startsWith('https://')||!v.includes('.firebaseio.com')){showError('setup-error','Must start with https:// and contain .firebaseio.com');return;}
   localStorage.setItem(DB_URL_KEY,v);location.reload();
 }
-
 function setSyncStatus(ok,msg){var d=document.getElementById('sync-dot'),l=document.getElementById('sync-label');if(!d||!l)return;d.className='sync-dot '+(ok?'live':'offline');l.textContent=msg||(ok?'Live':'Offline');}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
 function showError(id,msg){var el=document.getElementById(id);if(el){el.textContent='\u26a0 '+msg;el.style.display='block';}}
@@ -868,7 +862,6 @@ function setEl(id,text){var el=document.getElementById(id);if(el)el.textContent=
 function val(id){var el=document.getElementById(id);return el?el.value.trim():'';}
 function setValIfNotFocused(id,v){var el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
 document.getElementById('setup-url').addEventListener('keydown',function(e){if(e.key==='Enter')saveDbUrl();});
 window.onerror=function(m,s,l,c,e){console.error('Global error:',m,e);return false;};
 init();
