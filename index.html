@@ -11,20 +11,6 @@ button,input{font-family:inherit}
 #loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:14px}
 .spinner{width:30px;height:30px;border:2.5px solid #ebe7e2;border-top-color:#e85d26;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-#setup{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
-.setup-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:2rem;width:100%;max-width:460px}
-.setup-title{font-size:22px;font-weight:800;margin-bottom:6px;text-align:center}
-.setup-sub{font-size:14px;color:#888;text-align:center;margin-bottom:1.75rem;line-height:1.6}
-.step{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start}
-.step-num{width:24px;height:24px;border-radius:50%;background:#e85d26;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-txt{font-size:14px;color:#444;line-height:1.5}
-.step-txt a{color:#e85d26;text-decoration:none;font-weight:600}
-.step-txt code{background:#f4f1ec;padding:2px 6px;border-radius:5px;font-size:13px;font-family:monospace}
-.url-input{width:100%;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;outline:none;margin-top:1.25rem}
-.url-input:focus{border-color:#e85d26}
-.primary-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px}
-.primary-btn:hover{background:#d04f1e}
-.setup-err{color:#e85d26;font-size:13px;margin-top:8px;display:none}
 #welcome{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center}
 .flame{font-size:56px;margin-bottom:1.5rem;animation:flicker 2s ease-in-out infinite alternate}
 @keyframes flicker{0%{transform:scale(1) rotate(-2deg)}100%{transform:scale(1.05) rotate(2deg)}}
@@ -111,28 +97,6 @@ button,input{font-family:inherit}
   <span style="font-size:14px;color:#aaa">Loading...</span>
 </div>
 
-<div id="setup">
-  <div class="setup-card">
-    <div class="setup-title">One-time setup</div>
-    <div class="setup-sub">You need a free Firebase Realtime Database URL to enable real-time sync.</div>
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-txt">Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-txt">Open your project, then go to <strong>Build &rarr; Realtime Database &rarr; Create database &rarr; Start in test mode &rarr; Enable</strong>.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-txt">Copy the database URL shown at the top, e.g.<br><code>https://your-project-default-rtdb.firebaseio.com</code></div>
-    </div>
-    <input class="url-input" id="fb-url-input" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com"/>
-    <div class="setup-err" id="setup-err">Please enter a valid Firebase Realtime Database URL.</div>
-    <button class="primary-btn" onclick="saveFirebaseUrl()">Save and continue</button>
-  </div>
-</div>
-
 <div id="welcome">
   <div class="flame">&#x1F525;</div>
   <h1 class="w-title">Park BBQ Planner</h1>
@@ -142,11 +106,10 @@ button,input{font-family:inherit}
     <div class="divider">or join one</div>
     <div class="join-row">
       <input class="code-input" id="join-input" placeholder="XXXXXX" maxlength="6" onkeydown="if(event.key==='Enter')joinRoom()"/>
-      <button class="join-btn" onclick="joinRoom()">Join &rarr;</button>
+      <button class="join-btn" onclick="joinRoom()">Join</button>
     </div>
     <div class="join-err" id="join-err">Room not found. Check the code and try again.</div>
   </div>
-  <button style="margin-top:1.5rem;font-size:12px;color:#ccc;background:none;border:none;cursor:pointer;text-decoration:underline" onclick="resetSetup()">Change Firebase URL</button>
 </div>
 
 <div id="main">
@@ -181,7 +144,7 @@ button,input{font-family:inherit}
     <div class="rgrid" id="rgrid"></div>
     <div class="sbar" id="sbar">
       <span class="sbar-txt" id="sbar-txt"></span>
-      <button class="sbar-link" onclick="goTab('shop')">See shopping list &rarr;</button>
+      <button class="sbar-link" onclick="goTab('shop')">See shopping list</button>
     </div>
   </div>
   <div id="v-shop" style="display:none">
@@ -203,208 +166,320 @@ button,input{font-family:inherit}
 </div>
 
 <script>
-var POLL=3500;
-var NAMES=['Grill King','Sauce Boss','Smoke Whisperer','Burger Baron','Wing Commander','Charcoal Champ','Brisket Boss','Kebab Knight','Patty Master','Flame Tamer'];
-var R=[
-  {id:'burgers',name:'Burgers',col:'#dbeafe',tc:'#1e40af',ing:[{n:'Ground beef (80/20)',u:'lb',c:'Meat',p:.25},{n:'Burger buns',u:'',c:'Bread',p:1},{n:'Cheddar slices',u:'pack',c:'Dairy',f:1},{n:'Lettuce',u:'head',c:'Produce',p:.07},{n:'Tomatoes',u:'',c:'Produce',p:.25},{n:'Red onion',u:'',c:'Produce',p:.1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Mustard',u:'bottle',c:'Condiments',f:1}]},
-  {id:'hotdogs',name:'Hot dogs',col:'#fef3c7',tc:'#92400e',ing:[{n:'Hot dogs',u:'',c:'Meat',p:1.5},{n:'Hot dog buns',u:'pack',c:'Bread',p:1.5},{n:'Yellow mustard',u:'bottle',c:'Condiments',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Relish',u:'jar',c:'Condiments',f:1}]},
-  {id:'chicken',name:'BBQ chicken',col:'#ffe4e6',tc:'#9f1239',ing:[{n:'Chicken thighs',u:'lb',c:'Meat',p:.5},{n:'BBQ sauce',u:'bottle',c:'Condiments',f:1},{n:'Garlic powder',u:'',c:'Spices',f:1},{n:'Paprika',u:'',c:'Spices',f:1},{n:'Olive oil',u:'bottle',c:'Pantry',f:1}]},
-  {id:'corn',name:'Grilled corn',col:'#fef9c3',tc:'#713f12',ing:[{n:'Corn on the cob',u:'ears',c:'Produce',p:1},{n:'Butter',u:'sticks',c:'Dairy',p:.1},{n:'Salt',u:'',c:'Spices',f:1}]},
-  {id:'coleslaw',name:'Coleslaw',col:'#dcfce7',tc:'#14532d',ing:[{n:'Green cabbage',u:'head',c:'Produce',p:.06},{n:'Carrots',u:'',c:'Produce',p:.25},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Apple cider vinegar',u:'bottle',c:'Pantry',f:1},{n:'Sugar',u:'',c:'Pantry',f:1}]},
-  {id:'potatosalad',name:'Potato salad',col:'#f1f5f9',tc:'#334155',ing:[{n:'Yukon gold potatoes',u:'lb',c:'Produce',p:.35},{n:'Eggs',u:'',c:'Dairy',p:.4},{n:'Celery stalks',u:'',c:'Produce',p:.2},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Dijon mustard',u:'jar',c:'Condiments',f:1}]},
-  {id:'beans',name:'Baked beans',col:'#fff7ed',tc:'#7c2d12',ing:[{n:'Canned navy beans',u:'cans',c:'Pantry',p:.25},{n:'Bacon',u:'pack',c:'Meat',f:1},{n:'Brown sugar',u:'',c:'Pantry',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1}]},
-  {id:'watermelon',name:'Watermelon',col:'#d1fae5',tc:'#065f46',ing:[{n:'Watermelon',u:'',c:'Produce',p:.07}]},
-  {id:'lemonade',name:'Lemonade',col:'#fef9c3',tc:'#713f12',ing:[{n:'Lemons',u:'',c:'Produce',p:.5},{n:'Sugar',u:'cups',c:'Pantry',f:2},{n:'Water jugs (1 gal)',u:'',c:'Drinks',p:.04}]},
-  {id:'chips',name:'Chips & dips',col:'#fef3c7',tc:'#92400e',ing:[{n:'Tortilla chips',u:'bags',c:'Pantry',p:.05},{n:'Guacamole',u:'tub',c:'Produce',f:1},{n:'Salsa',u:'jars',c:'Condiments',f:2}]}
+var FB_URL = "https://bbq-planner-ea5be-default-rtdb.firebaseio.com";
+var POLL = 4000;
+var NAMES = ["Grill King","Sauce Boss","Smoke Whisperer","Burger Baron","Wing Commander","Charcoal Champ","Brisket Boss","Kebab Knight","Patty Master","Flame Tamer"];
+var R = [
+  {id:"burgers",name:"Burgers",col:"#dbeafe",tc:"#1e40af",ing:[{n:"Ground beef (80/20)",u:"lb",c:"Meat",p:0.25},{n:"Burger buns",u:"",c:"Bread",p:1},{n:"Cheddar slices",u:"pack",c:"Dairy",f:1},{n:"Lettuce",u:"head",c:"Produce",p:0.07},{n:"Tomatoes",u:"",c:"Produce",p:0.25},{n:"Red onion",u:"",c:"Produce",p:0.1},{n:"Ketchup",u:"bottle",c:"Condiments",f:1},{n:"Mustard",u:"bottle",c:"Condiments",f:1}]},
+  {id:"hotdogs",name:"Hot dogs",col:"#fef3c7",tc:"#92400e",ing:[{n:"Hot dogs",u:"",c:"Meat",p:1.5},{n:"Hot dog buns",u:"pack",c:"Bread",p:1.5},{n:"Yellow mustard",u:"bottle",c:"Condiments",f:1},{n:"Ketchup",u:"bottle",c:"Condiments",f:1},{n:"Relish",u:"jar",c:"Condiments",f:1}]},
+  {id:"chicken",name:"BBQ chicken",col:"#ffe4e6",tc:"#9f1239",ing:[{n:"Chicken thighs",u:"lb",c:"Meat",p:0.5},{n:"BBQ sauce",u:"bottle",c:"Condiments",f:1},{n:"Garlic powder",u:"",c:"Spices",f:1},{n:"Paprika",u:"",c:"Spices",f:1},{n:"Olive oil",u:"bottle",c:"Pantry",f:1}]},
+  {id:"corn",name:"Grilled corn",col:"#fef9c3",tc:"#713f12",ing:[{n:"Corn on the cob",u:"ears",c:"Produce",p:1},{n:"Butter",u:"sticks",c:"Dairy",p:0.1},{n:"Salt",u:"",c:"Spices",f:1}]},
+  {id:"coleslaw",name:"Coleslaw",col:"#dcfce7",tc:"#14532d",ing:[{n:"Green cabbage",u:"head",c:"Produce",p:0.06},{n:"Carrots",u:"",c:"Produce",p:0.25},{n:"Mayonnaise",u:"jar",c:"Condiments",f:1},{n:"Apple cider vinegar",u:"bottle",c:"Pantry",f:1},{n:"Sugar",u:"",c:"Pantry",f:1}]},
+  {id:"potatosalad",name:"Potato salad",col:"#f1f5f9",tc:"#334155",ing:[{n:"Yukon gold potatoes",u:"lb",c:"Produce",p:0.35},{n:"Eggs",u:"",c:"Dairy",p:0.4},{n:"Celery stalks",u:"",c:"Produce",p:0.2},{n:"Mayonnaise",u:"jar",c:"Condiments",f:1},{n:"Dijon mustard",u:"jar",c:"Condiments",f:1}]},
+  {id:"beans",name:"Baked beans",col:"#fff7ed",tc:"#7c2d12",ing:[{n:"Canned navy beans",u:"cans",c:"Pantry",p:0.25},{n:"Bacon",u:"pack",c:"Meat",f:1},{n:"Brown sugar",u:"",c:"Pantry",f:1},{n:"Ketchup",u:"bottle",c:"Condiments",f:1}]},
+  {id:"watermelon",name:"Watermelon",col:"#d1fae5",tc:"#065f46",ing:[{n:"Watermelon",u:"",c:"Produce",p:0.07}]},
+  {id:"lemonade",name:"Lemonade",col:"#fef9c3",tc:"#713f12",ing:[{n:"Lemons",u:"",c:"Produce",p:0.5},{n:"Sugar",u:"cups",c:"Pantry",f:2},{n:"Water jugs (1 gal)",u:"",c:"Drinks",p:0.04}]},
+  {id:"chips",name:"Chips and dips",col:"#fef3c7",tc:"#92400e",ing:[{n:"Tortilla chips",u:"bags",c:"Pantry",p:0.05},{n:"Guacamole",u:"tub",c:"Produce",f:1},{n:"Salsa",u:"jars",c:"Condiments",f:2}]}
 ];
-var CATS=['Meat','Produce','Dairy','Bread','Condiments','Pantry','Spices','Drinks','Other'];
-var fbUrl='',roomId=null,G=15,sel=new Set(),ck=new Set(),cust=[],cid=0;
-var myName='',lastTs=0,pushing=false,pollTimer=null;
+var CATS = ["Meat","Produce","Dairy","Bread","Condiments","Pantry","Spices","Drinks","Other"];
 
-function roomRef(){return fbUrl+'/rooms/'+roomId+'.json';}
-async function fbGet(){var r=await fetch(roomRef());if(!r.ok)throw new Error('fetch failed');return r.json();}
-async function fbPut(data){await fetch(roomRef(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}
+var roomId = null;
+var G = 15;
+var sel = new Set();
+var ck = new Set();
+var cust = [];
+var cid = 0;
+var myName = "";
+var lastTs = 0;
+var pushing = false;
+var pollTimer = null;
 
-function init(){
-  myName=localStorage.getItem('bbq-name')||NAMES[Math.floor(Math.random()*NAMES.length)];
-  localStorage.setItem('bbq-name',myName);
-  fbUrl=(localStorage.getItem('bbq-fb-url')||'').replace(/\/$/,'');
-  if(!fbUrl){elhide('loading');elshow('setup');return;}
-  var saved=localStorage.getItem('bbq-room');
-  if(saved){try{roomId=JSON.parse(saved).roomId;rejoin();return;}catch(e){}}
-  elhide('loading');elshow('welcome');
+function roomRef() {
+  return FB_URL + "/rooms/" + roomId + ".json";
 }
 
-function saveFirebaseUrl(){
-  var val=document.getElementById('fb-url-input').value.trim().replace(/\/$/,'');
-  var err=document.getElementById('setup-err');
-  if(!val||!val.includes('firebaseio.com')){err.style.display='block';return;}
-  err.style.display='none';
-  localStorage.setItem('bbq-fb-url',val);
-  fbUrl=val;
-  elhide('setup');elshow('welcome');
-}
-
-function resetSetup(){localStorage.removeItem('bbq-fb-url');fbUrl='';elhide('welcome');elshow('setup');}
-
-function randCode(){var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';return Array.from({length:6},function(){return chars[Math.floor(Math.random()*chars.length)];}).join('');}
-
-async function createRoom(){
-  elhide('welcome');elshow('loading');
-  roomId=randCode();
-  try{
-    await fbPut(buildState());
-    lastTs=Date.now();
-    localStorage.setItem('bbq-room',JSON.stringify({roomId:roomId}));
-    elhide('loading');openMain();
-  }catch(e){
-    elhide('loading');elshow('welcome');
-    alert('Could not create room. Make sure your Firebase URL is correct and database is in test mode.');
-  }
-}
-
-async function joinRoom(){
-  var code=document.getElementById('join-input').value.trim().toUpperCase();
-  if(!code)return;
-  document.getElementById('join-err').style.display='none';
-  elhide('welcome');elshow('loading');roomId=code;
-  try{
-    var data=await fbGet();
-    if(!data)throw new Error('empty');
-    absorb(data);
-    localStorage.setItem('bbq-room',JSON.stringify({roomId:roomId}));
-    elhide('loading');openMain();
-  }catch(e){
-    roomId=null;elhide('loading');elshow('welcome');
-    document.getElementById('join-err').style.display='block';
-  }
-}
-
-async function rejoin(){
-  try{var data=await fbGet();if(!data)throw new Error();absorb(data);elhide('loading');openMain();}
-  catch(e){localStorage.removeItem('bbq-room');roomId=null;elhide('loading');elshow('welcome');}
-}
-
-function openMain(){document.getElementById('room-display').textContent=roomId;elshow('main');renderMenu();renderShop();startPolling();}
-
-function leaveRoom(){
-  if(!confirm('Leave this room? You can rejoin later with the room code.'))return;
-  clearInterval(pollTimer);localStorage.removeItem('bbq-room');
-  roomId=null;G=15;sel=new Set();ck=new Set();cust=[];cid=0;lastTs=0;
-  elhide('main');elshow('welcome');
-}
-
-function buildState(){return{G:G,sel:Array.from(sel),ck:Array.from(ck),cust:cust,cid:cid,ts:Date.now(),by:myName};}
-
-function absorb(data){
-  if(!data||(data.ts||0)<=lastTs)return;
-  G=data.G||15;sel=new Set(data.sel||[]);ck=new Set(data.ck||[]);
-  cust=data.cust||[];cid=data.cid||0;lastTs=data.ts||0;
-  var who=data.by||'';
-  document.getElementById('gnum').textContent=G;
-  document.getElementById('gnum2').textContent=G;
-  if(who&&who!==myName){
-    document.getElementById('by-line').textContent=who+' just updated';
-    document.getElementById('last-upd').textContent='Last updated by '+who;
-    setTimeout(function(){document.getElementById('by-line').textContent='';},4000);
-  }
-  renderMenu();renderShop();
-}
-
-async function push(){
-  if(pushing||!roomId)return;pushing=true;setDot('syncing');
-  try{await fbPut(buildState());setDot('ok');}catch(e){setDot('offline');}
-  pushing=false;
-}
-
-async function poll(){
-  if(pushing||!roomId)return;
-  try{absorb(await fbGet());setDot('ok');}catch(e){setDot('offline');}
-}
-
-function startPolling(){pollTimer=setInterval(poll,POLL);}
-function setDot(s){var d=document.getElementById('sync-dot');d.className='dot'+(s==='syncing'?' syncing':s==='offline'?' offline':'');}
-
-function adj(n){G=Math.max(5,Math.min(100,G+n));document.getElementById('gnum').textContent=G;document.getElementById('gnum2').textContent=G;renderMenu();renderShop();push();}
-
-function copyCode(){
-  navigator.clipboard.writeText(roomId).catch(function(){});
-  var ic=document.getElementById('copy-icon');ic.textContent='✓';setTimeout(function(){ic.textContent='⎘';},1800);
-}
-
-function goTab(t){
-  ['menu','shop'].forEach(function(x){
-    document.getElementById('v-'+x).style.display=x===t?'':'none';
-    document.getElementById('t-'+x).classList.toggle('active',x===t);
+function fbGet() {
+  return fetch(roomRef()).then(function(r) {
+    if (!r.ok) throw new Error("http " + r.status);
+    return r.json();
   });
 }
 
-function renderMenu(){
-  document.getElementById('rgrid').innerHTML=R.map(function(r){
-    return '<div class="rc'+(sel.has(r.id)?' on':'')+'" onclick="togR(\''+r.id+'\')">'
-      +'<div class="card-top">'
-      +'<div class="card-ico" style="background:'+r.col+';color:'+r.tc+'">'+r.name[0]+'</div>'
-      +'<span class="card-name">'+r.name+'</span>'
-      +(sel.has(r.id)?'<span class="on-badge">Added</span>':'')
-      +'</div>'
-      +'<div class="card-ing">'+r.ing.slice(0,3).map(function(i){return i.n;}).join(', ')+(r.ing.length>3?' +'+(r.ing.length-3)+' more':'')+'</div>'
-      +'</div>';
-  }).join('');
-  var sb=document.getElementById('sbar');
-  if(!sel.size){sb.classList.remove('show');return;}
-  sb.classList.add('show');
-  document.getElementById('sbar-txt').textContent=sel.size+' dish'+(sel.size>1?'es':'')+' for '+G+' guests';
+function fbPut(data) {
+  return fetch(roomRef(), {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
+  });
 }
 
-function togR(id){if(sel.has(id))sel.delete(id);else sel.add(id);renderMenu();push();}
+function init() {
+  myName = localStorage.getItem("bbq-name") || NAMES[Math.floor(Math.random() * NAMES.length)];
+  localStorage.setItem("bbq-name", myName);
+  var saved = localStorage.getItem("bbq-room");
+  if (saved) {
+    try {
+      roomId = JSON.parse(saved).roomId;
+      fbGet().then(function(data) {
+        if (!data) throw new Error("empty");
+        absorb(data);
+        elhide("loading");
+        openMain();
+      }).catch(function() {
+        localStorage.removeItem("bbq-room");
+        roomId = null;
+        elhide("loading");
+        elshow("welcome");
+      });
+      return;
+    } catch(e) {}
+  }
+  elhide("loading");
+  elshow("welcome");
+}
 
-function buildList(){
-  var map={};
-  sel.forEach(function(id){
-    var r=R.find(function(x){return x.id===id;});if(!r)return;
-    r.ing.forEach(function(i){
-      var qty=i.f?i.f:Math.ceil(i.p*G),k=i.n.toLowerCase();
-      if(map[k])map[k].qty=Math.max(map[k].qty,qty);
-      else map[k]={name:i.n,unit:i.u,qty:qty,cat:i.c};
+function randCode() {
+  var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  var code = "";
+  for (var i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+  return code;
+}
+
+function createRoom() {
+  elhide("welcome");
+  elshow("loading");
+  roomId = randCode();
+  var state = buildState();
+  fbPut(state).then(function() {
+    lastTs = state.ts;
+    localStorage.setItem("bbq-room", JSON.stringify({roomId: roomId}));
+    elhide("loading");
+    openMain();
+  }).catch(function(e) {
+    console.error("createRoom error:", e);
+    elhide("loading");
+    elshow("welcome");
+    alert("Could not create room. Error: " + e.message);
+  });
+}
+
+function joinRoom() {
+  var code = document.getElementById("join-input").value.trim().toUpperCase();
+  if (!code) return;
+  document.getElementById("join-err").style.display = "none";
+  elhide("welcome");
+  elshow("loading");
+  roomId = code;
+  fbGet().then(function(data) {
+    if (!data) throw new Error("empty");
+    absorb(data);
+    localStorage.setItem("bbq-room", JSON.stringify({roomId: roomId}));
+    elhide("loading");
+    openMain();
+  }).catch(function() {
+    roomId = null;
+    elhide("loading");
+    elshow("welcome");
+    document.getElementById("join-err").style.display = "block";
+  });
+}
+
+function openMain() {
+  document.getElementById("room-display").textContent = roomId;
+  elshow("main");
+  renderMenu();
+  renderShop();
+  pollTimer = setInterval(poll, POLL);
+}
+
+function leaveRoom() {
+  if (!confirm("Leave this room? You can rejoin with the room code.")) return;
+  clearInterval(pollTimer);
+  localStorage.removeItem("bbq-room");
+  roomId = null; G = 15; sel = new Set(); ck = new Set(); cust = []; cid = 0; lastTs = 0;
+  elhide("main");
+  elshow("welcome");
+}
+
+function buildState() {
+  return {G: G, sel: Array.from(sel), ck: Array.from(ck), cust: cust, cid: cid, ts: Date.now(), by: myName};
+}
+
+function absorb(data) {
+  if (!data || (data.ts || 0) <= lastTs) return;
+  G = data.G || 15;
+  sel = new Set(data.sel || []);
+  ck = new Set(data.ck || []);
+  cust = data.cust || [];
+  cid = data.cid || 0;
+  lastTs = data.ts || 0;
+  var who = data.by || "";
+  document.getElementById("gnum").textContent = G;
+  document.getElementById("gnum2").textContent = G;
+  if (who && who !== myName) {
+    document.getElementById("by-line").textContent = who + " just updated";
+    document.getElementById("last-upd").textContent = "Last updated by " + who;
+    setTimeout(function() { document.getElementById("by-line").textContent = ""; }, 4000);
+  }
+  renderMenu();
+  renderShop();
+}
+
+function push() {
+  if (pushing || !roomId) return;
+  pushing = true;
+  setDot("syncing");
+  var state = buildState();
+  lastTs = state.ts;
+  fbPut(state).then(function() {
+    setDot("ok");
+    pushing = false;
+  }).catch(function() {
+    setDot("offline");
+    pushing = false;
+  });
+}
+
+function poll() {
+  if (pushing || !roomId) return;
+  fbGet().then(function(data) {
+    absorb(data);
+    setDot("ok");
+  }).catch(function() {
+    setDot("offline");
+  });
+}
+
+function setDot(s) {
+  var d = document.getElementById("sync-dot");
+  d.className = "dot" + (s === "syncing" ? " syncing" : s === "offline" ? " offline" : "");
+}
+
+function adj(n) {
+  G = Math.max(5, Math.min(100, G + n));
+  document.getElementById("gnum").textContent = G;
+  document.getElementById("gnum2").textContent = G;
+  renderMenu();
+  renderShop();
+  push();
+}
+
+function copyCode() {
+  navigator.clipboard.writeText(roomId).catch(function(){});
+  var ic = document.getElementById("copy-icon");
+  ic.textContent = "Copied!";
+  setTimeout(function() { ic.textContent = "\u2398"; }, 1800);
+}
+
+function goTab(t) {
+  ["menu","shop"].forEach(function(x) {
+    document.getElementById("v-" + x).style.display = x === t ? "" : "none";
+    document.getElementById("t-" + x).classList.toggle("active", x === t);
+  });
+}
+
+function renderMenu() {
+  var html = "";
+  R.forEach(function(r) {
+    var on = sel.has(r.id);
+    html += '<div class="rc' + (on ? " on" : "") + '" onclick="togR(\'' + r.id + '\')">';
+    html += '<div class="card-top">';
+    html += '<div class="card-ico" style="background:' + r.col + ';color:' + r.tc + '">' + r.name[0] + "</div>";
+    html += '<span class="card-name">' + r.name + "</span>";
+    if (on) html += '<span class="on-badge">Added</span>';
+    html += "</div>";
+    var preview = r.ing.slice(0, 3).map(function(i) { return i.n; }).join(", ");
+    if (r.ing.length > 3) preview += " +" + (r.ing.length - 3) + " more";
+    html += '<div class="card-ing">' + preview + "</div>";
+    html += "</div>";
+  });
+  document.getElementById("rgrid").innerHTML = html;
+  var sb = document.getElementById("sbar");
+  if (!sel.size) { sb.classList.remove("show"); return; }
+  sb.classList.add("show");
+  document.getElementById("sbar-txt").textContent = sel.size + " dish" + (sel.size > 1 ? "es" : "") + " for " + G + " guests";
+}
+
+function togR(id) {
+  if (sel.has(id)) sel.delete(id); else sel.add(id);
+  renderMenu();
+  push();
+}
+
+function buildList() {
+  var map = {};
+  sel.forEach(function(id) {
+    var r = null;
+    for (var i = 0; i < R.length; i++) { if (R[i].id === id) { r = R[i]; break; } }
+    if (!r) return;
+    r.ing.forEach(function(ing) {
+      var qty = ing.f ? ing.f : Math.ceil(ing.p * G);
+      var k = ing.n.toLowerCase();
+      if (map[k]) map[k].qty = Math.max(map[k].qty, qty);
+      else map[k] = {name: ing.n, unit: ing.u, qty: qty, cat: ing.c};
     });
   });
-  return Object.values(map);
+  return Object.keys(map).map(function(k) { return map[k]; });
 }
 
-function ikey(item){return item.cid!=null?'c'+item.cid:item.name.toLowerCase().replace(/\W+/g,'-');}
-function fmt(item){return[item.qty>0?item.qty:null,item.unit||null,item.name].filter(function(x){return x!=null&&x!=='';}).join(' ');}
-
-function renderShop(){
-  var ri=buildList();
-  var all=ri.concat(cust.map(function(c){return{name:c.name,unit:'',qty:1,cat:'Other',cid:c.id};}));
-  var slist=document.getElementById('slist'),semp=document.getElementById('semp'),sprog=document.getElementById('sprog');
-  if(!all.length){slist.innerHTML='';semp.style.display='block';sprog.textContent='';return;}
-  semp.style.display='none';
-  var grp={};CATS.forEach(function(c){grp[c]=[];});
-  all.forEach(function(i){var c=i.cat||'Other';if(!grp[c])grp[c]=[];grp[c].push(i);});
-  var cked=all.filter(function(i){return ck.has(ikey(i));}).length;
-  sprog.textContent=cked+' of '+all.length+' items checked';
-  slist.innerHTML=CATS.filter(function(c){return grp[c].length;}).map(function(cat){
-    return '<div class="cat-lbl">'+cat+'</div><div class="cat-group">'
-      +grp[cat].map(function(item){
-        var k=ikey(item),isck=ck.has(k);
-        return '<div class="si'+(isck?' ck':'')+'"><input type="checkbox" id="k-'+k+'" '+(isck?'checked':'')+' onchange="togCk(\''+k+'\')" />'
-          +'<label for="k-'+k+'">'+fmt(item)+'</label>'
-          +(item.cid!=null?'<button class="rm-btn" onclick="rmC('+item.cid+')">&#215;</button>':'')
-          +'</div>';
-      }).join('')+'</div>';
-  }).join('');
+function ikey(item) {
+  return item.cid != null ? "c" + item.cid : item.name.toLowerCase().replace(/\W+/g, "-");
 }
 
-function togCk(k){if(ck.has(k))ck.delete(k);else ck.add(k);renderShop();push();}
-function addC(){var i=document.getElementById('ni'),v=i.value.trim();if(!v)return;cust.push({id:cid++,name:v});i.value='';renderShop();push();}
-function rmC(id){cust=cust.filter(function(c){return c.id!==id;});renderShop();push();}
-function clrCk(){ck.clear();renderShop();push();}
+function fmt(item) {
+  var parts = [];
+  if (item.qty > 0) parts.push(item.qty);
+  if (item.unit) parts.push(item.unit);
+  parts.push(item.name);
+  return parts.join(" ");
+}
 
-function elshow(id){var el=document.getElementById(id);el.style.display=(id==='setup'||id==='welcome')?'flex':'';}
-function elhide(id){document.getElementById(id).style.display='none';}
+function renderShop() {
+  var ri = buildList();
+  var all = ri.concat(cust.map(function(c) { return {name: c.name, unit: "", qty: 1, cat: "Other", cid: c.id}; }));
+  var slist = document.getElementById("slist");
+  var semp = document.getElementById("semp");
+  var sprog = document.getElementById("sprog");
+  if (!all.length) { slist.innerHTML = ""; semp.style.display = "block"; sprog.textContent = ""; return; }
+  semp.style.display = "none";
+  var grp = {};
+  CATS.forEach(function(c) { grp[c] = []; });
+  all.forEach(function(item) {
+    var c = item.cat || "Other";
+    if (!grp[c]) grp[c] = [];
+    grp[c].push(item);
+  });
+  var cked = 0;
+  all.forEach(function(item) { if (ck.has(ikey(item))) cked++; });
+  sprog.textContent = cked + " of " + all.length + " items checked";
+  var html = "";
+  CATS.forEach(function(cat) {
+    if (!grp[cat] || !grp[cat].length) return;
+    html += '<div class="cat-lbl">' + cat + "</div>";
+    html += '<div class="cat-group">';
+    grp[cat].forEach(function(item) {
+      var k = ikey(item);
+      var isck = ck.has(k);
+      html += '<div class="si' + (isck ? " ck" : "") + '">';
+      html += '<input type="checkbox" id="k-' + k + '" ' + (isck ? "checked" : "") + ' onchange="togCk(\'' + k + '\')">';
+      html += '<label for="k-' + k + '">' + fmt(item) + "</label>";
+      if (item.cid != null) html += '<button class="rm-btn" onclick="rmC(' + item.cid + ')">&#215;</button>';
+      html += "</div>";
+    });
+    html += "</div>";
+  });
+  slist.innerHTML = html;
+}
 
-window.addEventListener('load',function(){setTimeout(init,200);});
+function togCk(k) { if (ck.has(k)) ck.delete(k); else ck.add(k); renderShop(); push(); }
+function addC() { var i = document.getElementById("ni"), v = i.value.trim(); if (!v) return; cust.push({id: cid++, name: v}); i.value = ""; renderShop(); push(); }
+function rmC(id) { cust = cust.filter(function(c) { return c.id !== id; }); renderShop(); push(); }
+function clrCk() { ck.clear(); renderShop(); push(); }
+
+function elshow(id) { document.getElementById(id).style.display = (id === "welcome") ? "flex" : ""; }
+function elhide(id) { document.getElementById(id).style.display = "none"; }
+
+window.addEventListener("load", function() { setTimeout(init, 300); });
 </script>
 </body>
 </html>
