@@ -126,6 +126,11 @@ textarea{resize:vertical;line-height:1.5}
 .aw-badge.under{background:var(--amber-bg);color:var(--amber)}
 .aw-badge.info{background:var(--blue-bg);color:var(--blue)}
 
+/* Drag handle */
+.drag-handle{cursor:grab;color:var(--text3);font-size:18px;padding:2px 4px;flex-shrink:0;user-select:none;line-height:1;margin-top:2px}
+.drag-handle:active{cursor:grabbing}
+.item-row.drag-over{outline:2px dashed var(--accent);outline-offset:-2px}
+
 /* Suggestions */
 .suggest-panel{margin-top:12px;display:none}
 .suggest-panel.open{display:block}
@@ -378,6 +383,7 @@ function mergeState(r){
     if(!item.splits||typeof item.splits!=='object') item.splits = {};
     if(typeof item.notes!=='string') item.notes = '';
     if(typeof item.serves!=='number') item.serves = 0;
+    if(typeof item.order!=='number') item.order = 0;
   });
 }
 
@@ -618,7 +624,8 @@ function addItem(){
   var f=mapToFields(addMap);
   var finalQty=('all' in addMap||f.assignedTo.length===0)?totalQty:f.qty;
   var id='i'+Date.now();
-  state.items[id]={id:id,name:name,qty:finalQty,serves:serves,cat:cat,notes:note,assignedTo:f.assignedTo,splits:f.splits,done:false};
+  var maxOrder=Object.values(state.items||{}).reduce(function(m,i){ return Math.max(m,i.order||0); },0);
+  state.items[id]={id:id,name:name,qty:finalQty,serves:serves,cat:cat,notes:note,assignedTo:f.assignedTo,splits:f.splits,done:false,order:maxOrder+1};
   inp.value='';
   ['item-note','item-qty','item-serves'].forEach(function(eid){ var el=document.getElementById(eid); if(el) el.value=''; });
   var h=document.getElementById('qty-hint'); if(h) h.textContent='';
@@ -697,6 +704,31 @@ function claimItem(itemId){
 }
 
 // ── Render ───────────────────────────────────────────────────────────
+var _dragId=null;
+function dragStart(e,id){ _dragId=id; e.dataTransfer.effectAllowed='move'; }
+function dragOver(e){
+  e.preventDefault(); e.dataTransfer.dropEffect='move';
+  var row=e.currentTarget; row.classList.add('drag-over');
+}
+function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function dragDrop(e,targetId){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if(!_dragId||_dragId===targetId) return;
+  var items=Object.values(state.items||{});
+  items.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+  var dragIdx=items.findIndex(function(i){ return i.id===_dragId; });
+  var targetIdx=items.findIndex(function(i){ return i.id===targetId; });
+  if(dragIdx<0||targetIdx<0) return;
+  // Remove dragged item and insert at target position
+  var dragged=items.splice(dragIdx,1)[0];
+  items.splice(targetIdx,0,dragged);
+  // Reassign order values
+  items.forEach(function(item,i){ item.order=i+1; state.items[item.id].order=i+1; });
+  _dragId=null;
+  render(); schedulePush();
+}
+
 function render(){
   try{ renderPeople(); }catch(e){ console.warn(e); }
   try{ renderItems();  }catch(e){ console.warn(e); }
@@ -710,21 +742,7 @@ function renderPeople(){
     ?ppl.map(function(p){ return '<div class="person-chip">'+esc(p.name)+'<button onclick="removePerson(\''+p.id+'\')">\xd7</button></div>'; }).join(''):'';
 }
 
-var _editQtyTimer=null;
-function onEditQtyChange(input){
-  var id = input.id.replace('ed-qty-','');
-  var newQty = parseInt(input.value)||1;
-  var item = state.items && state.items[id]; if(!item) return;
-  item.qty = newQty;
-  // Debounce so we don't re-render on every keypress mid-event
-  clearTimeout(_editQtyTimer);
-  _editQtyTimer = setTimeout(function(){
-    render();
-    // Restore focus and cursor position
-    var inp = document.getElementById('ed-qty-'+id);
-    if(inp){ inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
-  }, 150);
-}
+
 
 function itemStatusClass(item){
   var at=item.assignedTo||[], sp=item.splits||{};
@@ -755,19 +773,23 @@ function assigneeDisplay(item){
 function renderItems(){
   var items=Object.values(state.items||{}), list=document.getElementById('items-list'); if(!list) return;
   if(!items.length){ list.innerHTML='<div class="empty">No items yet \u2014 use Suggestions or add one below!</div>'; return; }
+  // Sort by order field
+  items.sort(function(a,b){ return (a.order||0)-(b.order||0); });
   var html='';
-  ['food','drink','equip','other'].forEach(function(cat){
-    var its=items.filter(function(i){ return i.cat===cat; }); if(!its.length) return;
-    html+='<div class="items-group-label '+CAT_CLASS[cat]+'">'+CAT_LABEL[cat]+'</div>';
-    its.forEach(function(item){
+  items.forEach(function(item){
+    var cat=item.cat;
+    {
       var sc=itemStatusClass(item);
       var serves=item.serves||0;
-      html+='<div class="item-row '+sc+'" id="item-row-'+item.id+'">'
+            var catBadge='<span class="items-group-label '+CAT_CLASS[cat]+'" style="padding:2px 8px;font-size:11px;margin:0 4px 0 0">'+CAT_LABEL[cat]+'</span>';
+      html+='<div class="item-row '+sc+'" id="item-row-'+item.id+'" draggable="true" ondragstart="dragStart(event,\''+item.id+'\')" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dragDrop(event,\''+item.id+'\')">'
+        +'<div class="drag-handle" title="Drag to reorder">&#8801;</div>'
         +'<div class="check'+(item.done?' done':'')+'" onclick="toggleDone(\''+item.id+'\')" title="'+(item.done?'Unmark':'Mark confirmed')+'">'+(item.done?'\u2713':'')+'</div>'
         +'<div class="item-main">'
           +'<div class="item-name-line'+(item.done?' confirmed':'')+'">'+esc(item.name)
             +(item.qty>0?' <span style="font-size:12px;font-weight:400;opacity:.75">\xd7'+item.qty+'</span>':'')
             +(serves>0?' <span style="font-size:11px;font-weight:400;opacity:.6;margin-left:3px">for '+serves+' people</span>':'')
+            +' '+catBadge
           +'</div>'
           +(item.notes?'<div class="item-note">'+esc(item.notes)+'</div>':'')
           +'<div class="assignees-row">'+assigneeDisplay(item)+'</div>'
@@ -784,7 +806,7 @@ function renderItems(){
         html+='<div class="edit-panel">'
           +'<div class="edit-row">'
             +'<input style="flex:1;min-width:120px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-name-'+item.id+'" type="text" value="'+esc(item.name)+'">'
-            +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty" oninput="onEditQtyChange(this)">'
+            +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty">'
             +'<input style="width:90px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-serves-'+item.id+'" type="number" min="1" value="'+(item.serves||'')+'" placeholder="For N people">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
               +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
@@ -803,7 +825,7 @@ function renderItems(){
           +'</div>'
         +'</div>';
       }
-    });
+  }
   });
   list.innerHTML=html;
   if(editingId&&state.items[editingId]){
