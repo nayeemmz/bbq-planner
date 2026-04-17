@@ -714,8 +714,11 @@ function renderItems(){
           +'<div class="assignees-row">'+assigneeDisplay(item)+'</div>'
         +'</div>'
         +'<div class="item-actions">'
-          +'<button class="btn-ghost" onclick="startEdit(\''+item.id+'\')" title="Edit">'+(editingId===item.id?'\u2715':'\u270f\ufe0f')+'</button>'
-          +'<button class="btn-ghost" onclick="removeItem(\''+item.id+'\')" title="Remove">\xd7</button>'
+          +(editingId===item.id
+            ? '<button class="btn-ghost" onclick="cancelEdit()" title="Close edit" style="font-size:13px;color:var(--text2)">Close</button>'
+            : '<button class="btn-ghost" onclick="startEdit(\''+item.id+'\')" title="Edit">\u270f\ufe0f</button>'
+              +'<button class="btn-ghost btn-del" onclick="removeItem(\''+item.id+'\')" title="Remove" style="color:var(--text3);font-size:13px">Delete</button>'
+          )
         +'</div></div>';
       if(editingId===item.id){
         var cid='edit-aw-'+item.id;
