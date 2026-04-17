@@ -192,27 +192,6 @@ textarea{resize:vertical;line-height:1.5}
 </head>
 <body>
 
-<!-- SETUP -->
-<div id="setup-screen" class="setup" style="display:none">
-  <div class="setup-card">
-    <h2>&#x1F525; One-time setup</h2>
-    <p>BBQ Planner uses <strong>Firebase Realtime Database</strong> so friends share a live plan. Free, no credit card needed.</p>
-    <ol>
-      <li>Go to <a href="https://console.firebase.google.com" target="_blank" style="color:var(--accent)">console.firebase.google.com</a> &rarr; <strong>Add project</strong></li>
-      <li>Name it anything, skip Analytics, click Create</li>
-      <li>Left sidebar: <strong>Build &rarr; Realtime Database</strong></li>
-      <li><strong>Create Database</strong> &rarr; any region &rarr; <strong>start in test mode</strong> &rarr; Enable</li>
-      <li>Copy your database URL e.g. <code>https://my-bbq-default-rtdb.firebaseio.com</code></li>
-      <li>Paste below and save</li>
-    </ol>
-    <label style="font-size:13px;font-weight:500;color:var(--text2)">Firebase Database URL</label>
-    <input type="text" id="setup-url" placeholder="https://your-project-default-rtdb.firebaseio.com">
-    <div id="setup-error" class="alert alert-error"></div>
-    <button class="btn btn-primary" onclick="saveDbUrl()">Save &amp; Start Planning</button>
-    <p style="margin-top:1rem;font-size:12px;color:var(--text3)">URL stored only in your browser's localStorage.</p>
-  </div>
-</div>
-
 <!-- LOADING -->
 <div id="loading-screen" class="loading" style="display:none">
   <div class="spinner"></div>
@@ -224,123 +203,12 @@ textarea{resize:vertical;line-height:1.5}
 <div class="app">
   <div class="hero">
     <h1>&#x1F525; BBQ Planner</h1>
-    <p>Plan your cookout &amp; divide the load with friends &mdash; live</p>
-  </div>
-
-  <!-- Room bar -->
-  <div class="room-bar">
-    <div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">Room</div>
-      <span class="room-code" id="room-code-display">------</span>
     </div>
-    <div class="room-label">
-      <span class="sync-dot" id="sync-dot"></span>
-      <span id="sync-label">Connecting...</span>
-    </div>
-    <button class="btn btn-share btn-sm" onclick="copyShareLink()">&#x1F517; Invite link</button>
-    <button class="btn btn-sm" onclick="toggleReminder()">&#x1F4AC; Reminder</button>
-    <button class="btn btn-sm btn-danger" onclick="newRoom()">New plan</button>
-  </div>
-
-  <!-- Reminder -->
-  <div class="card reminder-panel" id="reminder-panel">
-    <div class="section-title">Reminder message <button class="btn btn-sm btn-primary" onclick="copyReminder()">Copy</button></div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">Paste into WhatsApp, iMessage, or email.</p>
-    <textarea class="reminder-text" id="reminder-text" readonly></textarea>
-  </div>
-
-  <!-- Event Details -->
-  <div class="card">
-    <div class="section-title">Event details</div>
-    <div class="event-meta">
-      <div class="meta-field"><label>Event name</label><input type="text" id="evt-name" placeholder="Summer BBQ 2026"></div>
-      <div class="meta-field"><label>Date</label><input type="date" id="evt-date"></div>
-      <div class="meta-field"><label>Location</label><input type="text" id="evt-loc" placeholder="Backyard, Riverside Park..."></div>
-      <div class="meta-field"><label>Approx. guests</label><input type="number" id="evt-guests" placeholder="20" min="1"></div>
-    </div>
-  </div>
-
-  <!-- Friends -->
-  <div class="card">
-    <div class="section-title">Friends coming</div>
-    <div class="myname-bar" id="myname-bar">
-      <span id="myname-text">&#x1F44B; Who are you? Set your name to claim items.</span>
-      <button class="btn btn-sm" onclick="setMyName()">Set my name</button>
-    </div>
-    <div class="people-grid" id="people-grid"></div>
-    <div class="row">
-      <input type="text" id="person-input" placeholder="Add a friend's name..." style="flex:1;min-width:150px" onkeydown="if(event.key==='Enter')addPerson()">
-      <button class="btn btn-primary" onclick="addPerson()">Add</button>
-    </div>
-  </div>
-
-  <!-- Checklist -->
-  <div class="card">
-    <div class="section-title">
-      What to bring
-      <button class="btn btn-green btn-sm" onclick="toggleSuggestions()">&#x2728; Suggestions</button>
-    </div>
-
-    <div class="suggest-panel" id="suggest-panel">
-      <p style="font-size:13px;color:var(--text2)" id="suggest-intro">Suggested items based on guest count.</p>
-      <div class="suggest-grid" id="suggest-grid"></div>
-    </div>
-
-    <div class="divider"></div>
-    <div id="items-list"></div>
-    <div class="divider"></div>
-
-    <!-- Add form -->
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="row" style="gap:8px">
-        <input type="text" id="item-input" placeholder="Item to bring..." style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addItem()">
-        <select id="item-cat" style="min-width:110px">
-          <option value="food">&#x1F356; Food</option>
-          <option value="drink">&#x1F37B; Drinks</option>
-          <option value="equip">&#x1F6E0; Equipment</option>
-          <option value="other">&#x1F4E6; Other</option>
-        </select>
-      </div>
-      <div>
-        <span class="field-label">Note (optional)</span>
-        <input type="text" id="item-note" placeholder="e.g. at least 10 should be veggie" style="width:100%">
-      </div>
-      <div>
-        <span class="field-label">Who brings what &amp; how much</span>
-        <div class="aw" id="add-aw">
-          <div class="aw-empty">Add friends above to assign them items</div>
-        </div>
-      </div>
-      <div><button class="btn btn-primary" onclick="addItem()">Add item</button></div>
-    </div>
-  </div>
-
-  <!-- Stats -->
-  <div id="stats-section" style="display:none">
-    <div class="stats-bar">
-      <div class="stat"><div class="stat-num" id="s-total">0</div><div class="stat-lbl">Items total</div></div>
-      <div class="stat"><div class="stat-num" id="s-done">0</div><div class="stat-lbl">Confirmed</div></div>
-      <div class="stat"><div class="stat-num" id="s-ppl">0</div><div class="stat-lbl">Friends</div></div>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-label">
-        <span id="prog-label">0 of 0 items confirmed</span>
-        <span id="prog-pct" style="font-weight:500;color:var(--accent)">0%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-    </div>
-  </div>
-
-  <p style="text-align:center;font-size:12px;color:var(--text3);margin-top:2rem">
-    Changes sync live for everyone with the invite link &nbsp;&middot;&nbsp;
-    <button style="background:none;border:none;font-size:12px;color:var(--text3);cursor:pointer;text-decoration:underline" onclick="goToSetup()">Change database</button>
-  </p>
-</div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-var DB_URL_KEY='bbq_firebase_url', ROOM_KEY_KEY='bbq_room_key', MY_NAME_KEY='bbq_my_name';
+var ROOM_KEY_KEY='bbq_room_key', MY_NAME_KEY='bbq_my_name';
 var CAT_LABEL={food:'Food',drink:'Drinks',equip:'Equipment',other:'Other'};
 var CAT_CLASS={food:'lbl-food',drink:'lbl-drink',equip:'lbl-equip',other:'lbl-other'};
 var SUGGESTIONS=[
@@ -382,15 +250,14 @@ function mergeState(r){
   });
 }
 
-function show(id){['setup-screen','loading-screen','main-app'].forEach(function(s){document.getElementById(s).style.display=(s===id)?'block':'none';});}
-function goToSetup(){document.getElementById('setup-url').value=dbUrl||'';document.getElementById('setup-error').style.display='none';show('setup-screen');}
+function show(id){['loading-screen','main-app'].forEach(function(s){document.getElementById(s).style.display=(s===id)?'block':'none';});}
 
 function init(){
   try{
     myName=localStorage.getItem(MY_NAME_KEY)||'';
-    dbUrl=localStorage.getItem(DB_URL_KEY)||'';
-    if(!dbUrl){show('setup-screen');return;}
-    var params=new URLSearchParams(location.search),urlRoom=params.get('room');
+    dbUrl='https://bbq-planner-ea5be-default-rtdb.firebaseio.com';
+    var params=new URLSearchParams(location.search);
+    var urlRoom=params.get('room');
     if(urlRoom){roomKey=urlRoom;localStorage.setItem(ROOM_KEY_KEY,roomKey);}
     else roomKey=localStorage.getItem(ROOM_KEY_KEY)||'';
     if(!roomKey){roomKey=makeCode();localStorage.setItem(ROOM_KEY_KEY,roomKey);}
@@ -400,7 +267,7 @@ function init(){
     fetchState()
       .then(function(){show('main-app');updateMyNameBar();startStream();bindFormEvents();})
       .catch(function(){show('main-app');render();updateMyNameBar();startStream();bindFormEvents();setSyncStatus(false,'Could not reach Firebase');});
-  }catch(e){console.error(e);show('setup-screen');}
+  }catch(e){console.error(e);}
 }
 function makeCode(){return Math.random().toString(36).slice(2,8).toUpperCase();}
 function cleanUrl(u){return (u||'').trim().replace(/\/+$/,'');}
@@ -849,11 +716,6 @@ function newRoom(){
   history.replaceState(null,'',location.origin+location.pathname+'?room='+roomKey);
   setEl('room-code-display',roomKey);syncFormFromState();render();pushState();startStream();showToast('New plan created!');
 }
-function saveDbUrl(){
-  var v=(document.getElementById('setup-url').value||'').trim().replace(/\/+$/,'');
-  document.getElementById('setup-error').style.display='none';
-  if(!v.startsWith('https://')||!v.includes('.firebaseio.com')){showError('setup-error','Must start with https:// and contain .firebaseio.com');return;}
-  localStorage.setItem(DB_URL_KEY,v);location.reload();
 }
 function setSyncStatus(ok,msg){var d=document.getElementById('sync-dot'),l=document.getElementById('sync-label');if(!d||!l)return;d.className='sync-dot '+(ok?'live':'offline');l.textContent=msg||(ok?'Live':'Offline');}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
@@ -862,7 +724,6 @@ function setEl(id,text){var el=document.getElementById(id);if(el)el.textContent=
 function val(id){var el=document.getElementById(id);return el?el.value.trim():'';}
 function setValIfNotFocused(id,v){var el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-document.getElementById('setup-url').addEventListener('keydown',function(e){if(e.key==='Enter')saveDbUrl();});
 window.onerror=function(m,s,l,c,e){console.error('Global error:',m,e);return false;};
 init();
 </script>
