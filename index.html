@@ -228,6 +228,13 @@ textarea{resize:vertical;line-height:1.5}
         </select>
       </div>
       <div>
+        <span class="field-label">Total quantity needed for the group</span>
+        <div class="row" style="gap:8px;align-items:center">
+          <input type="number" id="item-qty" min="1" placeholder="e.g. 40" style="width:110px">
+          <span style="font-size:13px;color:var(--text3)" id="qty-hint"></span>
+        </div>
+      </div>
+      <div>
         <span class="field-label">Note (optional)</span>
         <input type="text" id="item-note" placeholder="e.g. at least 10 should be veggie" style="width:100%">
       </div>
@@ -400,10 +407,22 @@ function init(){
 function makeCode(){ return Math.random().toString(36).slice(2,8).toUpperCase(); }
 
 // ── Form sync ─────────────────────────────────────────────
+function updateQtyHint(){
+  var guests=parseInt((state.event&&state.event.guests)||0)||0;
+  var hint=document.getElementById('qty-hint');
+  if(hint&&guests>0) hint.textContent='You have ~'+guests+' guests';
+  else if(hint) hint.textContent='';
+}
+
 function bindFormEvents(){
   ['evt-name','evt-date','evt-loc','evt-guests'].forEach(function(id){
     var el = document.getElementById(id);
-    if(el) el.addEventListener('input', function(){ syncStateFromForm(); schedulePush(); });
+    if(el) el.addEventListener('input', function(){ syncStateFromForm(); schedulePush(); if(id==='evt-guests') updateQtyHint(); });
+  });
+  var qinp=document.getElementById('item-qty');
+  if(qinp) qinp.addEventListener('input', function(){
+    var wrap=document.getElementById('add-aw-wrap');
+    if(wrap&&wrap.style.display!=='none') renderAW('add-aw',addMap,getAWTarget('add-aw'));
   });
 }
 function syncStateFromForm(){
@@ -542,9 +561,11 @@ function getAWMap(cid){
   return editMaps[itemId];
 }
 function getAWTarget(cid){
-  if(cid==='add-aw') return null;
+  if(cid==='add-aw'){
+    var qinp=document.getElementById('item-qty');
+    return qinp&&qinp.value?parseInt(qinp.value)||null:null;
+  }
   var itemId=cid.replace('edit-aw-','');
-  // Prefer the live qty input value if it exists
   var liveInput=document.getElementById('ed-qty-'+itemId);
   if(liveInput) return parseInt(liveInput.value)||null;
   var item = state.items && state.items[itemId];
@@ -590,14 +611,21 @@ function toggleAddAssign(){
 function addItem(){
   var inp=document.getElementById('item-input'), name=inp.value.trim(); if(!name) return;
   if(!state.items) state.items={};
-  var cat  = document.getElementById('item-cat').value;
-  var note = document.getElementById('item-note').value.trim();
-  var id   = 'i'+Date.now();
-  var f    = mapToFields(addMap);
-  state.items[id] = {id:id, name:name, qty:f.qty, cat:cat, notes:note, assignedTo:f.assignedTo, splits:f.splits, done:false};
-  inp.value=''; document.getElementById('item-note').value='';
+  var cat=document.getElementById('item-cat').value;
+  var note=document.getElementById('item-note').value.trim();
+  var totalQty=Math.max(1,parseInt((document.getElementById('item-qty')||{}).value)||1);
+  var id='i'+Date.now();
+  var f=mapToFields(addMap);
+  // No splits assigned → use the typed total qty directly
+  // Everyone assigned → use typed total qty
+  // Specific people split → qty = sum of their splits
+  var finalQty=('all' in addMap||f.assignedTo.length===0)?totalQty:f.qty;
+  state.items[id]={id:id, name:name, qty:finalQty, cat:cat, notes:note, assignedTo:f.assignedTo, splits:f.splits, done:false};
+  inp.value='';
+  document.getElementById('item-note').value='';
+  var qEl=document.getElementById('item-qty'); if(qEl) qEl.value='';
+  var hint=document.getElementById('qty-hint'); if(hint) hint.textContent='';
   addMap={};
-  // collapse assign widget
   var wrap=document.getElementById('add-aw-wrap');
   var btn=document.getElementById('assign-toggle-btn');
   if(wrap) wrap.style.display='none';
