@@ -7,60 +7,64 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#faf9f7;color:#1a1a1a;min-height:100vh}
-button,input{font-family:inherit}
-
-/* Loading */
+button,input,textarea{font-family:inherit}
 #loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:14px}
 .spinner{width:30px;height:30px;border:2.5px solid #ebe7e2;border-top-color:#e85d26;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Welcome */
+#setup{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center}
+.setup-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:2rem;width:100%;max-width:460px;text-align:left}
+.setup-title{font-size:22px;font-weight:800;margin-bottom:6px;text-align:center}
+.setup-sub{font-size:14px;color:#888;text-align:center;margin-bottom:1.75rem;line-height:1.6}
+.step{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;background:#e85d26;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-txt{font-size:14px;color:#444;line-height:1.5}
+.step-txt a{color:#e85d26;text-decoration:none;font-weight:600}
+.step-txt a:hover{text-decoration:underline}
+.step-txt code{background:#f4f1ec;padding:2px 6px;border-radius:5px;font-size:13px;font-family:monospace}
+.url-input{width:100%;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;outline:none;margin-top:1.25rem;transition:border-color .15s}
+.url-input:focus{border-color:#e85d26}
+.primary-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px;transition:background .15s}
+.primary-btn:hover{background:#d04f1e}
+.setup-err{color:#e85d26;font-size:13px;margin-top:8px;display:none}
 #welcome{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center}
 .flame{font-size:56px;margin-bottom:1.5rem;animation:flicker 2s ease-in-out infinite alternate}
 @keyframes flicker{0%{transform:scale(1) rotate(-2deg)}100%{transform:scale(1.05) rotate(2deg)}}
 .w-title{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
 .w-sub{font-size:15px;color:#888;margin-bottom:2.5rem}
-.w-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:1.75rem;width:100%;max-width:360px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.primary-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s,transform .1s}
-.primary-btn:hover{background:#d04f1e}
-.primary-btn:active{transform:scale(.98)}
+.w-card{background:#fff;border:1px solid #e8e4de;border-radius:22px;padding:1.75rem;width:100%;max-width:360px}
+.start-btn{width:100%;padding:14px;background:#e85d26;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.start-btn:hover{background:#d04f1e}
 .divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0;color:#ccc;font-size:13px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:#ebe7e2}
 .join-row{display:flex;gap:8px}
-.code-input{flex:1;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:15px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;outline:none;transition:border-color .15s}
+.code-input{flex:1;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:15px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;outline:none;transition:border-color .15s}
 .code-input:focus{border-color:#e85d26}
-.join-btn{padding:11px 16px;background:#fff;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.join-btn{padding:11px 16px;background:#fff;border:1.5px solid #e0dbd4;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
 .join-btn:hover{background:#f5f3f0}
-.err{color:#e85d26;font-size:13px;margin-top:10px;text-align:left;display:none}
-
-/* Main */
-#main{display:none;max-width:640px;margin:0 auto;padding:20px 16px 40px}
-
+.join-err{color:#e85d26;font-size:13px;margin-top:10px;text-align:left;display:none}
+#main{display:none;max-width:640px;margin:0 auto;padding:20px 16px 48px}
 .app-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;gap:12px;flex-wrap:wrap}
 .app-title{font-size:22px;font-weight:800;letter-spacing:-.3px}
 .by-line{font-size:12px;color:#bbb;margin-top:3px;min-height:16px}
-.room-pill{display:flex;align-items:center;gap:8px;background:#f4f1ec;border-radius:99px;padding:8px 14px;cursor:pointer;transition:background .15s;border:none}
+.room-pill{display:flex;align-items:center;gap:8px;background:#f4f1ec;border-radius:99px;padding:8px 14px;cursor:pointer;border:none;transition:background .15s}
 .room-pill:hover{background:#ebe7e2}
 .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;transition:background .3s}
-.dot.syncing{background:#f59e0b;animation:pulse 1s infinite}
-.dot.err{background:#ef4444}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-.room-label{font-size:10px;color:#aaa;font-weight:600;letter-spacing:.05em}
-.room-code{font-size:13px;font-weight:800;letter-spacing:.12em;color:#1a1a1a}
+.dot.syncing{background:#f59e0b;animation:blink 1s infinite}
+.dot.offline{background:#ef4444}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.room-label{font-size:10px;color:#aaa;font-weight:700;letter-spacing:.05em}
+.room-code{font-size:14px;font-weight:800;letter-spacing:.18em;color:#1a1a1a}
 .copy-icon{font-size:13px;color:#aaa}
-
 .guest-bar{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #ebe7e2;border-radius:14px;padding:14px 18px;margin-bottom:20px}
 .guest-lbl{font-size:14px;color:#777}
 .guest-lbl strong{color:#1a1a1a;font-size:16px;font-weight:700}
 .g-ctrl{display:flex;align-items:center;gap:10px}
-.g-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid #ebe7e2;background:#fff;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.g-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid #ebe7e2;background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .g-btn:hover{background:#f5f3f0}
 .g-num{font-size:18px;font-weight:700;min-width:28px;text-align:center}
-
 .tabs{display:flex;border-bottom:1px solid #ebe7e2;margin-bottom:18px}
 .tab-btn{padding:10px 20px;background:none;border:none;border-bottom:2.5px solid transparent;font-size:14px;color:#aaa;margin-bottom:-1px;cursor:pointer;transition:all .15s;font-weight:500}
 .tab-btn.active{border-bottom-color:#e85d26;color:#1a1a1a;font-weight:700}
-
 .hint{font-size:13px;color:#aaa;margin-bottom:14px}
 .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .rc{background:#fff;border:1.5px solid #ebe7e2;border-radius:14px;padding:13px 15px;cursor:pointer;transition:border-color .15s;user-select:none}
@@ -71,48 +75,67 @@ button,input{font-family:inherit}
 .card-name{font-size:13px;font-weight:700;flex:1}
 .on-badge{font-size:10px;font-weight:700;background:#fff0eb;color:#e85d26;padding:2px 8px;border-radius:99px;white-space:nowrap}
 .card-ing{font-size:11.5px;color:#aaa;line-height:1.6}
-
 .sbar{display:none;margin-top:16px;background:#fff0eb;border-radius:12px;padding:12px 16px;justify-content:space-between;align-items:center}
 .sbar.show{display:flex}
 .sbar-txt{font-size:14px;color:#e85d26;font-weight:700}
 .sbar-link{font-size:13px;background:none;border:none;color:#e85d26;font-weight:600;cursor:pointer}
-
 .add-row{display:flex;gap:8px;margin-bottom:16px}
 .add-input{flex:1;font-size:14px;padding:10px 14px;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;outline:none;transition:border-color .15s}
 .add-input:focus{border-color:#e85d26}
-.add-btn{padding:10px 16px;font-size:14px;font-weight:600;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;cursor:pointer;transition:background .15s}
+.add-btn{padding:10px 16px;font-size:14px;font-weight:600;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;cursor:pointer}
 .add-btn:hover{background:#f5f3f0}
-
 .cat-lbl{font-size:10px;font-weight:800;color:#ccc;letter-spacing:.08em;text-transform:uppercase;padding:14px 0 5px}
 .cat-group{background:#fff;border:1px solid #ebe7e2;border-radius:12px;padding:0 15px;margin-bottom:8px}
 .si{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid #f4f1ec}
 .si:last-child{border-bottom:none}
 .si.ck label{text-decoration:line-through;color:#ccc}
 .si input[type=checkbox]{width:17px;height:17px;accent-color:#e85d26;cursor:pointer;flex-shrink:0}
-.si label{font-size:14px;cursor:pointer;flex:1;color:#1a1a1a}
+.si label{font-size:14px;cursor:pointer;flex:1}
 .rm-btn{background:none;border:none;color:#ddd;font-size:20px;line-height:1;padding:0 2px;cursor:pointer}
 .rm-btn:hover{color:#aaa}
-
 .shop-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
 .progress{font-size:13px;color:#bbb}
 .clr-btn{font-size:13px;color:#bbb;background:none;border:none;cursor:pointer}
 .clr-btn:hover{color:#888}
 .empty{text-align:center;padding:2.5rem 1rem;color:#ccc;font-size:14px;line-height:1.7}
-.footer-note{font-size:12px;color:#ddd;text-align:center;margin-top:2rem}
-.leave-btn{font-size:12px;color:#ddd;background:none;border:none;cursor:pointer;text-decoration:underline;margin-top:6px;display:block;margin-left:auto;margin-right:auto}
+.footer-row{display:flex;flex-direction:column;align-items:center;margin-top:2rem;gap:6px}
+.last-upd{font-size:12px;color:#ddd}
+.leave-btn{font-size:12px;color:#ddd;background:none;border:none;cursor:pointer;text-decoration:underline}
 .leave-btn:hover{color:#aaa}
-
-@media(max-width:430px){
-  .rgrid{grid-template-columns:1fr}
-  .app-header{flex-direction:column}
-}
+@media(max-width:430px){.rgrid{grid-template-columns:1fr}.app-header{flex-direction:column}}
 </style>
 </head>
 <body>
 
 <div id="loading">
   <div class="spinner"></div>
-  <span style="font-size:14px;color:#aaa">Connecting...</span>
+  <span style="font-size:14px;color:#aaa">Loading...</span>
+</div>
+
+<div id="setup">
+  <div class="setup-card">
+    <div class="setup-title">One-time setup 🔧</div>
+    <div class="setup-sub">You need a free Firebase Realtime Database URL to enable real-time sync. Takes about 5 minutes.</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-txt">Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in with your Google account.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-txt">Click <strong>Add project</strong>, give it any name, skip Analytics, click <strong>Create project</strong>.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-txt">In the left menu: <strong>Build → Realtime Database → Create database → Start in test mode → Enable</strong>.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-txt">Copy the database URL at the top — it looks like:<br><code>https://your-project-default-rtdb.firebaseio.com</code></div>
+    </div>
+    <input class="url-input" id="fb-url-input" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com"/>
+    <div class="setup-err" id="setup-err">Please enter a valid Firebase Realtime Database URL.</div>
+    <button class="primary-btn" onclick="saveFirebaseUrl()">Save and continue →</button>
+  </div>
 </div>
 
 <div id="welcome">
@@ -120,14 +143,15 @@ button,input{font-family:inherit}
   <h1 class="w-title">Park BBQ Planner</h1>
   <p class="w-sub">Plan your cookout together, in real time</p>
   <div class="w-card">
-    <button class="primary-btn" onclick="createRoom()">Start a new BBQ party</button>
+    <button class="start-btn" onclick="createRoom()">Start a new BBQ party</button>
     <div class="divider">or join one</div>
     <div class="join-row">
-      <input class="code-input" id="join-input" placeholder="ROOM CODE" onkeydown="if(event.key==='Enter')joinRoom()"/>
+      <input class="code-input" id="join-input" placeholder="XXXXXX" maxlength="6" onkeydown="if(event.key==='Enter')joinRoom()"/>
       <button class="join-btn" onclick="joinRoom()">Join →</button>
     </div>
-    <div class="err" id="join-err">Room not found. Check the code and try again.</div>
+    <div class="join-err" id="join-err">Room not found. Check the code and try again.</div>
   </div>
+  <button style="margin-top:1.5rem;font-size:12px;color:#ccc;background:none;border:none;cursor:pointer;text-decoration:underline" onclick="resetSetup()">Change Firebase URL</button>
 </div>
 
 <div id="main">
@@ -136,7 +160,7 @@ button,input{font-family:inherit}
       <div class="app-title">Park BBQ 🔥</div>
       <div class="by-line" id="by-line"></div>
     </div>
-    <button class="room-pill" onclick="copyCode()" title="Copy room code">
+    <button class="room-pill" onclick="copyCode()">
       <div class="dot" id="sync-dot"></div>
       <div>
         <div class="room-label">ROOM CODE</div>
@@ -145,7 +169,6 @@ button,input{font-family:inherit}
       <span class="copy-icon" id="copy-icon">⎘</span>
     </button>
   </div>
-
   <div class="guest-bar">
     <div class="guest-lbl">Planning for <strong id="gnum">15</strong> guests</div>
     <div class="g-ctrl">
@@ -154,12 +177,10 @@ button,input{font-family:inherit}
       <button class="g-btn" onclick="adj(5)">+</button>
     </div>
   </div>
-
   <div class="tabs">
     <button class="tab-btn active" id="t-menu" onclick="goTab('menu')">Menu</button>
     <button class="tab-btn" id="t-shop" onclick="goTab('shop')">Shopping list</button>
   </div>
-
   <div id="v-menu">
     <p class="hint">Tap a dish to add it. Quantities scale automatically with guest count.</p>
     <div class="rgrid" id="rgrid"></div>
@@ -168,7 +189,6 @@ button,input{font-family:inherit}
       <button class="sbar-link" onclick="goTab('shop')">See shopping list →</button>
     </div>
   </div>
-
   <div id="v-shop" style="display:none">
     <div class="add-row">
       <input class="add-input" id="ni" placeholder="Add an item manually..." onkeydown="if(event.key==='Enter')addC()"/>
@@ -181,198 +201,133 @@ button,input{font-family:inherit}
       <button class="clr-btn" onclick="clrCk()">Clear checked</button>
     </div>
   </div>
-
-  <div class="footer-note" id="last-upd"></div>
-  <button class="leave-btn" onclick="leaveRoom()">Leave this room</button>
+  <div class="footer-row">
+    <div class="last-upd" id="last-upd"></div>
+    <button class="leave-btn" onclick="leaveRoom()">Leave this room</button>
+  </div>
 </div>
 
 <script>
-const API = 'https://jsonblob.com/api/jsonBlob';
-const POLL = 3500;
-const NAMES = ['Grill King','Sauce Boss','Smoke Whisperer','Burger Baron','Wing Commander','Charcoal Champ','Brisket Boss','Kebab Knight','Patty Master','Flame Tamer'];
-
-const R = [
-  {id:'burgers',name:'Burgers',col:'#dbeafe',tc:'#1e40af',ing:[
-    {n:'Ground beef (80/20)',u:'lb',c:'Meat',p:.25},{n:'Burger buns',u:'',c:'Bread',p:1},
-    {n:'Cheddar slices',u:'pack',c:'Dairy',f:1},{n:'Lettuce',u:'head',c:'Produce',p:.07},
-    {n:'Tomatoes',u:'',c:'Produce',p:.25},{n:'Red onion',u:'',c:'Produce',p:.1},
-    {n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Mustard',u:'bottle',c:'Condiments',f:1}]},
-  {id:'hotdogs',name:'Hot dogs',col:'#fef3c7',tc:'#92400e',ing:[
-    {n:'Hot dogs',u:'',c:'Meat',p:1.5},{n:'Hot dog buns',u:'pack',c:'Bread',p:1.5},
-    {n:'Yellow mustard',u:'bottle',c:'Condiments',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},
-    {n:'Relish',u:'jar',c:'Condiments',f:1}]},
-  {id:'chicken',name:'BBQ chicken',col:'#ffe4e6',tc:'#9f1239',ing:[
-    {n:'Chicken thighs & drumsticks',u:'lb',c:'Meat',p:.5},
-    {n:'BBQ sauce',u:'bottle',c:'Condiments',f:1},{n:'Garlic powder',u:'',c:'Spices',f:1},
-    {n:'Paprika',u:'',c:'Spices',f:1},{n:'Olive oil',u:'bottle',c:'Pantry',f:1}]},
-  {id:'corn',name:'Grilled corn',col:'#fef9c3',tc:'#713f12',ing:[
-    {n:'Corn on the cob',u:'ears',c:'Produce',p:1},
-    {n:'Butter',u:'sticks',c:'Dairy',p:.1},{n:'Salt',u:'',c:'Spices',f:1}]},
-  {id:'coleslaw',name:'Coleslaw',col:'#dcfce7',tc:'#14532d',ing:[
-    {n:'Green cabbage',u:'head',c:'Produce',p:.06},{n:'Carrots',u:'',c:'Produce',p:.25},
-    {n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Apple cider vinegar',u:'bottle',c:'Pantry',f:1},
-    {n:'Sugar',u:'',c:'Pantry',f:1}]},
-  {id:'potatosalad',name:'Potato salad',col:'#f1f5f9',tc:'#334155',ing:[
-    {n:'Yukon gold potatoes',u:'lb',c:'Produce',p:.35},{n:'Eggs',u:'',c:'Dairy',p:.4},
-    {n:'Celery stalks',u:'',c:'Produce',p:.2},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},
-    {n:'Dijon mustard',u:'jar',c:'Condiments',f:1}]},
-  {id:'beans',name:'Baked beans',col:'#fff7ed',tc:'#7c2d12',ing:[
-    {n:'Canned navy beans (16 oz)',u:'cans',c:'Pantry',p:.25},{n:'Bacon',u:'pack',c:'Meat',f:1},
-    {n:'Brown sugar',u:'',c:'Pantry',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1}]},
-  {id:'watermelon',name:'Watermelon',col:'#d1fae5',tc:'#065f46',ing:[
-    {n:'Watermelon',u:'',c:'Produce',p:.07}]},
-  {id:'lemonade',name:'Lemonade',col:'#fef9c3',tc:'#713f12',ing:[
-    {n:'Lemons',u:'',c:'Produce',p:.5},{n:'Sugar',u:'cups',c:'Pantry',f:2},
-    {n:'Water jugs (1 gal)',u:'',c:'Drinks',p:.04}]},
-  {id:'chips',name:'Chips & dips',col:'#fef3c7',tc:'#92400e',ing:[
-    {n:'Tortilla chips',u:'bags',c:'Pantry',p:.05},{n:'Guacamole',u:'tub',c:'Produce',f:1},
-    {n:'Salsa',u:'jars',c:'Condiments',f:2}]},
+const POLL=3500;
+const NAMES=['Grill King','Sauce Boss','Smoke Whisperer','Burger Baron','Wing Commander','Charcoal Champ','Brisket Boss','Kebab Knight','Patty Master','Flame Tamer'];
+const R=[
+  {id:'burgers',name:'Burgers',col:'#dbeafe',tc:'#1e40af',ing:[{n:'Ground beef (80/20)',u:'lb',c:'Meat',p:.25},{n:'Burger buns',u:'',c:'Bread',p:1},{n:'Cheddar slices',u:'pack',c:'Dairy',f:1},{n:'Lettuce',u:'head',c:'Produce',p:.07},{n:'Tomatoes',u:'',c:'Produce',p:.25},{n:'Red onion',u:'',c:'Produce',p:.1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Mustard',u:'bottle',c:'Condiments',f:1}]},
+  {id:'hotdogs',name:'Hot dogs',col:'#fef3c7',tc:'#92400e',ing:[{n:'Hot dogs',u:'',c:'Meat',p:1.5},{n:'Hot dog buns',u:'pack',c:'Bread',p:1.5},{n:'Yellow mustard',u:'bottle',c:'Condiments',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1},{n:'Relish',u:'jar',c:'Condiments',f:1}]},
+  {id:'chicken',name:'BBQ chicken',col:'#ffe4e6',tc:'#9f1239',ing:[{n:'Chicken thighs & drumsticks',u:'lb',c:'Meat',p:.5},{n:'BBQ sauce',u:'bottle',c:'Condiments',f:1},{n:'Garlic powder',u:'',c:'Spices',f:1},{n:'Paprika',u:'',c:'Spices',f:1},{n:'Olive oil',u:'bottle',c:'Pantry',f:1}]},
+  {id:'corn',name:'Grilled corn',col:'#fef9c3',tc:'#713f12',ing:[{n:'Corn on the cob',u:'ears',c:'Produce',p:1},{n:'Butter',u:'sticks',c:'Dairy',p:.1},{n:'Salt',u:'',c:'Spices',f:1}]},
+  {id:'coleslaw',name:'Coleslaw',col:'#dcfce7',tc:'#14532d',ing:[{n:'Green cabbage',u:'head',c:'Produce',p:.06},{n:'Carrots',u:'',c:'Produce',p:.25},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Apple cider vinegar',u:'bottle',c:'Pantry',f:1},{n:'Sugar',u:'',c:'Pantry',f:1}]},
+  {id:'potatosalad',name:'Potato salad',col:'#f1f5f9',tc:'#334155',ing:[{n:'Yukon gold potatoes',u:'lb',c:'Produce',p:.35},{n:'Eggs',u:'',c:'Dairy',p:.4},{n:'Celery stalks',u:'',c:'Produce',p:.2},{n:'Mayonnaise',u:'jar',c:'Condiments',f:1},{n:'Dijon mustard',u:'jar',c:'Condiments',f:1}]},
+  {id:'beans',name:'Baked beans',col:'#fff7ed',tc:'#7c2d12',ing:[{n:'Canned navy beans (16 oz)',u:'cans',c:'Pantry',p:.25},{n:'Bacon',u:'pack',c:'Meat',f:1},{n:'Brown sugar',u:'',c:'Pantry',f:1},{n:'Ketchup',u:'bottle',c:'Condiments',f:1}]},
+  {id:'watermelon',name:'Watermelon',col:'#d1fae5',tc:'#065f46',ing:[{n:'Watermelon',u:'',c:'Produce',p:.07}]},
+  {id:'lemonade',name:'Lemonade',col:'#fef9c3',tc:'#713f12',ing:[{n:'Lemons',u:'',c:'Produce',p:.5},{n:'Sugar',u:'cups',c:'Pantry',f:2},{n:'Water jugs (1 gal)',u:'',c:'Drinks',p:.04}]},
+  {id:'chips',name:'Chips & dips',col:'#fef3c7',tc:'#92400e',ing:[{n:'Tortilla chips',u:'bags',c:'Pantry',p:.05},{n:'Guacamole',u:'tub',c:'Produce',f:1},{n:'Salsa',u:'jars',c:'Condiments',f:2}]},
 ];
-const CATS = ['Meat','Produce','Dairy','Bread','Condiments','Pantry','Spices','Drinks','Other'];
+const CATS=['Meat','Produce','Dairy','Bread','Condiments','Pantry','Spices','Drinks','Other'];
 
-let roomId=null, G=15, sel=new Set(), ck=new Set(), cust=[], cid=0;
-let myName='', lastTs=0, pushing=false, pollTimer=null;
+let fbUrl='',roomId=null,G=15,sel=new Set(),ck=new Set(),cust=[],cid=0;
+let myName='',lastTs=0,pushing=false,pollTimer=null;
 
-function init() {
-  myName = localStorage.getItem('bbq-name');
-  if (!myName) { myName = NAMES[Math.floor(Math.random()*NAMES.length)]; localStorage.setItem('bbq-name', myName); }
-  const saved = localStorage.getItem('bbq-room');
-  if (saved) {
-    try { roomId = JSON.parse(saved).roomId; joinExisting(); return; } catch(e) {}
+function roomRef(){return fbUrl+'/rooms/'+roomId+'.json';}
+async function fbGet(){const r=await fetch(roomRef());if(!r.ok)throw new Error();return r.json();}
+async function fbPut(data){await fetch(roomRef(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}
+
+function init(){
+  myName=localStorage.getItem('bbq-name')||NAMES[Math.floor(Math.random()*NAMES.length)];
+  localStorage.setItem('bbq-name',myName);
+  fbUrl=(localStorage.getItem('bbq-fb-url')||'').replace(/\/$/,'');
+  if(!fbUrl){elhide('loading');elshow('setup');return;}
+  const saved=localStorage.getItem('bbq-room');
+  if(saved){try{roomId=JSON.parse(saved).roomId;rejoin();return;}catch(e){}}
+  elhide('loading');elshow('welcome');
+}
+
+function saveFirebaseUrl(){
+  const val=document.getElementById('fb-url-input').value.trim().replace(/\/$/,'');
+  const err=document.getElementById('setup-err');
+  if(!val.includes('firebaseio.com')){err.style.display='block';return;}
+  err.style.display='none';
+  localStorage.setItem('bbq-fb-url',val);fbUrl=val;
+  elhide('setup');elshow('welcome');
+}
+
+function resetSetup(){localStorage.removeItem('bbq-fb-url');fbUrl='';elhide('welcome');elshow('setup');}
+
+function randCode(){return Array.from({length:6},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]).join('');}
+
+async function createRoom(){
+  elhide('welcome');elshow('loading');
+  roomId=randCode();
+  try{await fbPut(buildState());lastTs=Date.now();localStorage.setItem('bbq-room',JSON.stringify({roomId}));elhide('loading');openMain();}
+  catch(e){elhide('loading');elshow('welcome');alert('Could not create room. Make sure your Firebase database is in test mode.');}
+}
+
+async function joinRoom(){
+  const code=document.getElementById('join-input').value.trim().toUpperCase();
+  if(!code)return;
+  document.getElementById('join-err').style.display='none';
+  elhide('welcome');elshow('loading');roomId=code;
+  try{const data=await fbGet();if(!data)throw new Error();absorb(data);localStorage.setItem('bbq-room',JSON.stringify({roomId}));elhide('loading');openMain();}
+  catch(e){roomId=null;elhide('loading');elshow('welcome');document.getElementById('join-err').style.display='block';}
+}
+
+async function rejoin(){
+  try{const data=await fbGet();if(!data)throw new Error();absorb(data);elhide('loading');openMain();}
+  catch(e){localStorage.removeItem('bbq-room');roomId=null;elhide('loading');elshow('welcome');}
+}
+
+function openMain(){document.getElementById('room-display').textContent=roomId;elshow('main');renderMenu();renderShop();startPolling();}
+
+function leaveRoom(){
+  if(!confirm('Leave this room? You can rejoin later with the room code.'))return;
+  clearInterval(pollTimer);localStorage.removeItem('bbq-room');
+  roomId=null;G=15;sel=new Set();ck=new Set();cust=[];cid=0;lastTs=0;
+  elhide('main');elshow('welcome');
+}
+
+function buildState(){return{G,sel:[...sel],ck:[...ck],cust,cid,ts:Date.now(),by:myName};}
+
+function absorb(data){
+  if(!data||(data.ts||0)<=lastTs)return;
+  G=data.G||15;sel=new Set(data.sel||[]);ck=new Set(data.ck||[]);
+  cust=data.cust||[];cid=data.cid||0;lastTs=data.ts||0;
+  const who=data.by||'';
+  document.getElementById('gnum').textContent=G;
+  document.getElementById('gnum2').textContent=G;
+  if(who&&who!==myName){
+    document.getElementById('by-line').textContent=who+' just updated';
+    document.getElementById('last-upd').textContent='Last updated by '+who;
+    setTimeout(()=>document.getElementById('by-line').textContent='',4000);
   }
-  elshow('welcome'); elhide('loading');
+  renderMenu();renderShop();
 }
 
-async function createRoom() {
-  elhide('welcome'); elshow('loading');
-  try {
-    const resp = await fetch(API, {
-      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify(buildState())
-    });
-    if (!resp.ok) throw new Error();
-    const loc = resp.headers.get('Location') || resp.url || '';
-    roomId = loc.split('/').pop();
-    if (!roomId || roomId.length < 5) throw new Error('bad id');
-    lastTs = Date.now();
-    localStorage.setItem('bbq-room', JSON.stringify({roomId}));
-    elhide('loading'); openMain();
-  } catch(e) {
-    elhide('loading'); elshow('welcome');
-    alert('Could not create room — check your connection and try again.');
-  }
+async function push(){
+  if(pushing||!roomId)return;pushing=true;setDot('syncing');
+  try{await fbPut(buildState());setDot('ok');}catch(e){setDot('offline');}
+  pushing=false;
 }
 
-async function joinRoom() {
-  const code = document.getElementById('join-input').value.trim();
-  if (!code) return;
-  document.getElementById('join-err').style.display = 'none';
-  elhide('welcome'); elshow('loading');
-  try {
-    const resp = await fetch(`${API}/${code}`);
-    if (!resp.ok) throw new Error();
-    const data = await resp.json();
-    roomId = code;
-    localStorage.setItem('bbq-room', JSON.stringify({roomId}));
-    absorb(data); elhide('loading'); openMain();
-  } catch(e) {
-    elhide('loading'); elshow('welcome');
-    document.getElementById('join-err').style.display = 'block';
-  }
+async function poll(){
+  if(pushing||!roomId)return;
+  try{absorb(await fbGet());setDot('ok');}catch(e){setDot('offline');}
 }
 
-async function joinExisting() {
-  try {
-    const resp = await fetch(`${API}/${roomId}`);
-    if (!resp.ok) throw new Error();
-    absorb(await resp.json());
-    elhide('loading'); openMain();
-  } catch(e) {
-    localStorage.removeItem('bbq-room'); roomId = null;
-    elhide('loading'); elshow('welcome');
-  }
-}
+function startPolling(){pollTimer=setInterval(poll,POLL);}
+function setDot(s){const d=document.getElementById('sync-dot');d.className='dot'+(s==='syncing'?' syncing':s==='offline'?' offline':'');}
 
-function openMain() {
-  document.getElementById('room-display').textContent = roomId;
-  elshow('main'); renderMenu(); renderShop();
-  startPolling();
-}
+function adj(n){G=Math.max(5,Math.min(100,G+n));document.getElementById('gnum').textContent=G;document.getElementById('gnum2').textContent=G;renderMenu();renderShop();push();}
 
-function leaveRoom() {
-  if (!confirm('Leave this room? You can rejoin later with the room code.')) return;
-  clearInterval(pollTimer);
-  localStorage.removeItem('bbq-room');
-  roomId=null; G=15; sel=new Set(); ck=new Set(); cust=[]; cid=0; lastTs=0;
-  elhide('main'); elshow('welcome');
-}
-
-function buildState() {
-  return {G, sel:[...sel], ck:[...ck], cust, cid, ts:Date.now(), by:myName};
-}
-
-function absorb(data) {
-  if (!data || (data.ts||0) <= lastTs) return;
-  G = data.G||15; sel=new Set(data.sel||[]); ck=new Set(data.ck||[]);
-  cust=data.cust||[]; cid=data.cid||0; lastTs=data.ts||0;
-  const who = data.by||'';
-  document.getElementById('gnum').textContent = G;
-  document.getElementById('gnum2').textContent = G;
-  if (who && who !== myName) {
-    document.getElementById('by-line').textContent = who + ' just updated';
-    document.getElementById('last-upd').textContent = 'Last updated by ' + who;
-    setTimeout(() => { document.getElementById('by-line').textContent = ''; }, 4000);
-  }
-  renderMenu(); renderShop();
-}
-
-async function push() {
-  if (pushing || !roomId) return;
-  pushing = true; setDot('syncing');
-  try {
-    const s = buildState(); lastTs = s.ts;
-    await fetch(`${API}/${roomId}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(s)});
-    setDot('ok');
-  } catch(e) { setDot('err'); }
-  pushing = false;
-}
-
-async function poll() {
-  if (pushing || !roomId) return;
-  try {
-    const resp = await fetch(`${API}/${roomId}`);
-    if (resp.ok) { absorb(await resp.json()); setDot('ok'); }
-  } catch(e) { setDot('err'); }
-}
-
-function startPolling() { pollTimer = setInterval(poll, POLL); }
-function setDot(s) {
-  const d = document.getElementById('sync-dot');
-  d.className = 'dot'+(s==='syncing'?' syncing':s==='err'?' err':'');
-}
-
-function adj(n) {
-  G = Math.max(5,Math.min(100,G+n));
-  document.getElementById('gnum').textContent = G;
-  document.getElementById('gnum2').textContent = G;
-  renderMenu(); renderShop(); push();
-}
-
-function copyCode() {
+function copyCode(){
   navigator.clipboard.writeText(roomId).catch(()=>{});
-  const ic = document.getElementById('copy-icon');
-  ic.textContent = '✓'; setTimeout(()=>ic.textContent='⎘', 1800);
+  const ic=document.getElementById('copy-icon');ic.textContent='✓';setTimeout(()=>ic.textContent='⎘',1800);
 }
 
-function goTab(t) {
-  ['menu','shop'].forEach(x => {
-    document.getElementById('v-'+x).style.display = x===t?'':'none';
-    document.getElementById('t-'+x).classList.toggle('active', x===t);
-  });
+function goTab(t){
+  ['menu','shop'].forEach(x=>{document.getElementById('v-'+x).style.display=x===t?'':'none';document.getElementById('t-'+x).classList.toggle('active',x===t);});
 }
 
-function renderMenu() {
-  document.getElementById('rgrid').innerHTML = R.map(r => `
+function renderMenu(){
+  document.getElementById('rgrid').innerHTML=R.map(r=>`
     <div class="rc${sel.has(r.id)?' on':''}" onclick="togR('${r.id}')">
       <div class="card-top">
         <div class="card-ico" style="background:${r.col};color:${r.tc}">${r.name[0]}</div>
@@ -381,63 +336,49 @@ function renderMenu() {
       </div>
       <div class="card-ing">${r.ing.slice(0,3).map(i=>i.n).join(', ')}${r.ing.length>3?' +'+(r.ing.length-3)+' more':''}</div>
     </div>`).join('');
-  const sb = document.getElementById('sbar');
-  if (!sel.size) { sb.classList.remove('show'); return; }
-  sb.classList.add('show');
-  document.getElementById('sbar-txt').textContent = sel.size+' dish'+(sel.size>1?'es':'')+' for '+G+' guests';
+  const sb=document.getElementById('sbar');
+  if(!sel.size){sb.classList.remove('show');return;}
+  sb.classList.add('show');document.getElementById('sbar-txt').textContent=sel.size+' dish'+(sel.size>1?'es':'')+' for '+G+' guests';
 }
 
-function togR(id) { sel.has(id)?sel.delete(id):sel.add(id); renderMenu(); push(); }
+function togR(id){sel.has(id)?sel.delete(id):sel.add(id);renderMenu();push();}
 
-function buildList() {
-  const map = {};
-  sel.forEach(id => {
-    const r = R.find(x=>x.id===id); if(!r) return;
-    r.ing.forEach(i => {
-      const qty = i.f ? i.f : Math.ceil(i.p*G);
-      const k = i.n.toLowerCase();
-      map[k] ? (map[k].qty = Math.max(map[k].qty,qty)) : (map[k]={name:i.n,unit:i.u,qty,cat:i.c});
-    });
-  });
+function buildList(){
+  const map={};
+  sel.forEach(id=>{const r=R.find(x=>x.id===id);if(!r)return;r.ing.forEach(i=>{const qty=i.f?i.f:Math.ceil(i.p*G),k=i.n.toLowerCase();map[k]?map[k].qty=Math.max(map[k].qty,qty):(map[k]={name:i.n,unit:i.u,qty,cat:i.c});});});
   return Object.values(map);
 }
 
-function ikey(item) { return item.cid!=null ? 'c'+item.cid : item.name.toLowerCase().replace(/\W+/g,'-'); }
-function fmt(item) { return [item.qty>0?item.qty:null,item.unit||null,item.name].filter(x=>x!=null&&x!=='').join(' '); }
+function ikey(item){return item.cid!=null?'c'+item.cid:item.name.toLowerCase().replace(/\W+/g,'-');}
+function fmt(item){return[item.qty>0?item.qty:null,item.unit||null,item.name].filter(x=>x!=null&&x!=='').join(' ');}
 
-function renderShop() {
-  const ri = buildList();
-  const all = [...ri, ...cust.map(c=>({name:c.name,unit:'',qty:1,cat:'Other',cid:c.id}))];
-  const slist = document.getElementById('slist');
-  const semp = document.getElementById('semp');
-  const sprog = document.getElementById('sprog');
-  if (!all.length) { slist.innerHTML=''; semp.style.display='block'; sprog.textContent=''; return; }
+function renderShop(){
+  const ri=buildList();
+  const all=[...ri,...cust.map(c=>({name:c.name,unit:'',qty:1,cat:'Other',cid:c.id}))];
+  const slist=document.getElementById('slist'),semp=document.getElementById('semp'),sprog=document.getElementById('sprog');
+  if(!all.length){slist.innerHTML='';semp.style.display='block';sprog.textContent='';return;}
   semp.style.display='none';
-  const grp={}; CATS.forEach(c=>grp[c]=[]);
+  const grp={};CATS.forEach(c=>grp[c]=[]);
   all.forEach(i=>{const c=i.cat||'Other';if(!grp[c])grp[c]=[];grp[c].push(i);});
-  const cked = all.filter(i=>ck.has(ikey(i))).length;
-  sprog.textContent = cked+' of '+all.length+' items checked';
-  slist.innerHTML = CATS.filter(c=>grp[c].length).map(cat=>`
+  const cked=all.filter(i=>ck.has(ikey(i))).length;
+  sprog.textContent=cked+' of '+all.length+' items checked';
+  slist.innerHTML=CATS.filter(c=>grp[c].length).map(cat=>`
     <div class="cat-lbl">${cat}</div>
     <div class="cat-group">${grp[cat].map(item=>{
       const k=ikey(item),isck=ck.has(k);
-      return `<div class="si${isck?' ck':''}">
-        <input type="checkbox" id="k-${k}" ${isck?'checked':''} onchange="togCk('${k}')"/>
-        <label for="k-${k}">${fmt(item)}</label>
-        ${item.cid!=null?`<button class="rm-btn" onclick="rmC(${item.cid})">×</button>`:''}
-      </div>`;
+      return '<div class="si'+(isck?' ck':'')+'"><input type="checkbox" id="k-'+k+'" '+(isck?'checked':'')+' onchange="togCk(\''+k+'\')"/><label for="k-'+k+'">'+fmt(item)+'</label>'+(item.cid!=null?'<button class="rm-btn" onclick="rmC('+item.cid+')">×</button>':'')+'</div>';
     }).join('')}</div>`).join('');
 }
 
-function togCk(k) { ck.has(k)?ck.delete(k):ck.add(k); renderShop(); push(); }
-function addC() { const i=document.getElementById('ni'),v=i.value.trim(); if(!v) return; cust.push({id:cid++,name:v}); i.value=''; renderShop(); push(); }
-function rmC(id) { cust=cust.filter(c=>c.id!==id); renderShop(); push(); }
-function clrCk() { ck.clear(); renderShop(); push(); }
+function togCk(k){ck.has(k)?ck.delete(k):ck.add(k);renderShop();push();}
+function addC(){const i=document.getElementById('ni'),v=i.value.trim();if(!v)return;cust.push({id:cid++,name:v});i.value='';renderShop();push();}
+function rmC(id){cust=cust.filter(c=>c.id!==id);renderShop();push();}
+function clrCk(){ck.clear();renderShop();push();}
 
-function elshow(id) { const el=document.getElementById(id); el.style.display = el.id==='welcome'?'flex':''; }
-function elhide(id) { document.getElementById(id).style.display='none'; }
+function elshow(id){const el=document.getElementById(id);el.style.display=['setup','welcome'].includes(id)?'flex':'';}
+function elhide(id){document.getElementById(id).style.display='none';}
 
-window.addEventListener('load', ()=>setTimeout(init,200));
+window.addEventListener('load',()=>setTimeout(init,200));
 </script>
 </body>
 </html>
