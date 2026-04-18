@@ -280,7 +280,7 @@ textarea{resize:vertical;line-height:1.5}
         <input type="text" id="item-input" placeholder="Item to bring..." style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addItem()">
         <select id="item-cat" style="min-width:130px">
           <option value="main">&#x1F356; Main Food</option>
-          <option value="sides">&#x1F957; Sides</option>
+          <option value="sides">&#x1F957; Sides &amp; Drinks</option>
           <option value="drink">&#x1F37B; Drinks</option>
           <option value="equip">&#x1F6E0; Equipment</option>
           <option value="disp">&#x1F4CB; Disposables</option>
@@ -336,7 +336,7 @@ textarea{resize:vertical;line-height:1.5}
 var DB_URL   = 'https://bbq-planner-ea5be-default-rtdb.firebaseio.com';
 var ROOM_KEY = 'bbq_room_key';
 var NAME_KEY = 'bbq_my_name';
-var CAT_LABEL = {main:'Main Food',sides:'Sides',drink:'Drinks',equip:'Equipment',disp:'Disposables',other:'Other'};
+var CAT_LABEL = {main:'Main Food',sides:'Sides & Drinks',drink:'Drinks',equip:'Equipment',disp:'Disposables',other:'Other'};
 var CAT_CLASS  = {main:'lbl-food',sides:'lbl-sides',drink:'lbl-drink',equip:'lbl-equip',disp:'lbl-disp',other:'lbl-other'};
 
 var SUGGESTIONS = [
@@ -353,11 +353,11 @@ var SUGGESTIONS = [
   {cat:'sides',name:'Condiment set',per:0.02,min:1},
   {cat:'sides',name:'Potato salad (kg)',per:0.08,min:1},
   {cat:'sides',name:'Dips & crudités',per:0.05,min:1},
-  {cat:'drink',name:'Soft drinks (cans)',per:2,min:10},
-  {cat:'drink',name:'Beer / cider (cans)',per:2,min:10},
-  {cat:'drink',name:'Water (1.5L bottles)',per:0.3,min:3},
-  {cat:'drink',name:'Juice (cartons)',per:0.1,min:2},
-  {cat:'drink',name:'Ice (bags)',per:0.1,min:2},
+  {cat:'sides',name:'Soft drinks (cans)',per:2,min:10},
+  {cat:'sides',name:'Beer / cider (cans)',per:2,min:10},
+  {cat:'sides',name:'Water (1.5L bottles)',per:0.3,min:3},
+  {cat:'sides',name:'Juice (cartons)',per:0.1,min:2},
+  {cat:'sides',name:'Ice (bags)',per:0.1,min:2},
   {cat:'equip',name:'Charcoal (bags)',per:0.04,min:1},
   {cat:'equip',name:'Lighter fluid',per:0.02,min:1},
   {cat:'disp',name:'Disposable plates',per:1,min:20},
@@ -735,6 +735,7 @@ function dragDrop(e,targetId){
   // Migrate old categories
   var _dispNames=['Disposable plates','Napkins (pack)','Plastic cups','Cutlery sets','BBQ skewers (pack)','Aluminium foil (roll)','Trash bags (pack)'];
   Object.values(state.items||{}).forEach(function(i){
+    if(i.cat==='drink') i.cat='sides';
     if(i.cat==='food') i.cat='main';
     if(i.cat==='equip'&&_dispNames.indexOf(i.name)>=0) i.cat='disp';
   });
@@ -841,7 +842,7 @@ function renderItems(){
             +'<input style="width:90px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-serves-'+item.id+'" type="number" min="1" value="'+(item.serves||'')+'" placeholder="For N people">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
               +'<option value="main"'+(item.cat==='main'||item.cat==='food'?' selected':'')+'>Main Food</option>'
-              +'<option value="sides"'+(item.cat==='sides'?' selected':'')+'>Sides</option>'
+              +'<option value="sides"'+(item.cat==='sides'?' selected':'')+'>Sides &amp; Drinks</option>'
               +'<option value="drink"'+(item.cat==='drink'?' selected':'')+'>Drinks</option>'
               +'<option value="equip"'+(item.cat==='equip'?' selected':'')+'>Equipment</option>'
               +'<option value="disp"'+(item.cat==='disp'?' selected':'')+'>Disposables</option>'
