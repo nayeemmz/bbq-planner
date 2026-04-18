@@ -629,7 +629,8 @@ function addItem(){
   var totalQty=Math.max(1,parseInt((document.getElementById('item-qty')||{}).value)||1);
   var serves=parseInt((document.getElementById('item-serves')||{}).value)||0;
   var f=mapToFields(addMap);
-  var finalQty=('all' in addMap||f.assignedTo.length===0)?totalQty:f.qty;
+  // finalQty is always the typed total — splits are portions of it, may not add up yet
+  var finalQty=totalQty;
   var id='i'+Date.now();
   var maxOrder=Object.values(state.items||{}).reduce(function(m,i){ return Math.max(m,i.order||0); },0);
   state.items[id]={id:id,name:name,qty:finalQty,serves:serves,cat:cat,notes:note,assignedTo:f.assignedTo,splits:f.splits,done:false,order:maxOrder+1};
@@ -726,9 +727,17 @@ function saveEdit(id){
   if(no) item.notes  = no.value.trim();
   if(ns) item.serves = parseInt(ns.value)||0;
   var m=editMaps[id]||{}, f=mapToFields(m);
-  if('all' in m){ item.assignedTo=['all']; item.splits={}; item.qty=nq?Math.max(1,parseInt(nq.value)||1):item.qty; }
-  else if(f.assignedTo.length===0){ item.assignedTo=[]; item.splits={}; item.qty=nq?Math.max(1,parseInt(nq.value)||1):item.qty; }
-  else{ item.assignedTo=f.assignedTo; item.splits=f.splits; item.qty=f.qty; }
+  // Always honour the typed total qty as the target — splits are portions of it
+  var typedQty = nq ? Math.max(1, parseInt(nq.value)||1) : item.qty;
+  if('all' in m){
+    item.assignedTo=['all']; item.splits={}; item.qty=typedQty;
+  } else if(f.assignedTo.length===0){
+    item.assignedTo=[]; item.splits={}; item.qty=typedQty;
+  } else {
+    item.assignedTo=f.assignedTo; item.splits=f.splits;
+    // qty is the typed total — NOT the sum of splits (splits may be partial)
+    item.qty=typedQty;
+  }
   editingId=null; render(); schedulePush();
 }
 
