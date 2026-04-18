@@ -67,6 +67,8 @@ textarea{resize:vertical;line-height:1.5}
 .lbl-food{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .lbl-drink{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .lbl-equip{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lbl-sides{background:#D4ECBA;color:#2D5A0E;border:1px solid #A8D87A}
+.lbl-disp{background:#F1EFE8;color:#5F5E5A;border:1px solid #C8C4B0}
 .lbl-other{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-border)}
 
 /* Item rows — color coded */
@@ -276,10 +278,12 @@ textarea{resize:vertical;line-height:1.5}
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="row" style="gap:8px">
         <input type="text" id="item-input" placeholder="Item to bring..." style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addItem()">
-        <select id="item-cat" style="min-width:110px">
-          <option value="food">&#x1F356; Food</option>
+        <select id="item-cat" style="min-width:130px">
+          <option value="main">&#x1F356; Main Food</option>
+          <option value="sides">&#x1F957; Sides</option>
           <option value="drink">&#x1F37B; Drinks</option>
           <option value="equip">&#x1F6E0; Equipment</option>
+          <option value="disp">&#x1F4CB; Disposables</option>
           <option value="other">&#x1F4E6; Other</option>
         </select>
       </div>
@@ -332,20 +336,23 @@ textarea{resize:vertical;line-height:1.5}
 var DB_URL   = 'https://bbq-planner-ea5be-default-rtdb.firebaseio.com';
 var ROOM_KEY = 'bbq_room_key';
 var NAME_KEY = 'bbq_my_name';
-var CAT_LABEL = {food:'Food',drink:'Drinks',equip:'Equipment',other:'Other'};
-var CAT_CLASS  = {food:'lbl-food',drink:'lbl-drink',equip:'lbl-equip',other:'lbl-other'};
+var CAT_LABEL = {main:'Main Food',sides:'Sides',drink:'Drinks',equip:'Equipment',disp:'Disposables',other:'Other'};
+var CAT_CLASS  = {main:'lbl-food',sides:'lbl-sides',drink:'lbl-drink',equip:'lbl-equip',disp:'lbl-disp',other:'lbl-other'};
 
 var SUGGESTIONS = [
-  {cat:'food',name:'Burger patties',per:1,min:10},
-  {cat:'food',name:'Burger buns',per:1,min:10},
-  {cat:'food',name:'Hot dogs',per:0.5,min:6},
-  {cat:'food',name:'Hot dog buns',per:0.5,min:6},
-  {cat:'food',name:'Veggie burgers',per:0.2,min:4},
-  {cat:'food',name:'Corn on the cob',per:0.5,min:4},
-  {cat:'food',name:'Salad (bag)',per:0.1,min:1},
-  {cat:'food',name:'Coleslaw (kg)',per:0.05,min:1},
-  {cat:'food',name:'Bread rolls',per:0.5,min:8},
-  {cat:'food',name:'Condiment set',per:0.02,min:1},
+  {cat:'main',name:'Burger patties',per:1,min:10},
+  {cat:'main',name:'Burger buns',per:1,min:10},
+  {cat:'main',name:'Hot dogs',per:0.5,min:6},
+  {cat:'main',name:'Hot dog buns',per:0.5,min:6},
+  {cat:'main',name:'Veggie burgers',per:0.2,min:4},
+  {cat:'main',name:'Chicken pieces',per:1,min:8},
+  {cat:'main',name:'Corn on the cob',per:0.5,min:4},
+  {cat:'sides',name:'Salad (bag)',per:0.1,min:1},
+  {cat:'sides',name:'Coleslaw (kg)',per:0.05,min:1},
+  {cat:'sides',name:'Bread rolls',per:0.5,min:8},
+  {cat:'sides',name:'Condiment set',per:0.02,min:1},
+  {cat:'sides',name:'Potato salad (kg)',per:0.08,min:1},
+  {cat:'sides',name:'Dips & crudités',per:0.05,min:1},
   {cat:'drink',name:'Soft drinks (cans)',per:2,min:10},
   {cat:'drink',name:'Beer / cider (cans)',per:2,min:10},
   {cat:'drink',name:'Water (1.5L bottles)',per:0.3,min:3},
@@ -353,13 +360,13 @@ var SUGGESTIONS = [
   {cat:'drink',name:'Ice (bags)',per:0.1,min:2},
   {cat:'equip',name:'Charcoal (bags)',per:0.04,min:1},
   {cat:'equip',name:'Lighter fluid',per:0.02,min:1},
-  {cat:'equip',name:'Disposable plates',per:1,min:20},
-  {cat:'equip',name:'Napkins (pack)',per:0.04,min:1},
-  {cat:'equip',name:'Plastic cups',per:1,min:20},
-  {cat:'equip',name:'Cutlery sets',per:1,min:20},
-  {cat:'equip',name:'BBQ skewers (pack)',per:0.04,min:1},
-  {cat:'equip',name:'Aluminium foil (roll)',per:0.02,min:1},
-  {cat:'equip',name:'Trash bags (pack)',per:0.02,min:1},
+  {cat:'disp',name:'Disposable plates',per:1,min:20},
+  {cat:'disp',name:'Napkins (pack)',per:0.04,min:1},
+  {cat:'disp',name:'Plastic cups',per:1,min:20},
+  {cat:'disp',name:'Cutlery sets',per:1,min:20},
+  {cat:'disp',name:'BBQ skewers (pack)',per:0.04,min:1},
+  {cat:'disp',name:'Aluminium foil (roll)',per:0.02,min:1},
+  {cat:'disp',name:'Trash bags (pack)',per:0.02,min:1},
   {cat:'equip',name:'Picnic chairs',per:1,min:6},
   {cat:'equip',name:'Picnic blankets',per:0.06,min:1},
   {cat:'equip',name:'Tongs / BBQ tools',per:0.02,min:1},
@@ -725,6 +732,12 @@ function dragDrop(e,targetId){
   e.currentTarget.classList.remove('drag-over');
   if(!_dragId||_dragId===targetId) return;
   var items=Object.values(state.items||{});
+  // Migrate old categories
+  var _dispNames=['Disposable plates','Napkins (pack)','Plastic cups','Cutlery sets','BBQ skewers (pack)','Aluminium foil (roll)','Trash bags (pack)'];
+  Object.values(state.items||{}).forEach(function(i){
+    if(i.cat==='food') i.cat='main';
+    if(i.cat==='equip'&&_dispNames.indexOf(i.name)>=0) i.cat='disp';
+  });
   items.sort(function(a,b){ return (a.order||0)-(b.order||0); });
   var dragIdx=items.findIndex(function(i){ return i.id===_dragId; });
   var targetIdx=items.findIndex(function(i){ return i.id===targetId; });
@@ -783,6 +796,12 @@ function renderItems(){
   var items=Object.values(state.items||{}), list=document.getElementById('items-list'); if(!list) return;
   if(!items.length){ list.innerHTML='<div class="empty">No items yet \u2014 use Suggestions or add one below!</div>'; return; }
   // Sort by order field
+  // Migrate old categories
+  var _dispNames=['Disposable plates','Napkins (pack)','Plastic cups','Cutlery sets','BBQ skewers (pack)','Aluminium foil (roll)','Trash bags (pack)'];
+  Object.values(state.items||{}).forEach(function(i){
+    if(i.cat==='food') i.cat='main';
+    if(i.cat==='equip'&&_dispNames.indexOf(i.name)>=0) i.cat='disp';
+  });
   items.sort(function(a,b){ return (a.order||0)-(b.order||0); });
   var html='';
   var lastCat='';
@@ -821,9 +840,11 @@ function renderItems(){
             +'<input style="width:80px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-qty-'+item.id+'" type="number" min="1" value="'+item.qty+'" placeholder="Total qty">'
             +'<input style="width:90px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);text-align:center" id="ed-serves-'+item.id+'" type="number" min="1" value="'+(item.serves||'')+'" placeholder="For N people">'
             +'<select style="font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)" id="ed-cat-'+item.id+'">'
-              +'<option value="food"'+(item.cat==='food'?' selected':'')+'>Food</option>'
+              +'<option value="main"'+(item.cat==='main'||item.cat==='food'?' selected':'')+'>Main Food</option>'
+              +'<option value="sides"'+(item.cat==='sides'?' selected':'')+'>Sides</option>'
               +'<option value="drink"'+(item.cat==='drink'?' selected':'')+'>Drinks</option>'
               +'<option value="equip"'+(item.cat==='equip'?' selected':'')+'>Equipment</option>'
+              +'<option value="disp"'+(item.cat==='disp'?' selected':'')+'>Disposables</option>'
               +'<option value="other"'+(item.cat==='other'?' selected':'')+'>Other</option>'
             +'</select>'
           +'</div>'
@@ -899,7 +920,7 @@ function buildReminder(){
     if(!myItems.length) return;
     lines.push('\uD83D\uDC64 '+p.name+':');
     myItems.forEach(function(i){
-      var at=i.assignedTo||[], sp=i.splits||{};
+      var at=i.assignedTo||[], sp=i.splits||{}; if(i.cat==='food') i.cat='main';
       var qStr=at.indexOf('all')>=0?' (bring one)':sp[p.id]!=null?' \xd7'+sp[p.id]:'';
       lines.push('   \u2022 '+i.name+qStr+(i.notes?' \u2014 '+i.notes:''));
     });
