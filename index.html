@@ -657,7 +657,42 @@ function addSuggestedItem(idx){
 }
 
 function toggleDone(id){
-  if(state.items&&state.items[id]){ state.items[id].done=!state.items[id].done; render(); schedulePush(); }
+  var item=state.items&&state.items[id]; if(!item) return;
+  if(!item.done){
+    var at=item.assignedTo||[], sp=item.splits||{};
+    var isAll=at.indexOf('all')>=0;
+    var serves=item.serves||0;
+    var servesTxt=serves>0?' (for '+serves+' people)':'';
+    var lines=[];
+
+    // Check quantity coverage
+    if(!isAll && at.length>0 && item.qty>1){
+      var covered=at.reduce(function(s,pid){ return s+(sp[pid]||0); },0);
+      if(covered < item.qty){
+        var gap=item.qty-covered;
+        lines.push('Only '+covered+' of '+item.qty+servesTxt+' are assigned — '+gap+' still unaccounted for.');
+      } else {
+        // Fully covered — just ask for final confirmation with context
+        if(serves>0) lines.push('Confirming '+item.qty+' '+item.name+' for '+serves+' people. Everyone happy with that?');
+      }
+    } else if(at.length===0){
+      lines.push('Nobody is assigned to bring '+item.name+' yet');
+      if(serves>0) lines.push('(needed for '+serves+' people).');
+      else if(item.qty>1) lines.push('('+item.qty+' needed).');
+    } else if(isAll){
+      // Everyone assigned — confirm with serves context
+      if(serves>0) lines.push('Confirming everyone brings '+item.name+' for '+serves+' people. All good?');
+    } else {
+      // Single person, qty met — confirm with context
+      if(serves>0) lines.push('Confirming '+item.qty+' '+item.name+' for '+serves+' people. All good?');
+    }
+
+    if(lines.length>0){
+      var msg=item.name+'\n\n'+lines.join(' ')+'\n\nMark as confirmed?';
+      if(!confirm(msg)) return;
+    }
+  }
+  item.done=!item.done; render(); schedulePush();
 }
 function removeItem(id){
   if(editingId===id) editingId=null;
